@@ -1,4 +1,11 @@
+body {
+    padding: 0;
+    /* display: flex; */
+}
+
 #main {
+    display: flex;
+    flex-direction: column;
     width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -22,4 +29,10 @@
     width: 100px;
     height: 100px;
     background-color: #FF00FF;
+}
+
+#games {
+    width: 100%;
+    height: 200px;
+    background-color: #770C70;
 }
