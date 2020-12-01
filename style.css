@@ -14,20 +14,20 @@ body {
 
 #search {
     display: flex;
-    width: 200px;
+    width: 100%;
     height: 100px;
     background-color: #00F000;
 }
 
 #search-genre {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 50px;
     background-color: #FFFF00;
 }
 
 #search-title {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 50px;
     background-color: #FF00FF;
 }
 
