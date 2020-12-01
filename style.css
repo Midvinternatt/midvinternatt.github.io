@@ -5,14 +5,21 @@
     background-color: #FF0000;
 }
 
-#searchGenre {
-    width: 100px;
+#search {
+    display: flex;
+    width: 200px;
     height: 100px;
-    float: left;
+    background-color: #00F000;
 }
 
-#searchTitle {
+#search-genre {
     width: 100px;
     height: 100px;
-    float: left;
+    background-color: #FFFF00;
+}
+
+#search-title {
+    width: 100px;
+    height: 100px;
+    background-color: #FF00FF;
 }
