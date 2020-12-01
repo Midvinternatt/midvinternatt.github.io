@@ -1,5 +1,5 @@
 $(function() {
-    $.each(games, function(index, gameObject) {
+    $.each(catalog, function(index, gameObject) {
         let gameContainer = $('<div class="game"></div>');
         let titleContainer = $('<div class="title"></div>').html(gameObject.title);
         let genresContainer = $('<div class="genres"></div>');
