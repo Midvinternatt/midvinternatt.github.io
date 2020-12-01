@@ -1,14 +1,15 @@
 body {
     padding: 0;
-    /* display: flex; */
+    display: flex;
+    justify-content: center;
 }
 
 #main {
     display: flex;
     flex-direction: column;
     width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
     background-color: #FF0000;
 }
 
