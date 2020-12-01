@@ -1,23 +1,20 @@
 body {
-    padding: 0;
     display: flex;
     justify-content: center;
+    padding: 0;
+    margin: 0;
 }
 
 #main {
     display: flex;
     flex-direction: column;
     width: 800px;
-    /* margin-left: auto;
-    margin-right: auto; */
-    background-color: #aF0000;
 }
 
 #search {
     display: flex;
     width: 100%;
-    height: 100px;
-    background-color: #00F000;
+    /* height: 100px; */
 }
 
 #search-genre {
@@ -34,6 +31,34 @@ body {
 
 #games {
     width: 100%;
-    height: 200px;
-    background-color: #770C70;
+    border: 1px black solid;
+}
+
+.game {
+    width: 100%;
+    /* height: 50px; */
+    display: flex;
+    border: 1px black solid;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px black solid;
+}
+
+.genres {
+    border: 1px black solid;
+}
+
+.modes {
+    border: 1px black solid;
+}
+
+.image {
+    width: 100px;
+    height: 50px;
+    background-color: #FFFF00;
 }

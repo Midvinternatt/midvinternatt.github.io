@@ -1,47 +1,26 @@
 <html>
-<head>
-	<title>Spellistan to rule them ALL</title>
-	<link rel="stylesheet" href="style.css">
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
-	<!-- <script type="text/javascript" src="script.js"> </script> -->
-	<script type="text/javascript" src="games.js"> </script>
-	<script>
-		// alert(games[0]);
-
-	    // $(function() {
-
-// alert(1);
-	   // var people = [];
-
-	   // $.getJSON('games.json', function(data) {
-	   // 	alert(55);
-	   // 	alert(data);
-	     //   $.each(data.person, function(i, f) {
-	     //      var tblRow = "<tr>" + "<td>" + f.firstName + "</td>" +
-	     //       "<td>" + f.lastName + "</td>" + "<td>" + f.job + "</td>" + "<td>" + f.roll + "</td>" + "</tr>"
-	     //       $(tblRow).appendTo("#userdata tbody");
-	     // });
-
-	   // });
-
-	// });
-	</script>
-</head>
-<body>
-	<div id="main">
-		<div id="search">
-			<div id="search-genre">
-				Genre:<br />
-				<input type="text" />
+	<head>
+		<title>Spellistan to rule them ALL</title>
+		<link rel="stylesheet" href="style.css">
+		<script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+		<script type="text/javascript" src="games.js"> </script>
+		<script type="text/javascript" src="script.js"> </script>
+	</head>
+	<body>
+		<div id="main">
+			<div id="search">
+				<div id="search-genre">
+					Genre:<br />
+					<input type="text" id="searchfield-genre" />
+				</div>
+				<div id="search-title">
+					Titel:<br />
+					<input type="text" id="searchfield-title" />
+				</div>
 			</div>
-			<div id="search-title">
-				Titel:<br />
-				<input type="text" />
+			<div id="games">
+				
 			</div>
 		</div>
-		<div id="games">
-			c
-		</div>
-	</div>
-</body>
+	</body>
 </html>
