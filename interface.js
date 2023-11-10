@@ -26,6 +26,7 @@ function PopulateGenreList() {
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
+        checkbox.disabled = true;
         checkbox.addEventListener("change", UpdateGameList);
 
         const label = document.createElement("label");
@@ -34,7 +35,7 @@ function PopulateGenreList() {
         genreElement.appendChild(checkbox);
         genreElement.appendChild(label);
         
-        genreWrapper.appendChild(genreItem);
+        genreWrapper.appendChild(genreElement);
     });
 }
 

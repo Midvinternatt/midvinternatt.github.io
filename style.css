@@ -3,6 +3,8 @@
     padding: 0;
     font-family: 'Cabin', sans-serif;
     font-family: 'Open Sans', sans-serif;
+    background: #000;
+    color: white;
 }
 
 :root {
@@ -38,11 +40,11 @@ header {
     display: grid;
     width: 80%;
     /* background-color: black; */
-    border: 5px solid orange;
+    border: 1px solid orange;
     /* outline: 10px solid orange;
     outline-offset: -10px; */
     margin: 40px auto 40px auto;
-    /* padding: 10px; */
+    padding: 10px;
 }
 #search-container h1 {
     font-size: 20px;
@@ -83,7 +85,7 @@ li {
     color: white;
     list-style-type: none;
     padding: 5px;
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
     /* width: 100px; */
 }
 input[type=checkbox] {
@@ -134,14 +136,14 @@ section {
 }
 .game {
     /* display: grid; */
-    /* padding: 5px; */
+    padding: 10px;
     margin: 20px;
-    border: 5px solid orange;
+    border: 1px solid orange;
     /* background-color: white; */
     /* outline: 2px red solid; */
 }
 .game * {
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
     color: white;
 }
 .game > * {
