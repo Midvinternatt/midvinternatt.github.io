@@ -2409,5 +2409,45 @@
 	{
 		"title": "Screencheat",
 		"image": ""
+	},
+	{
+		"title": "Rune",
+		"image": ""
+	},
+	{
+		"title": "Human Fall Flat",
+		"image": "",
+		"modes": {
+			"Versus": "2-8"
+		}
+	},
+	{
+		"title": "Steel Division",
+		"image": ""
+	},
+	{
+		"title": "Stranded Deep",
+		"image": "",
+		"modes": {
+			"Coop Campaign": "2"
+		}
+	},
+	{
+		"title": "Plate Up",
+		"image": ""
+	},
+	{
+		"title": "Valheim",
+		"image": "",
+		"modes": {
+			"Coop Campaign": "2-8"
+		}
+	},
+	{
+		"title": "Unravel",
+		"image": "",
+		"modes": {
+			"Coop Campaign": "2-8"
+		}
 	}
 ]
