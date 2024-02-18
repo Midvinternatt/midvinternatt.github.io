@@ -141,7 +141,7 @@
 		"image": "https://cdn.cloudflare.steamstatic.com/steam/apps/771720/ss_a488a52fa566a7a12b5e5f4da30945211f043ff0.600x338.jpg"
 	},
 	{
-		"title": "Archeage",
+		"title": "ArcheAge",
 		"genres": ["MMORPG", "Persistent"],
 		"link": "https://store.steampowered.com/app/304030/ArcheAge/",
 		"releaseYear": 0,
@@ -1266,6 +1266,7 @@
 	},
 	{
 		"title": "Offworld Trading Company",
+		"genres": ["Strategy", "RTS"],
 		"link": "https://store.steampowered.com/app/271240/Offworld_Trading_Company/",
 		"releaseYear": 0,
 		"modes": {
@@ -2211,6 +2212,7 @@
 	},
 	{
 		"title": "New World",
+		"genres": ["MMORPG", "Persistent"],
 		"link": "https://store.steampowered.com/app/1063730/New_World/",
 		"image": ""
 	},
@@ -2370,6 +2372,11 @@
 		"image": "https://www.rockpapershotgun.com/images/nov07/g001.jpg/RPSS/thumbnail/1920x1080/format/jpg/quality/75"
 	},
 	{
+		"title": "Ground Control 2: Operation Exodus",
+		"link": "",
+		"image": ""
+	},
+	{
 		"title": "The Elder Scrolls Online",
 		"image": ""
 	},
@@ -2407,7 +2414,10 @@
 	},
 	{
 		"title": "Move Or Die",
-		"image": ""
+		"image": "",
+		"modes": {
+			"Versus": "2-4"
+		}
 	},
 	{
 		"title": "Screencheat",
@@ -2419,7 +2429,7 @@
 	},
 	{
 		"title": "Human Fall Flat",
-		"image": "",
+		"image": "https://cdn11.bigcommerce.com/s-mbgu5zgups/images/stencil/1280x1280/products/108916/213713/human-fall-flat-dream-collection-ps4__76018.1694039272.jpg",
 		"modes": {
 			"Versus": "2-8"
 		}
@@ -2455,6 +2465,7 @@
 	},
 	{
 		"title": "Beyond All Reason",
+		"genres": ["RTS"],
 		"image": "",
 		"modes": {
 			"Versus": "2-16"
@@ -2480,6 +2491,7 @@
 	},
 	{
 		"title": "Empire Earth",
+		"genres": ["RTS"],
 		"image": ""
 	},
 	{
