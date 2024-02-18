@@ -1460,7 +1460,7 @@
 		"modes": {
 			"Versus": "-"
 		},
-		"image": "https://www.strategygamer.com/assets/BlogPosts/_resampled/ScaleWidthWzExNDBd/FillWzExNDAsNjAwXQ/command-conquer-remastered-release-date.jpg"
+		"image": "https://i.ytimg.com/vi/_DZC55g57UU/maxresdefault.jpg"
 	},
 	{
 		"title": "Red Dead Redemption 2",
@@ -2324,7 +2324,7 @@
 		"modes": {
 			"Coop": "∞"
 		},
-		"image": ""
+		"image": "https://image.api.playstation.com/cdn/EP0238/CUSA12398_00/FREE_CONTENTvEXYyMc42N4uOKI3yUkD/6.jpg"
 	},
 	{
 		"title": "Toukiden 2",
@@ -2334,7 +2334,10 @@
 	{
 		"title": "Tricky Towers",
 		"link": "https://store.steampowered.com/app/437920/Tricky_Towers/",
-		"image": ""
+		"image": "https://i.ytimg.com/vi/9PGZ51vNNKc/maxresdefault.jpg",
+		"modes": {
+			"Versus": "2-4"
+		}
 	},
 	{
 		"title": "Viking Squad",
@@ -2412,7 +2415,7 @@
 	},
 	{
 		"title": "Rune",
-		"image": ""
+		"image": "https://images.gog-statics.com/661e55f324e66304a7b4285f0ce41ff3f2f5b6e1adb05211d3cd3f14104a9533_product_card_v2_mobile_slider_639.jpg"
 	},
 	{
 		"title": "Human Fall Flat",
@@ -2444,10 +2447,56 @@
 		}
 	},
 	{
-		"title": "Unravel",
+		"title": "Unravel 2",
 		"image": "",
 		"modes": {
-			"Coop Campaign": "2-8"
+			"Coop Campaign": "2"
+		}
+	},
+	{
+		"title": "Beyond All Reason",
+		"image": "",
+		"modes": {
+			"Versus": "2-16"
+		}
+	},
+	{
+		"title": "GTFO",
+		"image": "",
+		"modes": {
+			"Coop": "2-4"
+		}
+	},
+	{
+		"title": "Unreal Tournament",
+		"image": "https://static.tvtropes.org/pmwiki/pub/images/unreal_tournament.png",
+		"modes": {
+			"Versus": "2-16"
+		}
+	},
+	{
+		"title": "Quake Live",
+		"image": ""
+	},
+	{
+		"title": "Empire Earth",
+		"image": ""
+	},
+	{
+		"title": "Worms World Party",
+		"image": "",
+		"modes": {
+			"Versus": "2-6"
+		}
+	},
+	{
+		"title": "Pummel Party",
+		"image": "",
+		"modes": {
+			"Versus": "4-8"
 		}
 	}
+
+
+
 ]

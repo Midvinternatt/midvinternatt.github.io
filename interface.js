@@ -48,9 +48,10 @@ function PopulateGameList() {
         game.div = gameDiv;
 
         // Game title
-        const title = document.createElement("h1");
+        const title = document.createElement("a");
         title.classList.add("game-title");
         title.innerText = game.title;
+        title.href = "https://www.google.com/search?q=" + game.title
 
         // Image thumbnail
         const image = document.createElement("img");
