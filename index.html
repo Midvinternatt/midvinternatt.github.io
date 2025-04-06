@@ -1,105 +1,22 @@
-<html>
+<!DOCTYPE html>
 	<head>
-		<title>Spellistan to rule them ALL</title>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<title>ThisIsHell</title>
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Cabin&family=Open+Sans&display=swap" rel="stylesheet"> 
-		<link rel="stylesheet" href="style.css">
+		<link href="https://fonts.googleapis.com/css2?family=Cabin&family=Open+Sans&display=swap" rel="stylesheet">  -->
+		<link rel="stylesheet" href="./style.css">
+		<!-- <script type="text/javascript" src="js/Vector.js"></script> -->
+		<!-- <script type="text/javascript" src="js/Game.js"></script> -->
+		<script type="module">
+			import Game from "./js/Game.js";
+		</script>
 		<!-- <script type="text/javascript" src="jquery-3.5.1.min.js"></script> -->
-		<!-- <script type="text/javascript" src="catalog.json" defer> -->
-		<script type="text/javascript" src="repository.js" defer></script>
-		<script type="text/javascript" src="interface.js" defer></script>
-		<script type="text/javascript" src="script.js" defer></script>
 	</head>
 	<body>
-		<div id="main-container">
-			<header>
-				<div id="search-container">
-					<div id="searchfield-wrapper">
-						<h1 id="searchfield-header">Search:</h1>
-						<input oninput="OnSearchInput()" id="searchfield-input" type="text" style="width: 90%;">
-					</div>
-					<div id="player-wrapper">
-						<h1 id="player-header">Player count:</h1>
-						<input id="player-input" type="text" disabled="true">
+		<img id="ship" src="ship.png">
+		<span id="debug">-</span>
+		<canvas id="canvas" width="1024" height="800">
 
-					</div>
-					<div id="genre-wrapper">
-						<h1 id="genre-header">Genres:</h1>
-						<ul id="genre-list">
-							<!-- <li>
-								<input type="checkbox">
-								<label>Horror</label>
-							</li> -->
-						</ul>
-					</div>
-					<div id="mode-wrapper">
-						<h1 id="mode-header">Modes:</h1>
-					</div>
-					<!-- <h1 id="player-label">Player count:</label>
-					<input id="player-input" type="text">
-
-					<h1 id="genre-header">Genres:</h1>
-					<div id="genre-box">
-						<input type="checkbox">
-						<label>Horror</label>
-					</div>
-					<h1 id="mode-header">Modes:</h1>
-					<div id="mode-box">
-						
-					</div> -->
-				</div>
-			</header>
-			<section id="games-container">
-				<!-- <div id="games-container"> -->
-					<!-- <a href="#"> -->
-						<!-- <div class="game">
-							<h1 class="game-title">Game Title</h1>
-							<img class="game-image" src="https://steamcdn-a.akamaihd.net/steam/apps/251570/ss_261a0b0a6cff21e2ea2603b34b15687362ffa150.600x338.jpg">
-							<span class="game-releaseYear">2020</span>
-
-							<h1 class="game-genre-header">Genres:</h1>
-							<span class="game-genres">Horror, Shooter</span>
-							<div class="game-modes">
-								<table class="game-mode-table">
-									<tr>
-										<td>Game Modes:</td>
-										<td>Players:</td>
-									</tr>
-									<tr>
-										<td>Coop</td>
-										<td>5</td>
-									</tr>
-									<tr>
-										<td>Campaign</td>
-										<td>51</td>
-									</tr>
-								</table>
-							</div>
-							
-						</div> -->
-					<!-- </a> -->
-
-
-				<!-- </div> -->
-			</section>
-			
-
-
-
-			<!-- <div id="search-box"> -->
-				<!-- <div id="search-genre">
-					Genre:<br />
-					<input type="text" id="searchfield-genre" autocomplete="off" />
-				</div> -->
-				<!-- <div id="search-title">
-					Titel:<br />
-					<input type="text" id="searchfield-title" autocomplete="off" />
-				</div> -->
-			<!-- </div> -->
-			<!-- <table id="games">
-				
-			</table> -->
-		</div>
+		</canvas>
 	</body>
 </html>
