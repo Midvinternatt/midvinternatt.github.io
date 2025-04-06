@@ -1,13 +1,6 @@
-import Entity from "./Entity.js";
-import Projectile from "./Projectiles/Projectile.js";
+import { Collidable } from "./Interfaces/ICollidable.js";
 
-export type Collidable = Entity | Projectile;
-export interface ICollidable {
-    collisionBox: CollisionBox;
-    checkCollision(target: Collidable): boolean;
-}
-
-export class CollisionBox {
+export default class CollisionBox {
     _owner: Collidable;
     _width: number;
     _height: number;

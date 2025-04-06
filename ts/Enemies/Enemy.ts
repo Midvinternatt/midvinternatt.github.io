@@ -4,6 +4,7 @@ import Vector from "../Vector.js";
 export default abstract class Enemy extends Entity {
     private static _enemyList: Enemy[] = new Array();
 
+    // Ändra till en iterator
     static getAllEnemies(): Enemy[] {
         return Enemy._enemyList;
     }
