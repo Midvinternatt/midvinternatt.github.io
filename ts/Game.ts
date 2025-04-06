@@ -6,55 +6,43 @@ import Drone from "./Enemies/Drone.js";
 import Projectile from "./Projectiles/Projectile.js";
 import Enemy from "./Enemies/Enemy.js";
 import Debug from "./Debug.js";
+import KeyEventHandler from "./KeyEventHandler.js";
 
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
 */
 
-enum KEY {
-    UP = 87,
-    DOWN = 83,
-    LEFT = 65,
-    RIGHT = 68,
-    SHOOT = 32
-}
-
 export default class Game {
     private canvas: HTMLCanvasElement;
-    context: CanvasRenderingContext2D;
-    private keyEventHandler;
-    private keyEventLogger;
+    // private backgroundCanvas: HTMLCanvasElement;
+    private context: CanvasRenderingContext2D;
+    private _keyEventHandler: KeyEventHandler;
     static keyState: boolean[];
     static time: number;
 
     static player: Player;
     private isRunning: boolean;
-    drone;
 
     constructor(canvas: HTMLElement) {
         this.canvas = <HTMLCanvasElement> canvas;
         this.canvas.height = window.innerHeight;
         this.context = this.canvas.getContext("2d");
-
-        Game.keyState = [];
-        this.keyEventLogger = function (e) { if(e.repeat) return; console.log(e.keyCode, e.type, this); Game.keyState[e.keyCode] = e.type == "keydown"; };
-        window.addEventListener("keydown", this.keyEventLogger);
-        window.addEventListener("keyup", this.keyEventLogger);
-
+        this._keyEventHandler = new KeyEventHandler();
+        this.loadResources();
         this.start();
     }
 
-    loadResources() {
+    loadResources(): void {
         Sprite.LoadSprites();
+        // Sound.LoadSounds();
     }
 
     start() {
         Game.player = new Player(new Vector(512, 400), 100, 100);
         Game.player.addWeapon(new Railgun(Game.player, new Vector(-25, -50)));
         Game.player.addWeapon(new Railgun(Game.player, new Vector(25, -50)));
-
-        this.drone = new Drone(new Vector(512, 100));
+        new Drone(new Vector(512, 100));
 
         Game.time = 0;
         this.isRunning = true;
@@ -66,24 +54,7 @@ export default class Game {
         https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
     */
     update() {
-        if(Game.keyState[KEY.UP])
-            Game.player.velocity.y = -1;
-        else if(Game.keyState[KEY.DOWN])
-            Game.player.velocity.y = 1;
-        else
-            Game.player.velocity.y = 0;
-        if(Game.keyState[KEY.LEFT])
-            Game.player.velocity.x = -1;
-        else if(Game.keyState[KEY.RIGHT])
-            Game.player.velocity.x = 1;
-        else
-            Game.player.velocity.x = 0;
-
-        Game.player.velocity.normalize().scale(Game.player.speed);
-
-        if(Game.keyState[KEY.SHOOT]) {
-            Game.player.autofire();
-        }
+        this._keyEventHandler.update(Game.player);
 
         Game.player.update();
         Enemy.getAllEnemies().forEach(enemy => {
@@ -92,9 +63,7 @@ export default class Game {
         Projectile.getAllProjectiles().forEach(bullet => {
             bullet.update();
         });
-        // document.getElementById("debug").innerText = ""+this.player.position.x+", "+this.player.position.y;
-        // document.getElementById("debug").innerText = ""+window.innerHeight;
-        // document.getElementById("debug").innerText = ""+(Game.time % 60);
+
         Debug(Projectile.getAllProjectiles().length);
         Game.time++;
     }
@@ -123,4 +92,4 @@ export default class Game {
     }
 }
 
-let game = new Game( document.getElementById("canvas"));
+new Game( document.getElementById("canvas"));

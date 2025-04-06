@@ -1,6 +1,4 @@
-// import CollisionBox from "./CollisionBox.js";
-// import ICollidable from "./Interfaces/ICollidable.js";
-import { CollisionBox } from "./CollisionBox.js";
+import CollisionBox from "./CollisionBox.js";
 export default class Entity {
     constructor(position, width, height, collisionWidth, collisionHeight) {
         this.position = position;

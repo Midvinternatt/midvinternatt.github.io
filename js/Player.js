@@ -30,6 +30,10 @@ export default class Player extends Entity {
     // get velocity() {
     //     return this._velocity;
     // }
+    setVelocity(x, y) {
+        this.velocity.x = x;
+        this.velocity.y = y;
+    }
     addWeapon(newWeapon) {
         this._weaponList.push(newWeapon);
     }
