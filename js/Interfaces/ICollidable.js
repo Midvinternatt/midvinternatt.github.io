@@ -1,2 +1,2 @@
-// import CollisionBox from "../CollisionBox.js";
+export {};
 //# sourceMappingURL=ICollidable.js.map

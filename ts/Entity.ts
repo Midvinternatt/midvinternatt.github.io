@@ -1,7 +1,6 @@
-// import CollisionBox from "./CollisionBox.js";
-// import ICollidable from "./Interfaces/ICollidable.js";
-import { CollisionBox, ICollidable } from "./CollisionBox.js";
+import ICollidable from "./Interfaces/ICollidable.js";
 import IDrawable from "./Interfaces/IDrawable.js";
+import CollisionBox from "./CollisionBox.js";
 import Sprite from "./Sprite.js";
 import Vector from "./Vector.js";
 

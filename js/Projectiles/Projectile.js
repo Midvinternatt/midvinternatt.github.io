@@ -1,7 +1,6 @@
-// import CollisionBox from "../CollisionBox.js";
-// import ICollidable from "../Interfaces/ICollidable.js";
-import { CollisionBox } from "../CollisionBox.js";
+import CollisionBox from "../CollisionBox.js";
 class Projectile {
+    // Ändra till en iterator
     static getAllProjectiles() {
         return Projectile._projectileList;
     }

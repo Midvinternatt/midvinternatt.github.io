@@ -1,5 +1,6 @@
 import Entity from "../Entity.js";
 class Enemy extends Entity {
+    // Ändra till en iterator
     static getAllEnemies() {
         return Enemy._enemyList;
     }

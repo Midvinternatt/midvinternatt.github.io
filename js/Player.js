@@ -3,7 +3,7 @@ import Entity from "./Entity.js";
 export default class Player extends Entity {
     // playArea;
     constructor(position, width, height, playArea) {
-        super(position, width, height, 20, 20);
+        super(position, width, height);
         this.speed = 8;
         this.position = position;
         this.velocity = new Vector(0, 0);

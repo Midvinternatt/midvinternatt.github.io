@@ -1,4 +1,4 @@
-export class CollisionBox {
+export default class CollisionBox {
     constructor(owner, width, height) {
         this._owner = owner;
         this._width = width;
