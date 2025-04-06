@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "module": "ES2015",
+        "rootDir": "ts",
+        "outDir": "js",
+        "sourceMap": true,
+        "noImplicitOverride": true
+    }
+}
