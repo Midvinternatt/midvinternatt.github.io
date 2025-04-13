@@ -11,11 +11,10 @@ export default abstract class Projectile implements IDrawable, ICollidable {
     width: number;
     height: number;
     collisionBox: CollisionBox;
-    sprite: HTMLImageElement;
+    sprite: Sprite;
 
-    // Ändra till en iterator
-    static getAllProjectiles() {
-        return Projectile._projectileList; 
+    static get count() {
+        return Projectile._projectileList.length;
     }
     constructor(position: Vector, width: number, height: number, collisionWidth?: number, collisionHeight?: number) {
         this.position = position;
@@ -34,5 +33,8 @@ export default abstract class Projectile implements IDrawable, ICollidable {
     }
     draw(context: CanvasRenderingContext2D) {
         context.fillRect(this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
+    }
+    static forEach(callback: (element: Projectile) => void): void {
+        Projectile._projectileList.forEach(callback);
     }
 }

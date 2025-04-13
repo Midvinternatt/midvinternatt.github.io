@@ -2,10 +2,10 @@ import Entity from "../Entity.js";
 import Vector from "../Vector.js";
 
 export default abstract class Weapon {
-    owner: Entity;
+    owner: Entity; // : Player;
     deltaPosition: Vector;
     cooldown: number;
-    cooldownTimer: number;
+    cooldownTimer: number; // lastShotTime
     protected _ready: boolean;
 
     constructor(owner: Entity, deltaPosition: Vector, cooldown: number) {

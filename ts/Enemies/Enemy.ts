@@ -1,15 +1,21 @@
 import Entity from "../Entity.js";
 import Vector from "../Vector.js";
 
+interface IHitable {
+    hit(): void;
+}
+
 export default abstract class Enemy extends Entity {
     private static _enemyList: Enemy[] = new Array();
 
-    // Ändra till en iterator
-    static getAllEnemies(): Enemy[] {
-        return Enemy._enemyList;
-    }
     constructor(position: Vector, width: number, height: number) {
         super(position, width, height);
         Enemy._enemyList.push(this);
+    }
+    kill(): void {
+        Enemy._enemyList.splice(Enemy._enemyList.indexOf(this), 1);
+    }
+    static forEach(callback: (element: Enemy) => void): void {
+        Enemy._enemyList.forEach(callback);
     }
 }

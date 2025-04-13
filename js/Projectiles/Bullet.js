@@ -1,5 +1,7 @@
 import Enemy from "../Enemies/Enemy.js";
 import Projectile from "./Projectile.js";
+import { canBeHit } from "../Interfaces/IHittable.js";
+import Game from "../Game.js";
 export default class Bullet extends Projectile {
     constructor(position, velocity, size) {
         super(position, size, size, size);
@@ -7,15 +9,17 @@ export default class Bullet extends Projectile {
     }
     update() {
         this.move();
-        Enemy.getAllEnemies().forEach(enemy => {
-            if (this.checkCollision(enemy))
+        Enemy.forEach(enemy => {
+            if (this.checkCollision(enemy)) {
                 this.kill();
+                if (canBeHit(enemy))
+                    enemy.hit();
+            }
         });
     }
     move() {
         this.position.add(this.velocity);
-        if (this.position.x < 0 || this.position.x > 1024
-            || this.position.y < 0 || this.position.y > 1024)
+        if (!Game.screenBounds.isVectorInbound(this.position))
             this.kill();
     }
 }

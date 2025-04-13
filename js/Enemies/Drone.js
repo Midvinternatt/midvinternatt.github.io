@@ -1,42 +1,47 @@
+import Emitter from "../Emitters/Emitter.js";
 import Game from "../Game.js";
 import Projectile from "../Projectiles/Projectile.js";
+import Sprite, { SPRITE } from "../Sprite.js";
 import Vector from "../Vector.js";
-import Weapon from "../Weapons/Weapon.js";
 import Enemy from "./Enemy.js";
 export default class Drone extends Enemy {
     constructor(position) {
-        super(position, 50, 50);
-        this.weapon = new DroneWeapon(this);
+        super(position, 100, 100);
+        this.sprite = Sprite.getSprite(SPRITE.DRONE);
+        this.weapon = new DroneEmitter(this, new Vector(0, 50), new Vector(0, 1));
     }
-    update() {
-        if (this.weapon.isReady)
-            this.weapon.shoot();
-        // this._position.add(this._velocity);
+    hit() {
+        this.weapon.kill();
+        this.kill();
     }
-    move() {
-    }
-    kill() {
-    }
+    update() { }
     draw(context) {
-        context.fillRect(this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
+        context.drawImage(this.sprite.bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }
-class DroneWeapon extends Weapon {
-    constructor(owner) {
-        super(owner, new Vector(0, 0), 1000);
-        this._ready = true;
+class DroneEmitter extends Emitter {
+    constructor(owner, deltaPosition, facing) {
+        super(deltaPosition, facing);
+        this.triggerRate = 60;
+        this.lastTriggered = 0;
+        this.direction.scale(8);
+        this.owner = owner;
     }
-    shoot() {
-        new DroneBullet(this.owner.position.copy(), new Vector(0, 8));
-        this._ready = false;
-        this.cooldownTimer = setTimeout((weapon) => {
-            weapon._ready = true;
-        }, this.cooldown, this);
+    get isReady() {
+        return this.lastTriggered + this.triggerRate < Game.time;
+    }
+    update() {
+        if (this.isReady)
+            this.trigger();
+    }
+    trigger() {
+        this.lastTriggered = Game.time;
+        new DroneBullet(this.owner.position.copy().add(this.position), this.direction);
     }
 }
 class DroneBullet extends Projectile {
     constructor(position, velocity) {
-        super(position, 10, 10, 10);
+        super(position, 10, 10);
         this.velocity = velocity;
     }
     update() {
@@ -46,8 +51,7 @@ class DroneBullet extends Projectile {
     }
     move() {
         this.position.add(this.velocity);
-        if (this.position.x < 0 || this.position.x > 1024
-            || this.position.y < 0 || this.position.y > 1024)
+        if (!Game.screenBounds.isVectorInbound(this.position))
             this.kill();
     }
 }

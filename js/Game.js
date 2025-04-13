@@ -1,3 +1,4 @@
+var _a;
 import Player from "./Player.js";
 import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
@@ -5,98 +6,118 @@ import Sprite from "./Sprite.js";
 import Drone from "./Enemies/Drone.js";
 import Projectile from "./Projectiles/Projectile.js";
 import Enemy from "./Enemies/Enemy.js";
-import Debug from "./Debug.js";
-import KeyEventHandler from "./KeyEventHandler.js";
+import KeyEventHandler, { KEY } from "./KeyEventHandler.js";
+import ScreenBounds from "./ScreenBounds.js";
+import Emitter, { TestEmitter } from "./Emitters/Emitter.js";
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
+    Optimering: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
+                https://hacks.mozilla.org/2013/05/optimizing-your-javascript-game-for-firefox-os/
 */
-var KEY;
-(function (KEY) {
-    KEY[KEY["UP"] = 87] = "UP";
-    KEY[KEY["DOWN"] = 83] = "DOWN";
-    KEY[KEY["LEFT"] = 65] = "LEFT";
-    KEY[KEY["RIGHT"] = 68] = "RIGHT";
-    KEY[KEY["SHOOT"] = 32] = "SHOOT";
-})(KEY || (KEY = {}));
-export default class Game {
+class Game {
     constructor(canvas) {
         this.canvas = canvas;
         this.canvas.height = window.innerHeight;
         this.context = this.canvas.getContext("2d");
         this._keyEventHandler = new KeyEventHandler();
-        Game.keyState = [];
-        // this.keyEventLogger = function (e) { if(e.repeat) return; console.log(e.keyCode, e.type, this); Game.keyState[e.keyCode] = e.type == "keydown"; };
-        // window.addEventListener("keydown", this.keyEventLogger);
-        // window.addEventListener("keyup", this.keyEventLogger);
-        this.start();
+        this.loadResources().then(() => {
+            console.log("Successfully loaded sprites");
+            this.start();
+        }, () => {
+            console.log("Failed to load sprites");
+        });
     }
     loadResources() {
-        Sprite.LoadSprites();
+        return Promise.all([
+            Sprite.LoadSprites()
+            // Sound.LoadSounds()
+        ]);
     }
     start() {
-        Game.player = new Player(new Vector(512, 400), 100, 100);
-        Game.player.addWeapon(new Railgun(Game.player, new Vector(-25, -50)));
-        Game.player.addWeapon(new Railgun(Game.player, new Vector(25, -50)));
+        _a.screenBounds = new ScreenBounds(this.canvas.width, this.canvas.height);
+        _a.player = new Player(new Vector(512, 400), 100, 100);
+        _a.player.addWeapon(new Railgun(_a.player, new Vector(-25, -50)));
+        _a.player.addWeapon(new Railgun(_a.player, new Vector(25, -50)));
         new Drone(new Vector(512, 100));
-        Game.time = 0;
+        let max = 1000;
+        let spread = 250;
+        for (let x = spread; x < max; x += spread) {
+            for (let y = spread; y < max; y += spread) {
+                new TestEmitter(new Vector(x, y), new Vector(1, 0));
+            }
+        }
+        _a.time = 0;
         this.isRunning = true;
         this.loop();
+    }
+    loop() {
+        requestAnimationFrame((currentTimeMs) => {
+            if (document.hasFocus() || this._keyEventHandler.reset()) {
+                const deltaTimeMs = currentTimeMs - _a.previousTimeMs;
+                if (deltaTimeMs >= _a.frameInterval) {
+                    this.update();
+                    const offset = deltaTimeMs % _a.frameInterval;
+                    _a.previousTimeMs = currentTimeMs - offset;
+                    // Debug("Delta: " + deltaTimeMs + "\nCurrent: " + currentTimeMs + "\nPrevious: " + Game.previousTimeMs);
+                    // Debug(document.hasFocus());
+                }
+            }
+            this.render();
+            if (this.isRunning)
+                this.loop();
+        });
     }
     /*
         Läs denna för att uppdatera spelmekaniken rätt
         https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
     */
     update() {
-        this._keyEventHandler.update(Game.player);
-        // if(Game.keyState[KEY.UP])
-        //     Game.player.velocity.y = -1;
-        // else if(Game.keyState[KEY.DOWN])
-        //     Game.player.velocity.y = 1;
-        // else
-        //     Game.player.velocity.y = 0;
-        // if(Game.keyState[KEY.LEFT])
-        //     Game.player.velocity.x = -1;
-        // else if(Game.keyState[KEY.RIGHT])
-        //     Game.player.velocity.x = 1;
-        // else
-        //     Game.player.velocity.x = 0;
-        // Game.player.velocity.normalize().scale(Game.player.speed);
-        // if(Game.keyState[KEY.SHOOT]) {
-        //     Game.player.autofire();
-        // }
-        Game.player.update();
-        Enemy.getAllEnemies().forEach(enemy => {
+        _a.player.velocity.x = 0;
+        _a.player.velocity.y = 0;
+        if (this._keyEventHandler.isKeyPressed(KEY.UP))
+            _a.player.velocity.y = -1;
+        else if (this._keyEventHandler.isKeyPressed(KEY.DOWN))
+            _a.player.velocity.y = 1;
+        if (this._keyEventHandler.isKeyPressed(KEY.LEFT))
+            _a.player.velocity.x = -1;
+        else if (this._keyEventHandler.isKeyPressed(KEY.RIGHT))
+            _a.player.velocity.x = 1;
+        _a.player.velocity.normalize().scale(_a.player.speed);
+        if (this._keyEventHandler.isKeyPressed(KEY.SHOOT)) {
+            _a.player.autofire();
+        }
+        _a.player.update();
+        Enemy.forEach(enemy => {
             enemy.update();
         });
-        Projectile.getAllProjectiles().forEach(bullet => {
-            bullet.update();
+        Projectile.forEach(projectile => {
+            projectile.update();
         });
-        // document.getElementById("debug").innerText = ""+this.player.position.x+", "+this.player.position.y;
-        // document.getElementById("debug").innerText = ""+window.innerHeight;
-        // document.getElementById("debug").innerText = ""+(Game.time % 60);
-        Debug(Projectile.getAllProjectiles().length);
-        Game.time++;
+        Emitter.forEach(emitter => {
+            emitter.update();
+        });
+        _a.time++;
+        // Debug(Projectile.count);
     }
     render() {
         this.context.save();
         this.context.setTransform(1, 0, 0, 1, 0, 0);
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.context.restore();
-        Game.player.draw(this.context);
-        Enemy.getAllEnemies().forEach(enemy => {
+        _a.player.draw(this.context);
+        Enemy.forEach(enemy => {
             enemy.draw(this.context);
         });
-        Projectile.getAllProjectiles().forEach(bullet => {
-            bullet.draw(this.context);
+        Projectile.forEach(projectile => {
+            projectile.draw(this.context);
         });
     }
-    loop() {
-        this.update();
-        this.render();
-        if (this.isRunning)
-            requestAnimationFrame(() => this.loop());
-    }
 }
-let game = new Game(document.getElementById("canvas"));
+_a = Game;
+Game.maxFps = 60;
+Game.frameInterval = 1000 / _a.maxFps;
+Game.previousTimeMs = 0;
+export default Game;
+new Game(document.getElementById("canvas"));
 //# sourceMappingURL=Game.js.map

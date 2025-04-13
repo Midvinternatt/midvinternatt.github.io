@@ -7,17 +7,18 @@ class Vector {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
     get angle() {
-        // Osäker vilken vinkel jag vill ha?
-        return Math.atan2(this.x, this.y); // * (180/Math.PI);
+        return Math.atan2(this.y, this.x);
     }
-    setRadial(angle, length) {
-        // Ska potentiellt avrundas till heltal
-        this.x = length * Math.cos(angle);
-        this.y = length * Math.sin(angle);
+    set angle(newValue) {
+        this.x = Math.cos(newValue);
+        this.y = Math.sin(newValue);
+    }
+    setAngle(angle, length) {
+        this.x = Math.cos(angle) * (length !== null && length !== void 0 ? length : 1);
+        this.y = Math.sin(angle) * (length !== null && length !== void 0 ? length : 1);
         return this;
     }
     scale(scaleValue) {
-        // Ska potentiellt avrundas till heltal
         this.x *= scaleValue;
         this.y *= scaleValue;
         return this;
@@ -36,6 +37,11 @@ class Vector {
     subtract(otherVector) {
         this.x -= otherVector.x;
         this.y -= otherVector.y;
+        return this;
+    }
+    dot(otherVector) {
+        this.x *= otherVector.x;
+        this.y *= otherVector.y;
         return this;
     }
     equals(otherVector) {

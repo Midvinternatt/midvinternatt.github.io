@@ -1,8 +1,7 @@
 import CollisionBox from "../CollisionBox.js";
 class Projectile {
-    // Ändra till en iterator
-    static getAllProjectiles() {
-        return Projectile._projectileList;
+    static get count() {
+        return Projectile._projectileList.length;
     }
     constructor(position, width, height, collisionWidth, collisionHeight) {
         this.position = position;
@@ -19,6 +18,9 @@ class Projectile {
     }
     draw(context) {
         context.fillRect(this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
+    }
+    static forEach(callback) {
+        Projectile._projectileList.forEach(callback);
     }
 }
 Projectile._projectileList = new Array();

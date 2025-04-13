@@ -1,7 +1,8 @@
 import Weapon from "./Weapons/Weapon.js";
-import PlayArea from "./PlayArea.js";
+import PlayArea from "./ScreenBounds.js";
 import Vector from "./Vector.js";
 import Entity from "./Entity.js";
+import Sprite, { SPRITE } from "./Sprite.js";
 
 export default class Player extends Entity {
     velocity: Vector;
@@ -9,13 +10,14 @@ export default class Player extends Entity {
 
     speed: number = 8;
     // playArea;
+    sprites;
 
     constructor(position: Vector, width: number, height: number, playArea?: PlayArea) {
         super(position, width, height);
         this.position = position;
         this.velocity = new Vector(0, 0);
-        // this.sprite = Sprite.imageBitmapList.get(SPRITE_TYPE.PLAYER_SHIP);
-        this.sprite =  <HTMLImageElement> document.getElementById("ship");
+        this.sprites = Sprite.getSprite(SPRITE.PLAYER_SHIP).bitmap; //.imageBitmapList.get(SPRITE.PLAYER_SHIP);
+        // this.sprite =  <HTMLImageElement> document.getElementById("PLAYER_SHIP");
         this._weaponList = [];
         // this.playArea = playArea;
     }
@@ -56,8 +58,6 @@ export default class Player extends Entity {
     move() {
         this.position.add(this.velocity);
 
-        // if(this.playArea.isPointInbound(this._position.x, this._position.y))
-
         if(this.position.x < (this.width / 2))
             this.position.x = (this.width / 2);
         else if(this.position.x > (1024 - (this.width / 2)))
@@ -74,6 +74,6 @@ export default class Player extends Entity {
     }
 
     draw(context: CanvasRenderingContext2D) {
-        context.drawImage(this.sprite, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+        context.drawImage(this.sprites, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }
