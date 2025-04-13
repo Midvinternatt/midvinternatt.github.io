@@ -1,18 +1,19 @@
-import Player from "./Player.js";
-
-enum KEY {
+export enum KEY {
     UP = "w",
     DOWN = "s",
     LEFT = "a",
     RIGHT = "d",
-    SHOOT = " "
+    SHOOT = " ",
+    PAUSE = "p"
 }
 
 export default class KeyEventHandler {
-    private _keyState: boolean[];
+    // private _keyState: boolean[];
+    private pressedKeyes = new Set();
 
     constructor() {
-        this._keyState = new Array();
+        this.pressedKeyes = new Set();
+        // this._keyState = new Array();
         window.addEventListener("keydown", this.keyEvent.bind(this));
         window.addEventListener("keyup", this.keyEvent.bind(this));
     }
@@ -20,20 +21,38 @@ export default class KeyEventHandler {
         if(event.repeat)
             return;
         
-        this._keyState[event.key] = (event.type == "keydown");
+        (event.type == "keydown") ? this.pressedKeyes.add(event.key) : this.pressedKeyes.delete(event.key);
+        // this._keyState[event.key] = (event.type == "keydown");
+        
     }
+    isKeyPressed(key: KEY) {
+        return this.pressedKeyes.has(key);
+    }
+    reset() {
+        this.pressedKeyes.clear();
+    }
+    /*
     update(player: Player) {
         player.velocity.x = 0;
         player.velocity.y = 0;
 
-        if(this._keyState[KEY.UP])
+        if(this.pressedKeyes.has(KEY.UP))
             player.velocity.y = -1;
-        else if(this._keyState[KEY.DOWN]) 
+        else if(this.pressedKeyes.has(KEY.DOWN)) 
             player.velocity.y = 1;
-        if(this._keyState[KEY.LEFT])
+        if(this.pressedKeyes.has(KEY.LEFT))
             player.velocity.x = -1;
-        else if(this._keyState[KEY.RIGHT]) 
+        else if(this.pressedKeyes.has(KEY.RIGHT)) 
             player.velocity.x = 1;
+
+        // if(this.pressedKeyes.has(KEY.UP))aa
+        //     player.velocity.y = -1;
+        // else if(this._keyState[KEY.DOWN]) 
+        //     player.velocity.y = 1;
+        // if(this._keyState[KEY.LEFT])
+        //     player.velocity.x = -1;
+        // else if(this._keyState[KEY.RIGHT]) 
+        //     player.velocity.x = 1;
 
         player.velocity.normalize().scale(player.speed);
 
@@ -41,4 +60,5 @@ export default class KeyEventHandler {
             player.autofire();
         }
     }
+    */
 }
