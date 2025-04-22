@@ -5,17 +5,24 @@ import Entity from "./Entity.js";
 import Sprite, { SPRITE } from "./Sprite.js";
 import Game from "./Game.js";
 import SpriteAnimation from "./SpriteAnimation.js";
+import Scene from "./Scene.js";
+import Renderer, { CanvasLayer } from "./Renderer.js";
 
 export default class Player extends Entity {
     velocity: Vector;
-    private _weaponList: Weapon[];
-
-    speed: number = 8;
     // playArea;
     // sprites;
     sprites: SpriteAnimation;
 
-    constructor(position: Vector, width: number, height: number, playArea?: PlayArea) {
+    static PlayerOne: Player;
+    health: number;
+    maxHealth: number;
+    moveSpeed: number;
+    private _weaponList: Weapon[];
+
+    speed: number = 8;
+
+    constructor(position: Vector, width: number, height: number, scene: Scene, playArea?: PlayArea) {
         super(position, width, height);
         this.position = position;
         this.velocity = new Vector(0, 0);
@@ -66,12 +73,12 @@ export default class Player extends Entity {
 
         if(this.position.x < (this.width / 2))
             this.position.x = (this.width / 2);
-        else if(this.position.x > (Game.canvas.width - (this.width / 2)))
-            this.position.x = (Game.canvas.width - (this.width / 2));
+        else if(this.position.x > (Game.renderer.entityCanvas.width - (this.width / 2)))
+            this.position.x = (Game.renderer.entityCanvas.width - (this.width / 2));
         if(this.position.y < (this.height / 2))
             this.position.y = (this.height / 2);
-        else if(this.position.y > (Game.canvas.height - (this.height / 2)))
-            this.position.y = (Game.canvas.height - (this.height / 2));
+        else if(this.position.y > (Game.renderer.entityCanvas.height - (this.height / 2)))
+            this.position.y = (Game.renderer.entityCanvas.height - (this.height / 2));
     }
 
     update() {
@@ -80,7 +87,7 @@ export default class Player extends Entity {
         this.sprites.nextFrame();
     }
 
-    draw(context: CanvasRenderingContext2D) {
-        context.drawImage(this.sprites.getFrame().bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+    draw(renderer: Renderer) {
+        renderer.drawImage(CanvasLayer.Entities, this.sprites.getFrame().bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }

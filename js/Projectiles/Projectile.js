@@ -1,4 +1,5 @@
 import CollisionBox from "../CollisionBox.js";
+import { CanvasLayer } from "../Renderer.js";
 class Projectile {
     static get count() {
         return Projectile._projectileList.length;
@@ -16,8 +17,8 @@ class Projectile {
     kill() {
         Projectile._projectileList.splice(Projectile._projectileList.indexOf(this), 1);
     }
-    draw(context) {
-        context.fillRect(Math.floor(this.position.x - (this.width / 2)), Math.floor(this.position.y - (this.height / 2)), this.width, this.height);
+    draw(renderer) {
+        renderer.drawRect(CanvasLayer.Projectiles, this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
     }
     static forEach(callback) {
         Projectile._projectileList.forEach(callback);

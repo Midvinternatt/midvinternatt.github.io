@@ -4,7 +4,7 @@ import { canBeHit } from "../Interfaces/IHittable.js";
 import Game from "../Game.js";
 export default class Bullet extends Projectile {
     constructor(position, velocity, size) {
-        super(position, size, size, size);
+        super(position, size, size, size, size);
         this.velocity = velocity;
     }
     update() {
@@ -19,7 +19,7 @@ export default class Bullet extends Projectile {
     }
     move() {
         this.position.add(this.velocity);
-        if (!Game.screenBounds.isVectorInbound(this.position))
+        if (!Game.activeScene.sceneBounds.isVectorInbound(this.position))
             this.kill();
     }
 }

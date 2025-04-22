@@ -6,7 +6,7 @@ import Game from "../Game.js";
 
 export default class Bullet extends Projectile {
     constructor(position: Vector, velocity: Vector, size: number) {
-        super(position, size, size, size);
+        super(position, size, size, size, size);
         this.velocity = velocity;
     }
     update(): void {
@@ -21,7 +21,7 @@ export default class Bullet extends Projectile {
     }
     move() {
         this.position.add(this.velocity);
-        if(!Game.screenBounds.isVectorInbound(this.position))
+        if(!Game.activeScene.sceneBounds.isVectorInbound(this.position))
             this.kill();
     }
 }

@@ -1,6 +1,7 @@
 import Emitter from "../Emitters/Emitter.js";
 import Game from "../Game.js";
 import Projectile from "../Projectiles/Projectile.js";
+import { CanvasLayer } from "../Renderer.js";
 import Sprite, { SPRITE } from "../Sprite.js";
 import Vector from "../Vector.js";
 import Enemy from "./Enemy.js";
@@ -15,8 +16,8 @@ export default class Drone extends Enemy {
         this.kill();
     }
     update() { }
-    draw(context) {
-        context.drawImage(this.sprite.bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+    draw(renderer) {
+        renderer.drawImage(CanvasLayer.Entities, this.sprite.bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }
 class DroneEmitter extends Emitter {
@@ -46,12 +47,12 @@ class DroneBullet extends Projectile {
     }
     update() {
         this.move();
-        if (this.checkCollision(Game.player))
+        if (this.checkCollision(Game.activeScene.player))
             this.kill();
     }
     move() {
         this.position.add(this.velocity);
-        if (!Game.screenBounds.isVectorInbound(this.position))
+        if (!Game.activeScene.sceneBounds.isVectorInbound(this.position))
             this.kill();
     }
 }

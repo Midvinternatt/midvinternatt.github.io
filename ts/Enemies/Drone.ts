@@ -2,6 +2,7 @@ import Emitter, { IWeapon } from "../Emitters/Emitter.js";
 import Game from "../Game.js";
 import IHittable from "../Interfaces/IHittable.js";
 import Projectile from "../Projectiles/Projectile.js";
+import Renderer, { CanvasLayer } from "../Renderer.js";
 import Sprite, { SPRITE } from "../Sprite.js";
 import Vector from "../Vector.js";
 import Enemy from "./Enemy.js";
@@ -21,8 +22,8 @@ export default class Drone extends Enemy implements IHittable {
         this.kill();
     }
     update(): void { }
-    draw(context: CanvasRenderingContext2D): void {
-        context.drawImage(this.sprite.bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+    draw(renderer: Renderer): void {
+        renderer.drawImage(CanvasLayer.Entities, this.sprite.bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }
 
@@ -56,12 +57,12 @@ class DroneBullet extends Projectile {
     }
     update(): void {
         this.move();
-        if(this.checkCollision(Game.player))
+        if(this.checkCollision(Game.activeScene.player))
             this.kill();
     }
     move(): void {
         this.position.add(this.velocity);
-        if(!Game.screenBounds.isVectorInbound(this.position))
+        if(!Game.activeScene.sceneBounds.isVectorInbound(this.position))
             this.kill();
     }
 }

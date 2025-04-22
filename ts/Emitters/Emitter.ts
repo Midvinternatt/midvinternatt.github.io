@@ -3,6 +3,7 @@ import Game from "../Game.js";
 import Player from "../Player.js";
 import Bullet from "../Projectiles/Bullet.js";
 import Projectile from "../Projectiles/Projectile.js";
+import Renderer from "../Renderer.js";
 import Vector from "../Vector.js";
 
 export interface ICircleEmitter {
@@ -105,18 +106,26 @@ export class BB extends RotatingEmitter implements ICircleEmitter {
     }
     override trigger(): void {
         super.trigger();
-        let angle: Vector = this.direction.copy();
-        for (let i = 0; i < this.count; i++) {
-            let b: Bullet = new Bullet(Game.player.position.copy().add(this.position), angle.copy(), 8);
-            b.draw = (context: CanvasRenderingContext2D) => {
-                context.fillStyle = this.color;
-                context.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+        if(Projectile.count >= 10000)
+            return;
+        // let angle: Vector = this.direction.copy();
+        // for (let i = 0; i < this.count; i++) {
+            // let b: Bullet = new Bullet(Game.activeScene.player.position.copy().add(this.position), angle.copy(), 8);
+            // console.log("hite");
+            let b: Bullet = new Bullet(this.position.copy(), this.direction.copy(), 8);
+            b.draw = (renderer: Renderer) => {
+                renderer.entityContext.fillStyle = this.color;
+                renderer.entityContext.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
             };
             b.update = () => {
                 b.move();
+                if(b.checkCollision(Game.activeScene.player)) {
+                    
+                    b.kill();
+                }
             };
-            angle.setAngle(angle.angle + 2 * Math.PI / this.count, 3);
-        }
+            // angle.setAngle(angle.angle + 2 * Math.PI / this.count, 3);
+        // }
     }
 }
 
@@ -154,9 +163,9 @@ export class CircleEmitter extends Emitter implements ICircleEmitter {
         let angle: Vector = this.direction.copy();
         for (let i = 0; i < this.count; i++) {
             let b: Bullet = new Bullet(this.position.copy(), angle.copy(), 8);
-            b.draw = (context: CanvasRenderingContext2D) => {
-                context.fillStyle = this.color;
-                context.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+            b.draw = (renderer: Renderer) => {
+                renderer.entityContext.fillStyle = this.color;
+                renderer.entityContext.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
             };
             b.update = () => {
                 b.move();    
@@ -203,9 +212,9 @@ export class TestEmitter extends Emitter {
         if(Projectile.count >= 10000)
             return;
         let b: Bullet = new Bullet(this.position.copy(), this.direction.copy(), 8);
-        b.draw = (context: CanvasRenderingContext2D) => {
-            context.fillStyle = this.color;
-            context.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+        b.draw = (renderer: Renderer) => {
+            renderer.entityContext.fillStyle = this.color;
+            renderer.entityContext.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
         };
         
         b.update = () => {

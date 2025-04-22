@@ -1,15 +1,8 @@
 var _a;
-import Player from "./Player.js";
-import Vector from "./Vector.js";
-import Railgun from "./Weapons/RailGun.js";
 import Sprite from "./Sprite.js";
-import Drone from "./Enemies/Drone.js";
-import Projectile from "./Projectiles/Projectile.js";
-import Enemy from "./Enemies/Enemy.js";
-import Debug from "./Debug.js";
-import KeyEventHandler, { KEY } from "./KeyEventHandler.js";
-import ScreenBounds from "./ScreenBounds.js";
-import Emitter from "./Emitters/Emitter.js";
+import KeyEventHandler from "./KeyEventHandler.js";
+import GameScene from "./Scene.js";
+import Renderer from "./Renderer.js";
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
@@ -25,16 +18,8 @@ E:\Downloads\Shared\Desktop\kemono\241124\fernwet+twit.png
 */
 class Game {
     constructor(canvas) {
-        _a.canvas = canvas;
-        // this.canvas.height = window.outerHeight;
-        _a.canvas.height = window.innerHeight;
-        _a.canvas.width = window.innerWidth;
-        this.context = _a.canvas.getContext("2d");
-        this._keyEventHandler = new KeyEventHandler();
-        window.addEventListener("resize", function () {
-            _a.canvas.height = window.innerHeight;
-            _a.canvas.width = window.innerWidth;
-        });
+        _a.keyEventHandler = new KeyEventHandler();
+        _a.renderer = new Renderer(document.getElementById("game"));
         this.loadResources().then(() => {
             console.log("Successfully loaded sprites");
             this.start();
@@ -49,11 +34,6 @@ class Game {
         ]);
     }
     start() {
-        _a.screenBounds = new ScreenBounds(_a.canvas.width, _a.canvas.height);
-        _a.player = new Player(new Vector(_a.canvas.width / 2, _a.canvas.height / 2), 50, 50);
-        _a.player.addWeapon(new Railgun(_a.player, new Vector(-22, -3)));
-        _a.player.addWeapon(new Railgun(_a.player, new Vector(22, -3)));
-        new Drone(new Vector(_a.canvas.width / 2, 100));
         // let max = Game.canvas.height; // 1000;
         // let spread = 100;
         // for (let x = spread; x < max; x+=spread) {
@@ -62,85 +42,24 @@ class Game {
         //     }
         // }
         // emitter = new Emitter(position, () => {});
-        let spread = 1;
-        for (let x = _a.canvas.width / (spread + 1); x < _a.canvas.width; x += (_a.canvas.width / (spread + 1))) {
-            for (let y = _a.canvas.height / (spread + 1); y < _a.canvas.height; y += (_a.canvas.height / (spread + 1))) {
-                // new CircleEmitter(new Vector(x, y), new Vector(1, 0));
-                // let count = 4;
-                // new RotatingEmitter(new Vector(0, 0), new Vector(3, 0), 10, 5, (position, direction) => {
-                //     let angle: Vector = direction.copy().scale(3);
-                //     for (let i = 0; i < count; i++) {
-                //         let b: Bullet = new Bullet(Game.player.position.copy().add(position), angle.copy(), 8);
-                //         b.draw = (context: CanvasRenderingContext2D) => {
-                //             context.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
-                //         };
-                //         b.update = () => {
-                //             b.move();
-                //         };
-                //         angle.setAngle(angle.angle + 2 * Math.PI / count, 3);
-                //     }
-                // });
-                // new BB(new Vector(-22, -3), new Vector(3, 0), 10, 5);
-                // new BB(new Vector(22, -3), new Vector(3, 0), 5, 10);
-            }
-        }
         _a.time = 0;
         this.isRunning = true;
+        _a.activeScene = new GameScene(_a.renderer);
         this.loop();
     }
     loop() {
         requestAnimationFrame((currentTimeMs) => {
-            if (document.hasFocus() || this._keyEventHandler.reset()) {
+            if (document.hasFocus() || _a.keyEventHandler.reset()) {
                 const deltaTimeMs = currentTimeMs - _a.previousTimeMs;
                 if (deltaTimeMs >= _a.frameInterval) {
-                    this.update();
+                    _a.time++;
+                    _a.activeScene.update();
                     _a.previousTimeMs = currentTimeMs - (deltaTimeMs % _a.frameInterval);
                 }
             }
-            this.render();
+            _a.activeScene.draw();
             if (this.isRunning)
                 this.loop();
-        });
-    }
-    update() {
-        _a.time++;
-        _a.player.velocity.x = 0;
-        _a.player.velocity.y = 0;
-        if (this._keyEventHandler.isKeyPressed(KEY.UP))
-            _a.player.velocity.y = -1;
-        else if (this._keyEventHandler.isKeyPressed(KEY.DOWN))
-            _a.player.velocity.y = 1;
-        if (this._keyEventHandler.isKeyPressed(KEY.LEFT))
-            _a.player.velocity.x = -1;
-        else if (this._keyEventHandler.isKeyPressed(KEY.RIGHT))
-            _a.player.velocity.x = 1;
-        _a.player.velocity.normalize().scale(_a.player.speed);
-        if (this._keyEventHandler.isKeyPressed(KEY.SHOOT)) {
-            _a.player.autofire();
-        }
-        _a.player.update();
-        Enemy.forEach(enemy => {
-            enemy.update();
-        });
-        Projectile.forEach(projectile => {
-            projectile.update();
-        });
-        Emitter.forEach(emitter => {
-            emitter.update();
-        });
-        Debug(Projectile.count);
-    }
-    render() {
-        this.context.save();
-        this.context.setTransform(1, 0, 0, 1, 0, 0);
-        this.context.clearRect(0, 0, _a.canvas.width, _a.canvas.height);
-        this.context.restore();
-        _a.player.draw(this.context);
-        Enemy.forEach(enemy => {
-            enemy.draw(this.context);
-        });
-        Projectile.forEach(projectile => {
-            projectile.draw(this.context);
         });
     }
 }

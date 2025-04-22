@@ -73,18 +73,25 @@ export class BB extends RotatingEmitter {
     }
     trigger() {
         super.trigger();
-        let angle = this.direction.copy();
-        for (let i = 0; i < this.count; i++) {
-            let b = new Bullet(Game.player.position.copy().add(this.position), angle.copy(), 8);
-            b.draw = (context) => {
-                context.fillStyle = this.color;
-                context.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
-            };
-            b.update = () => {
-                b.move();
-            };
-            angle.setAngle(angle.angle + 2 * Math.PI / this.count, 3);
-        }
+        if (Projectile.count >= 10000)
+            return;
+        // let angle: Vector = this.direction.copy();
+        // for (let i = 0; i < this.count; i++) {
+        // let b: Bullet = new Bullet(Game.activeScene.player.position.copy().add(this.position), angle.copy(), 8);
+        // console.log("hite");
+        let b = new Bullet(this.position.copy(), this.direction.copy(), 8);
+        b.draw = (renderer) => {
+            renderer.entityContext.fillStyle = this.color;
+            renderer.entityContext.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+        };
+        b.update = () => {
+            b.move();
+            if (b.checkCollision(Game.activeScene.player)) {
+                b.kill();
+            }
+        };
+        // angle.setAngle(angle.angle + 2 * Math.PI / this.count, 3);
+        // }
     }
 }
 export class CircleEmitter extends Emitter {
@@ -118,9 +125,9 @@ export class CircleEmitter extends Emitter {
         let angle = this.direction.copy();
         for (let i = 0; i < this.count; i++) {
             let b = new Bullet(this.position.copy(), angle.copy(), 8);
-            b.draw = (context) => {
-                context.fillStyle = this.color;
-                context.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+            b.draw = (renderer) => {
+                renderer.entityContext.fillStyle = this.color;
+                renderer.entityContext.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
             };
             b.update = () => {
                 b.move();
@@ -163,9 +170,9 @@ export class TestEmitter extends Emitter {
         if (Projectile.count >= 10000)
             return;
         let b = new Bullet(this.position.copy(), this.direction.copy(), 8);
-        b.draw = (context) => {
-            context.fillStyle = this.color;
-            context.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+        b.draw = (renderer) => {
+            renderer.entityContext.fillStyle = this.color;
+            renderer.entityContext.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
         };
         b.update = () => {
             b.move();

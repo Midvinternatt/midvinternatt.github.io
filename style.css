@@ -13,16 +13,21 @@ html, body {
     overflow: hidden;
 }
 
-canvas {
+/* canvas { */
     /* display: block; */
     /* margin: 0 auto; */
-    background: #eee;
+    /* background: #eee; */
     /* border-inline:1px solid black; */
+/* } */
+
+#game {
+    height: 100vh;
 }
 
 #debug {
     position:absolute;
     padding: 5px 0 0 5px;
+    color: white;
 }
 
 img {

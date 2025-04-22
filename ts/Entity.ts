@@ -3,6 +3,7 @@ import IDrawable from "./Interfaces/IDrawable.js";
 import CollisionBox from "./CollisionBox.js";
 import Sprite from "./Sprite.js";
 import Vector from "./Vector.js";
+import Renderer from "./Renderer.js";
 
 export default abstract class Entity implements IDrawable, ICollidable {
     position: Vector;
@@ -22,5 +23,5 @@ export default abstract class Entity implements IDrawable, ICollidable {
     }
     abstract update(): void;
     abstract kill(): void;
-    abstract draw(context: CanvasRenderingContext2D): void;
+    abstract draw(renderer: Renderer): void;
 }
