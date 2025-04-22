@@ -3,6 +3,8 @@ import PlayArea from "./ScreenBounds.js";
 import Vector from "./Vector.js";
 import Entity from "./Entity.js";
 import Sprite, { SPRITE } from "./Sprite.js";
+import Game from "./Game.js";
+import SpriteAnimation from "./SpriteAnimation.js";
 
 export default class Player extends Entity {
     velocity: Vector;
@@ -10,13 +12,17 @@ export default class Player extends Entity {
 
     speed: number = 8;
     // playArea;
-    sprites;
+    // sprites;
+    sprites: SpriteAnimation;
 
     constructor(position: Vector, width: number, height: number, playArea?: PlayArea) {
         super(position, width, height);
         this.position = position;
         this.velocity = new Vector(0, 0);
-        this.sprites = Sprite.getSprite(SPRITE.PLAYER_SHIP).bitmap; //.imageBitmapList.get(SPRITE.PLAYER_SHIP);
+        this.sprite = Sprite.getSprite(SPRITE.PLAYER_SHIP); //.imageBitmapList.get(SPRITE.PLAYER_SHIP);
+        this.sprites = new SpriteAnimation(30);
+        this.sprites.addSprite(Sprite.getSprite(SPRITE.PLAYER_SHIP));
+        this.sprites.addSprite(Sprite.getSprite(SPRITE.PLAYER_SHIP2));
         // this.sprite =  <HTMLImageElement> document.getElementById("PLAYER_SHIP");
         this._weaponList = [];
         // this.playArea = playArea;
@@ -60,20 +66,21 @@ export default class Player extends Entity {
 
         if(this.position.x < (this.width / 2))
             this.position.x = (this.width / 2);
-        else if(this.position.x > (1024 - (this.width / 2)))
-            this.position.x = (1024 - (this.width / 2));
+        else if(this.position.x > (Game.canvas.width - (this.width / 2)))
+            this.position.x = (Game.canvas.width - (this.width / 2));
         if(this.position.y < (this.height / 2))
             this.position.y = (this.height / 2);
-        else if(this.position.y > (window.innerHeight - (this.height / 2)))
-            this.position.y = (window.innerHeight - (this.height / 2));
+        else if(this.position.y > (Game.canvas.height - (this.height / 2)))
+            this.position.y = (Game.canvas.height - (this.height / 2));
     }
 
     update() {
         if(!this.velocity.equals(Vector.nullVector))
             this.move();
+        this.sprites.nextFrame();
     }
 
     draw(context: CanvasRenderingContext2D) {
-        context.drawImage(this.sprites, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+        context.drawImage(this.sprites.getFrame().bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }

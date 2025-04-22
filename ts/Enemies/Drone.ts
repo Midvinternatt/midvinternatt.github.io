@@ -1,4 +1,4 @@
-import Emitter, { IRepeating, IWeapon } from "../Emitters/Emitter.js";
+import Emitter, { IWeapon } from "../Emitters/Emitter.js";
 import Game from "../Game.js";
 import IHittable from "../Interfaces/IHittable.js";
 import Projectile from "../Projectiles/Projectile.js";
@@ -26,13 +26,13 @@ export default class Drone extends Enemy implements IHittable {
     }
 }
 
-class DroneEmitter extends Emitter implements IRepeating, IWeapon {
+class DroneEmitter extends Emitter implements IWeapon {
     owner: Drone;
     triggerRate: number = 60;
     lastTriggered: number = 0;
 
     constructor(owner: Drone, deltaPosition: Vector, facing: Vector) {
-        super(deltaPosition, facing);
+        super(deltaPosition, facing, () => {});
         this.direction.scale(8)
         this.owner = owner;
     }

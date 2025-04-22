@@ -17,7 +17,7 @@ class Projectile {
         Projectile._projectileList.splice(Projectile._projectileList.indexOf(this), 1);
     }
     draw(context) {
-        context.fillRect(this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
+        context.fillRect(Math.floor(this.position.x - (this.width / 2)), Math.floor(this.position.y - (this.height / 2)), this.width, this.height);
     }
     static forEach(callback) {
         Projectile._projectileList.forEach(callback);

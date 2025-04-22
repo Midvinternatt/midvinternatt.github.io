@@ -21,7 +21,7 @@ export default class Drone extends Enemy {
 }
 class DroneEmitter extends Emitter {
     constructor(owner, deltaPosition, facing) {
-        super(deltaPosition, facing);
+        super(deltaPosition, facing, () => { });
         this.triggerRate = 60;
         this.lastTriggered = 0;
         this.direction.scale(8);

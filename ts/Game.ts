@@ -8,17 +8,25 @@ import Enemy from "./Enemies/Enemy.js";
 import Debug from "./Debug.js";
 import KeyEventHandler, { KEY } from "./KeyEventHandler.js";
 import ScreenBounds from "./ScreenBounds.js";
-import Emitter, { TestEmitter } from "./Emitters/Emitter.js";
+import Emitter, { BB, CircleEmitter, RepeatingEmitter, RotatingEmitter, TestEmitter } from "./Emitters/Emitter.js";
+import Bullet from "./Projectiles/Bullet.js";
 
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
     Optimering: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
                 https://hacks.mozilla.org/2013/05/optimizing-your-javascript-game-for-firefox-os/
+
+E:\Downloads\Shared\Desktop\gelbooru\f588c1d6cdbc67168698e6571edea55b.jpg
+E:\Downloads\Shared\Desktop\gelbooru\6e78f16ebfb7b8691e023d8949bf25d5.jpg
+E:\Downloads\Shared\Desktop\gelbooru\ea8985e53cb13ebdd1cf50f987b362ed.jpg
+E:\Downloads\Shared\Desktop\kemono\241124\ちさたき+(2).png
+E:\Downloads\Shared\Desktop\kemono\250225\bae+rat+butt.png
+E:\Downloads\Shared\Desktop\kemono\241124\fernwet+twit.png
 */
 
 export default class Game {
-    private canvas: HTMLCanvasElement;
+    static canvas: HTMLCanvasElement;
     // private backgroundCanvas: HTMLCanvasElement;
     // private entityCanvas: HTMLCanvasElement;
     // private projectileCanvas: HTMLCanvasElement;
@@ -34,10 +42,17 @@ export default class Game {
     private isRunning: boolean;
 
     constructor(canvas: HTMLElement) {
-        this.canvas = <HTMLCanvasElement> canvas;
-        this.canvas.height = window.innerHeight;
-        this.context = this.canvas.getContext("2d");
+        Game.canvas = <HTMLCanvasElement> canvas;
+        // this.canvas.height = window.outerHeight;
+        Game.canvas.height = window.innerHeight;
+        Game.canvas.width = window.innerWidth;
+        this.context = Game.canvas.getContext("2d");
         this._keyEventHandler = new KeyEventHandler();
+
+        window.addEventListener("resize",function(){
+            Game.canvas.height = window.innerHeight;
+            Game.canvas.width = window.innerWidth;
+        });
 
         this.loadResources().then(() => {
             console.log("Successfully loaded sprites");
@@ -56,16 +71,44 @@ export default class Game {
     }
 
     start() {
-        Game.screenBounds = new ScreenBounds(this.canvas.width, this.canvas.height);
-        Game.player = new Player(new Vector(512, 400), 100, 100);
-        Game.player.addWeapon(new Railgun(Game.player, new Vector(-25, -50)));
-        Game.player.addWeapon(new Railgun(Game.player, new Vector(25, -50)));
-        new Drone(new Vector(512, 100));
-        let max = 1000;
-        let spread = 250;
-        for (let x = spread; x < max; x+=spread) {
-            for (let y = spread; y < max; y+=spread) {
-                new TestEmitter(new Vector(x, y), new Vector(1, 0));
+        Game.screenBounds = new ScreenBounds(Game.canvas.width, Game.canvas.height);
+        Game.player = new Player(new Vector(Game.canvas.width / 2, Game.canvas.height / 2), 50, 50);
+        Game.player.addWeapon(new Railgun(Game.player, new Vector(-22, -3)));
+        Game.player.addWeapon(new Railgun(Game.player, new Vector(22, -3)));
+        new Drone(new Vector(Game.canvas.width / 2, 100));
+
+        // let max = Game.canvas.height; // 1000;
+        // let spread = 100;
+        // for (let x = spread; x < max; x+=spread) {
+        //     for (let y = spread; y < max; y+=spread) {
+        //         new TestEmitter(new Vector(x, y), new Vector(1, 0));
+        //     }
+        // }
+
+        // emitter = new Emitter(position, () => {});
+
+        let spread = 1;
+        for (let x = Game.canvas.width / (spread+1); x < Game.canvas.width; x+=(Game.canvas.width / (spread+1))) {
+            for (let y = Game.canvas.height / (spread+1); y < Game.canvas.height; y+=(Game.canvas.height / (spread+1))) {
+                // new CircleEmitter(new Vector(x, y), new Vector(1, 0));
+
+                // let count = 4;
+                // new RotatingEmitter(new Vector(0, 0), new Vector(3, 0), 10, 5, (position, direction) => {
+                //     let angle: Vector = direction.copy().scale(3);
+                //     for (let i = 0; i < count; i++) {
+                //         let b: Bullet = new Bullet(Game.player.position.copy().add(position), angle.copy(), 8);
+                //         b.draw = (context: CanvasRenderingContext2D) => {
+                //             context.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+                //         };
+                //         b.update = () => {
+                //             b.move();
+                //         };
+                //         angle.setAngle(angle.angle + 2 * Math.PI / count, 3);
+                //     }
+                // });
+
+                // new BB(new Vector(-22, -3), new Vector(3, 0), 10, 5);
+                // new BB(new Vector(22, -3), new Vector(3, 0), 5, 10);
             }
         }
 
@@ -79,10 +122,7 @@ export default class Game {
                 const deltaTimeMs = currentTimeMs - Game.previousTimeMs;
                 if(deltaTimeMs >= Game.frameInterval) {
                     this.update();
-                    const offset = deltaTimeMs % Game.frameInterval;
-                    Game.previousTimeMs = currentTimeMs - offset;
-                    // Debug("Delta: " + deltaTimeMs + "\nCurrent: " + currentTimeMs + "\nPrevious: " + Game.previousTimeMs);
-                    // Debug(document.hasFocus());
+                    Game.previousTimeMs = currentTimeMs - (deltaTimeMs % Game.frameInterval);
                 }
             }
             
@@ -92,11 +132,8 @@ export default class Game {
         });
     }
 
-    /*
-        Läs denna för att uppdatera spelmekaniken rätt
-        https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
-    */
     update() {
+        Game.time++;
         Game.player.velocity.x = 0;
         Game.player.velocity.y = 0;
 
@@ -126,14 +163,13 @@ export default class Game {
             emitter.update();
         });
 
-        Game.time++;
-        // Debug(Projectile.count);
+        Debug(Projectile.count);
     }
 
     render() {
         this.context.save();
         this.context.setTransform(1, 0, 0, 1, 0, 0);
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
         this.context.restore();
 
         Game.player.draw(this.context);

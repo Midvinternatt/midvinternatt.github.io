@@ -10,10 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 export var SPRITE;
 (function (SPRITE) {
     SPRITE[SPRITE["PLAYER_SHIP"] = 0] = "PLAYER_SHIP";
-    SPRITE[SPRITE["DRONE"] = 1] = "DRONE";
+    SPRITE[SPRITE["PLAYER_SHIP2"] = 1] = "PLAYER_SHIP2";
+    SPRITE[SPRITE["DRONE"] = 2] = "DRONE";
 })(SPRITE || (SPRITE = {}));
 const spriteSheet = [
-    { id: SPRITE.PLAYER_SHIP, file: "ship.png", w: 100, h: 100 },
+    { id: SPRITE.PLAYER_SHIP, file: "ship.png", w: 50, h: 50 },
+    { id: SPRITE.PLAYER_SHIP2, file: "ship2.png", w: 50, h: 50 },
     { id: SPRITE.DRONE, file: "1.png", w: 100, h: 100 }
 ];
 class Sprite {
