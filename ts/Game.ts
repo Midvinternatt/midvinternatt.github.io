@@ -48,7 +48,7 @@ export default class Game {
 
     constructor(canvas: HTMLElement) {
         Game.keyEventHandler = new KeyEventHandler();
-        Game.renderer = new Renderer(document.getElementById("game"));
+        Game.renderer = new Renderer(document.getElementById("game"), window.innerWidth, window.innerHeight);
 
         this.loadResources().then(() => {
             console.log("Successfully loaded sprites");

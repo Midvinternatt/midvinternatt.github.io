@@ -1,6 +1,7 @@
 import Game from "../Game.js";
 import Bullet from "../Projectiles/Bullet.js";
 import Projectile from "../Projectiles/Projectile.js";
+import { CanvasLayer } from "../Renderer.js";
 class Emitter {
     constructor(position, direction, callback) {
         this.position = position;
@@ -81,8 +82,7 @@ export class BB extends RotatingEmitter {
         // console.log("hite");
         let b = new Bullet(this.position.copy(), this.direction.copy(), 8);
         b.draw = (renderer) => {
-            renderer.entityContext.fillStyle = this.color;
-            renderer.entityContext.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+            renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
         };
         b.update = () => {
             b.move();
@@ -126,8 +126,7 @@ export class CircleEmitter extends Emitter {
         for (let i = 0; i < this.count; i++) {
             let b = new Bullet(this.position.copy(), angle.copy(), 8);
             b.draw = (renderer) => {
-                renderer.entityContext.fillStyle = this.color;
-                renderer.entityContext.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+                renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
             };
             b.update = () => {
                 b.move();
@@ -171,8 +170,7 @@ export class TestEmitter extends Emitter {
             return;
         let b = new Bullet(this.position.copy(), this.direction.copy(), 8);
         b.draw = (renderer) => {
-            renderer.entityContext.fillStyle = this.color;
-            renderer.entityContext.fillRect(b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+            renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
         };
         b.update = () => {
             b.move();

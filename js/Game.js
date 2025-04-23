@@ -19,7 +19,7 @@ E:\Downloads\Shared\Desktop\kemono\241124\fernwet+twit.png
 class Game {
     constructor(canvas) {
         _a.keyEventHandler = new KeyEventHandler();
-        _a.renderer = new Renderer(document.getElementById("game"));
+        _a.renderer = new Renderer(document.getElementById("game"), window.innerWidth, window.innerHeight);
         this.loadResources().then(() => {
             console.log("Successfully loaded sprites");
             this.start();

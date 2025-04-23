@@ -73,12 +73,12 @@ export default class Player extends Entity {
 
         if(this.position.x < (this.width / 2))
             this.position.x = (this.width / 2);
-        else if(this.position.x > (Game.renderer.entityCanvas.width - (this.width / 2)))
-            this.position.x = (Game.renderer.entityCanvas.width - (this.width / 2));
+        else if(this.position.x > (Game.activeScene.sceneBounds.width - (this.width / 2))) 
+            this.position.x = (Game.activeScene.sceneBounds.width - (this.width / 2));
         if(this.position.y < (this.height / 2))
             this.position.y = (this.height / 2);
-        else if(this.position.y > (Game.renderer.entityCanvas.height - (this.height / 2)))
-            this.position.y = (Game.renderer.entityCanvas.height - (this.height / 2));
+        else if(this.position.y > (Game.activeScene.sceneBounds.height - (this.height / 2)))
+            this.position.y = (Game.activeScene.sceneBounds.height - (this.height / 2));
     }
 
     update() {

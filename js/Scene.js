@@ -12,47 +12,12 @@ import Railgun from "./Weapons/RailGun.js";
 export default class GameScene {
     constructor(renderer) {
         this.renderer = renderer;
-        this.sceneBounds = new ScreenBounds(renderer.entityCanvas.width, renderer.entityCanvas.height);
-        this.player = new Player(new Vector(renderer.entityCanvas.width / 2, renderer.entityCanvas.height / 2), 50, 50, this);
+        this.sceneBounds = new ScreenBounds(renderer.screenWidth, renderer.screenHeight);
+        this.player = new Player(new Vector(renderer.screenWidth / 2, renderer.screenHeight / 2), 50, 50, this);
         this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
         this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
-        new Drone(new Vector(renderer.entityCanvas.width / 2, 100));
-        // let count = 4;
-        // new RotatingEmitter(new Vector(0, 0), new Vector(3, 0), 10, 5, (position, direction) => {
-        //     let angle: Vector = direction.copy().scale(3);
-        //     for (let i = 0; i < count; i++) {
-        //         let b: Bullet = new Bullet(this.player.position.copy().add(position), angle.copy(), 8);
-        //         b.draw = (renderer: Renderer) => {
-        //             renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
-        //         };
-        //         b.update = () => {
-        //             b.move();
-        //         };
-        //         angle.setAngle(angle.angle + 2 * Math.PI / count, 3);
-        //     }
-        // });
-        let spread = 8;
-        for (let x = renderer.entityCanvas.width / (spread + 1); x < renderer.entityCanvas.width; x += (renderer.entityCanvas.width / (spread + 1))) {
-            for (let y = renderer.entityCanvas.height / (spread + 1); y < renderer.entityCanvas.height; y += (renderer.entityCanvas.height / (spread + 1))) {
-                // new RotatingEmitter(new Vector(x, y), new Vector(3, 0), 10, 5, (position, direction) => {
-                // let angle: Vector = direction.copy().scale(3);
-                // for (let i = 0; i < count; i++) {
-                // let b: Bullet = new Bullet(position.copy(), direction.copy(), 8);
-                // b.draw = (renderer: Renderer) => {
-                //     renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
-                // };
-                // b.update = () => {
-                //     b.move();
-                // };
-                //     angle.setAngle(angle.angle + 2 * Math.PI / count, 3);
-                // }
-                // });
-                // new CircleEmitter(new Vector(x, y), new Vector(1, 0));
-                // new BB(new Vector(-22, -3), new Vector(3, 0), 10, 5);
-                // new BB(new Vector(22, -3), new Vector(3, 0), 5, 10);
-                new BB(new Vector(x, y), new Vector(Math.random() * 5, 0), Math.random() * 5, Math.random() * 20, () => { });
-            }
-        }
+        new Drone(new Vector(renderer.screenWidth / 2, 100));
+        testScene(this);
     }
     load() {
     }
@@ -92,6 +57,44 @@ export default class GameScene {
         Projectile.forEach(projectile => {
             projectile.draw(this.renderer);
         });
+    }
+}
+function testScene(scene) {
+    // let count = 4;
+    // new RotatingEmitter(new Vector(0, 0), new Vector(3, 0), 10, 5, (position, direction) => {
+    //     let angle: Vector = direction.copy().scale(3);
+    //     for (let i = 0; i < count; i++) {
+    //         let b: Bullet = new Bullet(this.player.position.copy().add(position), angle.copy(), 8);
+    //         b.draw = (renderer: Renderer) => {
+    //             renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+    //         };
+    //         b.update = () => {
+    //             b.move();
+    //         };
+    //         angle.setAngle(angle.angle + 2 * Math.PI / count, 3);
+    //     }
+    // });
+    let spread = 8;
+    for (let x = scene.sceneBounds.width / (spread + 1); x < scene.sceneBounds.width; x += (scene.sceneBounds.width / (spread + 1))) {
+        for (let y = scene.sceneBounds.height / (spread + 1); y < scene.sceneBounds.height; y += (scene.sceneBounds.height / (spread + 1))) {
+            // new RotatingEmitter(new Vector(x, y), new Vector(3, 0), 10, 5, (position, direction) => {
+            // let angle: Vector = direction.copy().scale(3);
+            // for (let i = 0; i < count; i++) {
+            // let b: Bullet = new Bullet(position.copy(), direction.copy(), 8);
+            // b.draw = (renderer: Renderer) => {
+            //     renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+            // };
+            // b.update = () => {
+            //     b.move();
+            // };
+            //     angle.setAngle(angle.angle + 2 * Math.PI / count, 3);
+            // }
+            // });
+            // new CircleEmitter(new Vector(x, y), new Vector(1, 0));
+            // new BB(new Vector(-22, -3), new Vector(3, 0), 10, 5);
+            // new BB(new Vector(22, -3), new Vector(3, 0), 5, 10);
+            new BB(new Vector(x, y), new Vector(Math.random() * 5, 0), Math.random() * 5, Math.random() * 20, () => { });
+        }
     }
 }
 //# sourceMappingURL=Scene.js.map
