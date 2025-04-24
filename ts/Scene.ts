@@ -1,13 +1,14 @@
 import Debug from "./Debug.js";
-import Emitter, { BB, CircleEmitter, RotatingEmitter } from "./Emitters/Emitter.js";
+import Emitter, { BB } from "./Emitters/Emitter.js";
 import Drone from "./Enemies/Drone.js";
 import Enemy from "./Enemies/Enemy.js";
 import Game from "./Game.js";
 import { KEY } from "./KeyEventHandler.js";
 import Player from "./Player.js";
 import Projectile from "./Projectiles/Projectile.js";
-import Renderer, { CanvasLayer } from "./Renderer.js";
+import Renderer from "./Renderer.js";
 import ScreenBounds from "./ScreenBounds.js";
+import UserInterface from "./UserInterface.js";
 import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
 
@@ -22,6 +23,7 @@ export default class GameScene implements Scene {
     renderer: Renderer;
     sceneBounds: ScreenBounds;
     player: Player;
+    userInterface: UserInterface;
 
     constructor(renderer: Renderer) {
         this.renderer = renderer;
@@ -30,6 +32,7 @@ export default class GameScene implements Scene {
         this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
         this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
         new Drone(new Vector(renderer.screenWidth / 2, 100));
+        this.userInterface = new UserInterface();
         testScene(this);
     }
     load() {
@@ -64,6 +67,8 @@ export default class GameScene implements Scene {
         Emitter.forEach(emitter => {
             emitter.update();
         });
+        
+        this.userInterface.update();
 
         Debug(Projectile.count);
     }
@@ -77,6 +82,7 @@ export default class GameScene implements Scene {
         Projectile.forEach(projectile => {
             projectile.draw(this.renderer);
         });
+        this.userInterface.draw(this.renderer);
     }
 }
 

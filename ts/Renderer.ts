@@ -14,15 +14,6 @@ export default class Renderer {
     private canvasList: Map<CanvasLayer, HTMLCanvasElement>;
     private contextList: Map<CanvasLayer, CanvasRenderingContext2D>;
 
-    // backgroundCanvas: HTMLCanvasElement;
-    // entityCanvas: HTMLCanvasElement;
-    // projectileCanvas: HTMLCanvasElement;
-    // userInterfaceCanvas: HTMLCanvasElement;
-    // backgroundContext: CanvasRenderingContext2D;
-    // entityContext: CanvasRenderingContext2D;
-    // projectileContext: CanvasRenderingContext2D;
-    // userInterfaceContext: CanvasRenderingContext2D;
-
     constructor(gameContainer: HTMLElement, width: number, height: number) {
         while(gameContainer.firstElementChild) { gameContainer.firstElementChild.remove(); }
         

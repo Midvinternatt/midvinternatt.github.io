@@ -6,14 +6,6 @@ export var CanvasLayer;
     CanvasLayer[CanvasLayer["UserInterface"] = 3] = "UserInterface";
 })(CanvasLayer || (CanvasLayer = {}));
 export default class Renderer {
-    // backgroundCanvas: HTMLCanvasElement;
-    // entityCanvas: HTMLCanvasElement;
-    // projectileCanvas: HTMLCanvasElement;
-    // userInterfaceCanvas: HTMLCanvasElement;
-    // backgroundContext: CanvasRenderingContext2D;
-    // entityContext: CanvasRenderingContext2D;
-    // projectileContext: CanvasRenderingContext2D;
-    // userInterfaceContext: CanvasRenderingContext2D;
     constructor(gameContainer, width, height) {
         while (gameContainer.firstElementChild) {
             gameContainer.firstElementChild.remove();
