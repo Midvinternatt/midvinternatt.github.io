@@ -15,6 +15,7 @@ export default class GameScene {
         this.renderer = renderer;
         this.sceneBounds = new ScreenBounds(renderer.screenWidth, renderer.screenHeight);
         this.player = new Player(new Vector(renderer.screenWidth / 2, renderer.screenHeight / 2), 50, 50, this);
+        this.player.moveSpeed = 8;
         this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
         this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
         new Drone(new Vector(renderer.screenWidth / 2, 100));

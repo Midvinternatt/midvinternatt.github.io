@@ -10,7 +10,7 @@ export default class ScreenBounds {
     isVectorInbound(vector) {
         return (0 < vector.x && vector.x < this.width) && (0 < vector.y && vector.y < this.height);
     }
-    isPointInbound(x, y) {
+    isCoordinateInbound(x, y) {
         return (0 < x && x < this.width) && (0 < y && y < this.height);
     }
 }

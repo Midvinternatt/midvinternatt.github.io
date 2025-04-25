@@ -6,7 +6,7 @@ export default class ScreenBounds {
     // outerWidth: number;
     // outerHeight: number;
 
-    constructor(width, height, outerWidth?, outerHeight?) {
+    constructor(width: number, height: number, outerWidth?, outerHeight?) {
         this.width = width;
         this.height = height;
         // this.outerWidth = outerWidth;
@@ -16,7 +16,7 @@ export default class ScreenBounds {
     isVectorInbound(vector: Vector): boolean {
         return (0 < vector.x && vector.x < this.width) && (0 < vector.y && vector.y < this.height);
     }
-    isPointInbound(x, y): boolean {
+    isCoordinateInbound(x: number, y: number): boolean {
         return (0 < x && x < this.width) && (0 < y && y < this.height);
     }
 }

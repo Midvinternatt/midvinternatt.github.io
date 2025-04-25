@@ -5,7 +5,20 @@ export default class CollisionBox {
     _width: number;
     _height: number;
 
-    constructor(owner: Collidable, width: number, height: number) {
+    /*
+        Potentiellt flytta till Sprite?
+    _image: ImageData;
+    static _offscreenCanvas: OffscreenCanvas;
+    static _offscreenContext: OffscreenCanvasRenderingContext2D;
+    static {
+        this._offscreenCanvas = new OffscreenCanvas(0, 0);
+        this._offscreenContext = this._offscreenCanvas.getContext("2d");
+    }
+    static generateImageData() {
+
+    }
+    */
+    constructor(owner: Collidable, image: ImageData, width: number, height: number) {
         this._owner = owner;
         this._width = width;
         this._height = height;
@@ -19,12 +32,7 @@ export default class CollisionBox {
         )
             return true;   
     }
-    /*
-        if (
-            rect1.x < rect2.x + rect2.w &&
-            rect1.x + rect1.w > rect2.x &&
-            rect1.y < rect2.y + rect2.h &&
-            rect1.y + rect1.h > rect2.y
-        )
-    */
+    checkForPreciseCollision(otherCollisionBox: CollisionBox) {
+
+    }
 }

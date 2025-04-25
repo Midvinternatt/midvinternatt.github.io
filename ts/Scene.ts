@@ -29,6 +29,8 @@ export default class GameScene implements Scene {
         this.renderer = renderer;
         this.sceneBounds = new ScreenBounds(renderer.screenWidth, renderer.screenHeight);
         this.player = new Player(new Vector(renderer.screenWidth / 2, renderer.screenHeight / 2), 50, 50, this);
+        this.player.moveSpeed = 8;
+
         this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
         this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
         new Drone(new Vector(renderer.screenWidth / 2, 100));
@@ -51,7 +53,7 @@ export default class GameScene implements Scene {
         else if(Game.keyEventHandler.isKeyPressed(KEY.RIGHT)) 
             this.player.velocity.x = 1;
 
-        this.player.velocity.normalize().scale(this.player.speed);
+        this.player.velocity.normalize().scale(this.player.moveSpeed);
         
         if(Game.keyEventHandler.isKeyPressed(KEY.SHOOT)) {
             this.player.autofire();

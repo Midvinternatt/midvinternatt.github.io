@@ -9,7 +9,7 @@ export enum KEY {
 
 export default class KeyEventHandler {
     // private _keyState: boolean[];
-    private pressedKeyes = new Set();
+    private pressedKeyes: Set<string>;
 
     constructor() {
         this.pressedKeyes = new Set();
@@ -23,7 +23,6 @@ export default class KeyEventHandler {
         
         (event.type == "keydown") ? this.pressedKeyes.add(event.key) : this.pressedKeyes.delete(event.key);
         // this._keyState[event.key] = (event.type == "keydown");
-        
     }
     isKeyPressed(key: KEY) {
         return this.pressedKeyes.has(key);
@@ -31,34 +30,4 @@ export default class KeyEventHandler {
     reset() {
         this.pressedKeyes.clear();
     }
-    /*
-    update(player: Player) {
-        player.velocity.x = 0;
-        player.velocity.y = 0;
-
-        if(this.pressedKeyes.has(KEY.UP))
-            player.velocity.y = -1;
-        else if(this.pressedKeyes.has(KEY.DOWN)) 
-            player.velocity.y = 1;
-        if(this.pressedKeyes.has(KEY.LEFT))
-            player.velocity.x = -1;
-        else if(this.pressedKeyes.has(KEY.RIGHT)) 
-            player.velocity.x = 1;
-
-        // if(this.pressedKeyes.has(KEY.UP))aa
-        //     player.velocity.y = -1;
-        // else if(this._keyState[KEY.DOWN]) 
-        //     player.velocity.y = 1;
-        // if(this._keyState[KEY.LEFT])
-        //     player.velocity.x = -1;
-        // else if(this._keyState[KEY.RIGHT]) 
-        //     player.velocity.x = 1;
-
-        player.velocity.normalize().scale(player.speed);
-
-        if(this._keyState[KEY.SHOOT]) {
-            player.autofire();
-        }
-    }
-    */
 }

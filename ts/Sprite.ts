@@ -19,6 +19,34 @@ const spriteSheet: spritedata[] = [
     { id: SPRITE.DRONE, file: "1.png", w: 100, h: 100 }
 ];
 
+interface Animation {
+    name: string,
+    frames: string[],
+    frameDuration: number,
+    loop: boolean
+}
+
+class SpriteNew {
+    constructor() {
+
+    }
+    addAnimation(animation: Animation) {
+
+    }
+    playAnimation() {
+
+    }
+    update() {
+
+    }
+    draw() {
+
+    }
+}
+
+/*
+    Spara en collision ImageData för varje sprite
+*/
 export default class Sprite {
     static spriteMap: Map<SPRITE, Sprite> = new Map();
 

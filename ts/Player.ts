@@ -9,20 +9,18 @@ import Scene from "./Scene.js";
 import Renderer, { CanvasLayer } from "./Renderer.js";
 
 export default class Player extends Entity {
+    static one: Player;
     velocity: Vector;
-    // playArea;
+    scene: Scene;
     // sprites;
     sprites: SpriteAnimation;
-
-    static PlayerOne: Player;
-    health: number;
-    maxHealth: number;
-    moveSpeed: number;
     private _weaponList: Weapon[];
 
-    speed: number = 8;
+    health: number = 3;
+    maxHealth: number = 3;
+    moveSpeed: number = 8;
 
-    constructor(position: Vector, width: number, height: number, scene: Scene, playArea?: PlayArea) {
+    constructor(position: Vector, width: number, height: number, scene: Scene) {
         super(position, width, height);
         this.position = position;
         this.velocity = new Vector(0, 0);
@@ -34,26 +32,6 @@ export default class Player extends Entity {
         this._weaponList = [];
         // this.playArea = playArea;
     }
-
-    // Ändra till PlayArea
-    // set position(newPosition: Vector) {
-    //     if(newPosition.x < (this.width / 2))
-    //         newPosition.x = (this.width / 2);
-    //     else if(newPosition.x > (1024 - (this.width / 2)))
-    //         newPosition.x = (1024 - (this.width / 2));
-    //     if(newPosition.y < (this.height / 2))
-    //         newPosition.y = (this.height / 2);
-    //     else if(newPosition.y > (window.innerHeight - (this.height / 2)))
-    //         newPosition.y = (window.innerHeight - (this.height / 2));
-
-    //     this.position = newPosition;
-    // }
-    // set velocity(newValue) {
-    //     this._velocity = newValue;
-    // }
-    // get velocity() {
-    //     return this._velocity;
-    // }
 
     addWeapon(newWeapon: Weapon) {
         this._weaponList.push(newWeapon);
