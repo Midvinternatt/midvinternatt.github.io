@@ -1,6 +1,9 @@
 export default class Vector {
     static nullVector: Vector = new Vector(0, 0);
 
+    /**
+     * Creates a new two-dimensional vector
+     */
     constructor(public x: number, public y: number) { }
     
     get length(): number {
@@ -46,10 +49,24 @@ export default class Vector {
         return this;
     }
     
+    /**
+     * Returns true if this vectors data matches passed vector
+     */
     equals(otherVector: Vector): boolean {
         return this.x === otherVector.x && this.y === otherVector.y
     }
+    /**
+     * Creates a new Vector object with the same data as this vector
+     */
     copy(): Vector {
         return new Vector(this.x, this.y);
+    }
+    /**
+     * Replicates the data of this vector onto the passed vector
+     */
+    replicate(otherVector: Vector): Vector {
+        otherVector.x = this.x;
+        otherVector.y = this.y;
+        return otherVector;
     }
 }

@@ -1,4 +1,7 @@
 class Vector {
+    /**
+     * Creates a new two-dimensional vector
+     */
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -44,11 +47,25 @@ class Vector {
         this.y *= otherVector.y;
         return this;
     }
+    /**
+     * Returns true if this vectors data matches passed vector
+     */
     equals(otherVector) {
         return this.x === otherVector.x && this.y === otherVector.y;
     }
+    /**
+     * Creates a new Vector object with the same data as this vector
+     */
     copy() {
         return new Vector(this.x, this.y);
+    }
+    /**
+     * Replicates the data of this vector onto the passed vector
+     */
+    replicate(otherVector) {
+        otherVector.x = this.x;
+        otherVector.y = this.y;
+        return otherVector;
     }
 }
 Vector.nullVector = new Vector(0, 0);

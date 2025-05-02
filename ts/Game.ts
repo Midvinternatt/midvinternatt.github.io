@@ -1,18 +1,9 @@
-import Player from "./Player.js";
-import Vector from "./Vector.js";
-import Railgun from "./Weapons/RailGun.js";
 import Sprite from "./Sprite.js";
-import Drone from "./Enemies/Drone.js";
-import Projectile from "./Projectiles/Projectile.js";
-import Enemy from "./Enemies/Enemy.js";
-import Debug from "./Debug.js";
-import KeyEventHandler, { KEY } from "./KeyEventHandler.js";
-import ScreenBounds from "./ScreenBounds.js";
-import Emitter, { BB, CircleEmitter, RepeatingEmitter, RotatingEmitter, TestEmitter } from "./Emitters/Emitter.js";
-import Bullet from "./Projectiles/Bullet.js";
-import Scene from "./Scene.js";
-import GameScene from "./Scene.js";
+import KeyEventHandler from "./KeyEventHandler.js";
 import Renderer from "./Renderer.js";
+import MainMenuScene from "./MainMenu/MainMenuScene.js";
+import IScene from "./Interfaces/IScene.js";
+import GameScene from "./GameScene.js";
 
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
@@ -39,14 +30,14 @@ export default class Game {
     static maxFps: number = 60;
     static frameInterval: number = 1000 / this.maxFps;
     static previousTimeMs: number = 0;
-    static activeScene: Scene;
+    static activeScene: IScene;
     static renderer: Renderer;
 
     // static screenBounds: ScreenBounds;
     // static player: Player;
-    private isRunning: boolean;
+    private isRunning: boolean = false;
 
-    constructor(canvas: HTMLElement) {
+    constructor(canvas?: HTMLElement) {
         Game.keyEventHandler = new KeyEventHandler();
         Game.renderer = new Renderer(document.getElementById("game"), window.innerWidth, window.innerHeight);
 
@@ -79,9 +70,13 @@ export default class Game {
 
         Game.time = 0;
         this.isRunning = true;
-        Game.activeScene = new GameScene(Game.renderer);
+        // Game.activeScene = new GameScene(Game.renderer);
+        // Game.activeScene.load();
+        Game.activeScene = new MainMenuScene(Game.renderer);
+        Game.activeScene.load();
         this.loop();
     }
+
     loop() {
         requestAnimationFrame((currentTimeMs) => {
             if(document.hasFocus() || Game.keyEventHandler.reset()) {

@@ -13,7 +13,7 @@ class Emitter {
     kill() {
         Emitter._emitterList.splice(Emitter._emitterList.indexOf(this), 1);
     }
-    update() {
+    update(scene) {
         this.trigger();
         this.kill();
     }
@@ -84,9 +84,9 @@ export class BB extends RotatingEmitter {
         b.draw = (renderer) => {
             renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
         };
-        b.update = () => {
-            b.move();
-            if (b.checkCollision(Game.activeScene.player)) {
+        b.update = (scene) => {
+            b.move(scene.sceneBounds);
+            if (b.checkCollision(scene.player)) {
                 b.kill();
             }
         };
@@ -128,8 +128,8 @@ export class CircleEmitter extends Emitter {
             b.draw = (renderer) => {
                 renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
             };
-            b.update = () => {
-                b.move();
+            b.update = (scene) => {
+                b.move(scene.sceneBounds);
                 // if(b.checkCollision(Game.player)) {
                 //     b.kill();
                 // }
@@ -172,8 +172,8 @@ export class TestEmitter extends Emitter {
         b.draw = (renderer) => {
             renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
         };
-        b.update = () => {
-            b.move();
+        b.update = (scene) => {
+            b.move(scene.sceneBounds);
             // if(b.checkCollision(Game.player)) {
             //     b.kill();
             // }

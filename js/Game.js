@@ -1,8 +1,8 @@
 var _a;
 import Sprite from "./Sprite.js";
 import KeyEventHandler from "./KeyEventHandler.js";
-import GameScene from "./Scene.js";
 import Renderer from "./Renderer.js";
+import MainMenuScene from "./MainMenu/MainMenuScene.js";
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
@@ -18,6 +18,9 @@ E:\Downloads\Shared\Desktop\kemono\241124\fernwet+twit.png
 */
 class Game {
     constructor(canvas) {
+        // static screenBounds: ScreenBounds;
+        // static player: Player;
+        this.isRunning = false;
         _a.keyEventHandler = new KeyEventHandler();
         _a.renderer = new Renderer(document.getElementById("game"), window.innerWidth, window.innerHeight);
         this.loadResources().then(() => {
@@ -44,7 +47,10 @@ class Game {
         // emitter = new Emitter(position, () => {});
         _a.time = 0;
         this.isRunning = true;
-        _a.activeScene = new GameScene(_a.renderer);
+        // Game.activeScene = new GameScene(Game.renderer);
+        // Game.activeScene.load();
+        _a.activeScene = new MainMenuScene(_a.renderer);
+        _a.activeScene.load();
         this.loop();
     }
     loop() {

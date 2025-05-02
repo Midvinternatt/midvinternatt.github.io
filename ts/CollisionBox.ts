@@ -1,11 +1,29 @@
 import { Collidable } from "./Interfaces/ICollidable.js";
+import Rectangle from "./Rectangle.js";
 
+export default class CollisionBox extends Rectangle {
+    owner: Collidable;
+
+    get x(): number {
+        return this.owner.position.x;
+    }
+    get y(): number {
+        return this.owner.position.y;
+    }
+
+    constructor(owner: Collidable, width: number, height: number) {
+        super(width, height);
+        this.owner = owner;
+    }
+}
+
+/*
 export default class CollisionBox {
     _owner: Collidable;
     _width: number;
     _height: number;
 
-    /*
+    *//*
         Potentiellt flytta till Sprite?
     _image: ImageData;
     static _offscreenCanvas: OffscreenCanvas;
@@ -17,8 +35,8 @@ export default class CollisionBox {
     static generateImageData() {
 
     }
-    */
-    constructor(owner: Collidable, image: ImageData, width: number, height: number) {
+    *//*
+    constructor(owner: Collidable, width: number, height: number) {
         this._owner = owner;
         this._width = width;
         this._height = height;
@@ -36,3 +54,4 @@ export default class CollisionBox {
 
     }
 }
+    */

@@ -7,7 +7,7 @@ export default class Entity {
         this.collisionBox = new CollisionBox(this, collisionWidth !== null && collisionWidth !== void 0 ? collisionWidth : width, collisionHeight !== null && collisionHeight !== void 0 ? collisionHeight : height);
     }
     checkCollision(target) {
-        return this.collisionBox.checkForCollision(target.collisionBox);
+        return this.collisionBox.intersects(target.collisionBox);
     }
 }
 //# sourceMappingURL=Entity.js.map

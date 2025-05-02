@@ -1,3 +1,5 @@
+import Renderer from "./Renderer.js";
+
 export enum SPRITE {
     PLAYER_SHIP,
     PLAYER_SHIP2,
@@ -27,19 +29,23 @@ interface Animation {
 }
 
 class SpriteNew {
+    private image: HTMLImageElement;
+    private width: number;
+    private height: number;
+
     constructor() {
 
     }
     addAnimation(animation: Animation) {
 
     }
-    playAnimation() {
+    playAnimation(string ) {
 
     }
-    update() {
+    update(currentGameTime: number) {
 
     }
-    draw() {
+    draw(renderer: Renderer) {
 
     }
 }

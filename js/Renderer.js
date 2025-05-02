@@ -61,8 +61,13 @@ export default class Renderer {
             this.contextList.get(layer).fillStyle = color;
         this.contextList.get(layer).fillRect(Math.floor(x), Math.floor(y), w, h);
     }
-    drawText(layer, text, x, y) {
-        this.contextList.get(layer).fillText(text, x, y);
+    drawText(layer, text, x, y, style) {
+        if (style.font)
+            this.contextList.get(layer).font = style.font;
+        if (style.color)
+            this.contextList.get(layer).fillStyle = style.color;
+        const measure = this.contextList.get(layer).measureText(text);
+        this.contextList.get(layer).fillText(text, x - measure.width / 2, y);
     }
 }
 //# sourceMappingURL=Renderer.js.map

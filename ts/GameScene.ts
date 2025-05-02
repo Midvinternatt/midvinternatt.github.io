@@ -2,42 +2,44 @@ import Debug from "./Debug.js";
 import Emitter, { BB } from "./Emitters/Emitter.js";
 import Drone from "./Enemies/Drone.js";
 import Enemy from "./Enemies/Enemy.js";
+import Entity from "./Entity.js";
 import Game from "./Game.js";
+import IScene from "./Interfaces/IScene.js";
 import { KEY } from "./KeyEventHandler.js";
 import Player from "./Player.js";
 import Projectile from "./Projectiles/Projectile.js";
 import Renderer from "./Renderer.js";
-import ScreenBounds from "./ScreenBounds.js";
+import SceneBounds from "./SceneBounds.js";
 import UserInterface from "./UserInterface.js";
 import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
 
-export interface Scene {
-    renderer: Renderer;
-    load(): void;
-    update(): void;
-    draw(): void;
-}
+export default class GameScene implements IScene {
+    readonly renderer: Renderer;
+    readonly sceneBounds: SceneBounds;
+    readonly userInterface: UserInterface;
 
-export default class GameScene implements Scene {
-    renderer: Renderer;
-    sceneBounds: ScreenBounds;
     player: Player;
-    userInterface: UserInterface;
+    readonly enemies: Array<Entity>;
+    readonly projectiles: Array<Projectile>;
 
     constructor(renderer: Renderer) {
         this.renderer = renderer;
-        this.sceneBounds = new ScreenBounds(renderer.screenWidth, renderer.screenHeight);
-        this.player = new Player(new Vector(renderer.screenWidth / 2, renderer.screenHeight / 2), 50, 50, this);
-        this.player.moveSpeed = 8;
-
-        this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
-        this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
-        new Drone(new Vector(renderer.screenWidth / 2, 100));
+        this.sceneBounds = new SceneBounds(0, 0, renderer.screenWidth, renderer.screenHeight);
         this.userInterface = new UserInterface();
-        testScene(this);
+        this.enemies = new Array<Entity>();
+        this.projectiles = new Array<Projectile>();
     }
     load() {
+        this.player = new Player(new Vector(this.sceneBounds.width / 2, this.sceneBounds.height - 50), 50, 50, this);
+        this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
+        this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
+        this.player.moveSpeed = 8;
+        
+        new Drone(new Vector(this.sceneBounds.width / 2, 100));
+        testScene(this);
+    }
+    start() {
 
     }
     update() {
@@ -45,13 +47,13 @@ export default class GameScene implements Scene {
         this.player.velocity.y = 0;
 
         if(Game.keyEventHandler.isKeyPressed(KEY.UP))
-            this.player.velocity.y = -1;
-        else if(Game.keyEventHandler.isKeyPressed(KEY.DOWN)) 
-            this.player.velocity.y = 1;
+            this.player.velocity.y -= 1;
+        if(Game.keyEventHandler.isKeyPressed(KEY.DOWN)) 
+            this.player.velocity.y += 1;
         if(Game.keyEventHandler.isKeyPressed(KEY.LEFT))
-            this.player.velocity.x = -1;
-        else if(Game.keyEventHandler.isKeyPressed(KEY.RIGHT)) 
-            this.player.velocity.x = 1;
+            this.player.velocity.x -= 1;
+        if(Game.keyEventHandler.isKeyPressed(KEY.RIGHT)) 
+            this.player.velocity.x += 1;
 
         this.player.velocity.normalize().scale(this.player.moveSpeed);
         
@@ -61,13 +63,13 @@ export default class GameScene implements Scene {
         
         this.player.update();
         Enemy.forEach(enemy => {
-            enemy.update();
+            enemy.update(this);
         });
         Projectile.forEach(projectile => {
-            projectile.update();
+            projectile.update(this);
         });
         Emitter.forEach(emitter => {
-            emitter.update();
+            emitter.update(this);
         });
         
         this.userInterface.update();
@@ -84,7 +86,11 @@ export default class GameScene implements Scene {
         Projectile.forEach(projectile => {
             projectile.draw(this.renderer);
         });
+        
         this.userInterface.draw(this.renderer);
+    }
+    unload(): void {
+        
     }
 }
 

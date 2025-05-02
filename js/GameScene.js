@@ -6,14 +6,14 @@ import Game from "./Game.js";
 import { KEY } from "./KeyEventHandler.js";
 import Player from "./Player.js";
 import Projectile from "./Projectiles/Projectile.js";
-import ScreenBounds from "./ScreenBounds.js";
+import SceneBounds from "./SceneBounds.js";
 import UserInterface from "./UserInterface.js";
 import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
 export default class GameScene {
     constructor(renderer) {
         this.renderer = renderer;
-        this.sceneBounds = new ScreenBounds(renderer.screenWidth, renderer.screenHeight);
+        this.sceneBounds = new SceneBounds(0, 0, renderer.screenWidth, renderer.screenHeight);
         this.userInterface = new UserInterface();
         this.enemies = new Array();
         this.projectiles = new Array();
@@ -45,13 +45,13 @@ export default class GameScene {
         }
         this.player.update();
         Enemy.forEach(enemy => {
-            enemy.update();
+            enemy.update(this);
         });
         Projectile.forEach(projectile => {
-            projectile.update();
+            projectile.update(this);
         });
         Emitter.forEach(emitter => {
-            emitter.update();
+            emitter.update(this);
         });
         this.userInterface.update();
         Debug(Projectile.count);
@@ -66,6 +66,8 @@ export default class GameScene {
             projectile.draw(this.renderer);
         });
         this.userInterface.draw(this.renderer);
+    }
+    unload() {
     }
 }
 function testScene(scene) {
@@ -106,4 +108,4 @@ function testScene(scene) {
         }
     }
 }
-//# sourceMappingURL=Scene.js.map
+//# sourceMappingURL=GameScene.js.map

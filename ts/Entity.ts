@@ -4,6 +4,8 @@ import CollisionBox from "./CollisionBox.js";
 import Sprite from "./Sprite.js";
 import Vector from "./Vector.js";
 import Renderer from "./Renderer.js";
+import SceneBounds from "./SceneBounds.js";
+import GameScene from "./GameScene.js";
 
 export default abstract class Entity implements IDrawable, ICollidable {
     position: Vector;
@@ -19,9 +21,9 @@ export default abstract class Entity implements IDrawable, ICollidable {
         this.collisionBox = new CollisionBox(this, collisionWidth ?? width, collisionHeight ?? height);
     }
     checkCollision(target: ICollidable): boolean {
-        return this.collisionBox.checkForCollision(target.collisionBox);
+        return this.collisionBox.intersects(target.collisionBox);
     }
-    abstract update(): void;
+    abstract update(scene: GameScene): void;
     abstract kill(): void;
     abstract draw(renderer: Renderer): void;
 }

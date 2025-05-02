@@ -4,6 +4,8 @@ import CollisionBox from "../CollisionBox.js";
 import IDrawable from "../Interfaces/IDrawable.js";
 import ICollidable from "../Interfaces/ICollidable.js";
 import Renderer, { CanvasLayer } from "../Renderer.js";
+import SceneBounds from "../SceneBounds.js";
+import GameScene from "../GameScene.js";
 
 export default abstract class Projectile implements IDrawable, ICollidable {
     private static _projectileList: Projectile[] = new Array();
@@ -25,10 +27,10 @@ export default abstract class Projectile implements IDrawable, ICollidable {
         Projectile._projectileList.push(this);
     }
     checkCollision(target: ICollidable): boolean {
-        return this.collisionBox.checkForCollision(target.collisionBox);
+        return this.collisionBox.intersects(target.collisionBox);
     }
-    abstract update(): void;
-    abstract move(): void;
+    abstract update(scene: GameScene): void;
+    abstract move(sceneBounds: SceneBounds): void;
     kill(): void {
         Projectile._projectileList.splice(Projectile._projectileList.indexOf(this), 1);
     }

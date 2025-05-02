@@ -2,15 +2,16 @@ import Enemy from "../Enemies/Enemy.js";
 import Vector from "../Vector.js";
 import Projectile from "./Projectile.js";
 import { canBeHit } from "../Interfaces/IHittable.js";
-import Game from "../Game.js";
+import GameScene from "../GameScene.js";
+import SceneBounds from "../SceneBounds.js";
 
 export default class Bullet extends Projectile {
     constructor(position: Vector, velocity: Vector, size: number) {
         super(position, size, size, size, size);
         this.velocity = velocity;
     }
-    update(): void {
-        this.move();    
+    update(scene: GameScene): void {
+        this.move(scene.sceneBounds);    
         Enemy.forEach(enemy => {
             if(this.checkCollision(enemy)) {
                 this.kill();
@@ -19,9 +20,9 @@ export default class Bullet extends Projectile {
             }
         });
     }
-    move() {
+    move(sceneBounds: SceneBounds) {
         this.position.add(this.velocity);
-        if(!Game.activeScene.sceneBounds.isVectorInbound(this.position))
+        if(!sceneBounds.containsVector(this.position))
             this.kill();
     }
 }

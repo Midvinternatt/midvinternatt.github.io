@@ -10,6 +10,97 @@
 		<script type="module">
 			import Game from "./js/Game.js";
 		</script>
+		<script>
+/*window.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 400;
+    canvas.height = 250;
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext("2d");
+    const image = new Image();
+    image.src = "sonic3_spritesheet_example.png"; // Fungerande spritesheet
+
+    const FRAME_WIDTH = 78;
+    const FRAME_HEIGHT = 78;
+    const TOTAL_FRAMES = 8;
+
+    const slowdownFactor = 1.25; // Sakta ner tiden till 25 %
+
+    const animatedSprite = {
+        x: 50,
+        frame: 0,
+        elapsedTime: 0,
+        frameDuration: 100,
+
+        update(deltaTime) {
+            this.elapsedTime += deltaTime * slowdownFactor;
+            if (this.elapsedTime >= this.frameDuration) {
+                this.elapsedTime -= this.frameDuration;
+                this.frame = (this.frame + 1) % TOTAL_FRAMES;
+            }
+        },
+
+        draw() {
+            ctx.drawImage(
+                image,
+                this.frame * FRAME_WIDTH, 0,
+                FRAME_WIDTH, FRAME_HEIGHT,
+                this.x, 50,
+                FRAME_WIDTH * 2, FRAME_HEIGHT * 2 // dubblad storlek
+            );
+            ctx.fillText("animatedSprite", this.x, 45);
+        }
+    };
+
+    const tickBasedSprite = {
+        x: 200,
+        frame: 0,
+        frameInterval: 5,
+        lastFrameTick: 0,
+        gameTime: 0,
+
+        update() {
+            this.gameTime++;
+            if (this.gameTime - this.lastFrameTick >= this.frameInterval) {
+                this.frame = (this.frame + 1) % TOTAL_FRAMES;
+                this.lastFrameTick = this.gameTime;
+            }
+        },
+
+        draw() {
+            ctx.drawImage(
+                image,
+                this.frame * FRAME_WIDTH, 0,
+                FRAME_WIDTH, FRAME_HEIGHT,
+                this.x, 50,
+                FRAME_WIDTH * 2, FRAME_HEIGHT * 2
+            );
+            ctx.fillText("tickBasedSprite", this.x, 45);
+        }
+    };
+
+    let lastTime = performance.now();
+
+    function loop(currentTime) {
+        const deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "12px monospace";
+
+        animatedSprite.update(deltaTime);
+        tickBasedSprite.update();
+
+        animatedSprite.draw();
+        tickBasedSprite.draw();
+
+        requestAnimationFrame(loop);
+    }
+
+    image.onload = () => requestAnimationFrame(loop);
+};*/
+		</script>
 		<!-- <script type="text/javascript" src="jquery-3.5.1.min.js"></script> -->
 	</head>
 	<body>

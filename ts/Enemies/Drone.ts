@@ -1,8 +1,10 @@
 import Emitter, { IWeapon } from "../Emitters/Emitter.js";
 import Game from "../Game.js";
+import GameScene from "../GameScene.js";
 import IHittable from "../Interfaces/IHittable.js";
 import Projectile from "../Projectiles/Projectile.js";
 import Renderer, { CanvasLayer } from "../Renderer.js";
+import SceneBounds from "../SceneBounds.js";
 import Sprite, { SPRITE } from "../Sprite.js";
 import Vector from "../Vector.js";
 import Enemy from "./Enemy.js";
@@ -55,14 +57,14 @@ class DroneBullet extends Projectile {
         super(position, 10, 10);
         this.velocity = velocity;
     }
-    update(): void {
-        this.move();
-        if(this.checkCollision(Game.activeScene.player))
+    update(scene: GameScene): void {
+        this.move(scene.sceneBounds);
+        if(this.checkCollision(scene.player))
             this.kill();
     }
-    move(): void {
+    move(sceneBounds: SceneBounds): void {
         this.position.add(this.velocity);
-        if(!Game.activeScene.sceneBounds.isVectorInbound(this.position))
+        if(!sceneBounds.containsVector(this.position))
             this.kill();
     }
 }

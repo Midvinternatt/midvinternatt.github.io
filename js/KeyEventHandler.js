@@ -9,8 +9,6 @@ export var KEY;
 })(KEY || (KEY = {}));
 export default class KeyEventHandler {
     constructor() {
-        // private _keyState: boolean[];
-        this.pressedKeyes = new Set();
         this.pressedKeyes = new Set();
         // this._keyState = new Array();
         window.addEventListener("keydown", this.keyEvent.bind(this));

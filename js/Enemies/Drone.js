@@ -45,14 +45,14 @@ class DroneBullet extends Projectile {
         super(position, 10, 10);
         this.velocity = velocity;
     }
-    update() {
-        this.move();
-        if (this.checkCollision(Game.activeScene.player))
+    update(scene) {
+        this.move(scene.sceneBounds);
+        if (this.checkCollision(scene.player))
             this.kill();
     }
-    move() {
+    move(sceneBounds) {
         this.position.add(this.velocity);
-        if (!Game.activeScene.sceneBounds.isVectorInbound(this.position))
+        if (!sceneBounds.containsVector(this.position))
             this.kill();
     }
 }

@@ -12,12 +12,12 @@ export default class KeyEventHandler {
     private pressedKeyes: Set<string>;
 
     constructor() {
-        this.pressedKeyes = new Set();
+        this.pressedKeyes = new Set<string>();
         // this._keyState = new Array();
         window.addEventListener("keydown", this.keyEvent.bind(this));
         window.addEventListener("keyup", this.keyEvent.bind(this));
     }
-    keyEvent(event: KeyboardEvent): void {
+    private keyEvent(event: KeyboardEvent): void {
         if(event.repeat)
             return;
         

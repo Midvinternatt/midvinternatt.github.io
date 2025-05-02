@@ -18,6 +18,21 @@ const spriteSheet = [
     { id: SPRITE.PLAYER_SHIP2, file: "ship2.png", w: 50, h: 50 },
     { id: SPRITE.DRONE, file: "1.png", w: 100, h: 100 }
 ];
+class SpriteNew {
+    constructor() {
+    }
+    addAnimation(animation) {
+    }
+    playAnimation(string) {
+    }
+    update(currentGameTime) {
+    }
+    draw(renderer) {
+    }
+}
+/*
+    Spara en collision ImageData för varje sprite
+*/
 class Sprite {
     constructor(bitmap) {
         this.bitmap = bitmap;

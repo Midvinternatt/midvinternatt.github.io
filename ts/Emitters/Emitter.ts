@@ -1,9 +1,11 @@
 import Enemy from "../Enemies/Enemy.js";
 import Game from "../Game.js";
+import GameScene from "../GameScene.js";
 import Player from "../Player.js";
 import Bullet from "../Projectiles/Bullet.js";
 import Projectile from "../Projectiles/Projectile.js";
 import Renderer, { CanvasLayer } from "../Renderer.js";
+import SceneBounds from "../SceneBounds.js";
 import Vector from "../Vector.js";
 
 export interface ICircleEmitter {
@@ -36,7 +38,7 @@ export default abstract class Emitter {
     kill(): void {
         Emitter._emitterList.splice(Emitter._emitterList.indexOf(this), 1);
     }
-    update(): void {
+    update(scene: GameScene): void {
         this.trigger();
         this.kill();
     }
@@ -116,9 +118,9 @@ export class BB extends RotatingEmitter implements ICircleEmitter {
             b.draw = (renderer: Renderer) => {
                 renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
             };
-            b.update = () => {
-                b.move();
-                if(b.checkCollision(Game.activeScene.player)) {
+            b.update = (scene: GameScene) => {
+                b.move(scene.sceneBounds);
+                if(b.checkCollision(scene.player)) {
                     
                     b.kill();
                 }
@@ -165,8 +167,8 @@ export class CircleEmitter extends Emitter implements ICircleEmitter {
             b.draw = (renderer: Renderer) => {
                 renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
             };
-            b.update = () => {
-                b.move();    
+            b.update = (scene: GameScene) => {
+                b.move(scene.sceneBounds);    
                 // if(b.checkCollision(Game.player)) {
                 //     b.kill();
                 // }
@@ -214,8 +216,8 @@ export class TestEmitter extends Emitter {
             renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
         };
         
-        b.update = () => {
-            b.move();    
+        b.update = (scene: GameScene) => {
+            b.move(scene.sceneBounds);    
             // if(b.checkCollision(Game.player)) {
             //     b.kill();
             // }

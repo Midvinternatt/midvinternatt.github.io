@@ -12,7 +12,7 @@ class Projectile {
         Projectile._projectileList.push(this);
     }
     checkCollision(target) {
-        return this.collisionBox.checkForCollision(target.collisionBox);
+        return this.collisionBox.intersects(target.collisionBox);
     }
     kill() {
         Projectile._projectileList.splice(Projectile._projectileList.indexOf(this), 1);
