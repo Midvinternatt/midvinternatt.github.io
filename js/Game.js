@@ -2,7 +2,7 @@ var _a;
 import Sprite from "./Sprite.js";
 import KeyEventHandler from "./KeyEventHandler.js";
 import Renderer from "./Renderer.js";
-import MainMenuScene from "./MainMenu/MainMenuScene.js";
+import GameScene from "./GameScene.js";
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
@@ -17,12 +17,10 @@ E:\Downloads\Shared\Desktop\kemono\250225\bae+rat+butt.png
 E:\Downloads\Shared\Desktop\kemono\241124\fernwet+twit.png
 */
 class Game {
-    constructor(canvas) {
-        // static screenBounds: ScreenBounds;
-        // static player: Player;
+    constructor(gameContainer) {
         this.isRunning = false;
         _a.keyEventHandler = new KeyEventHandler();
-        _a.renderer = new Renderer(document.getElementById("game"), window.innerWidth, window.innerHeight);
+        _a.renderer = new Renderer(gameContainer, 800, 600); //window.innerWidth, window.innerHeight);
         this.loadResources().then(() => {
             console.log("Successfully loaded sprites");
             this.start();
@@ -37,20 +35,12 @@ class Game {
         ]);
     }
     start() {
-        // let max = Game.canvas.height; // 1000;
-        // let spread = 100;
-        // for (let x = spread; x < max; x+=spread) {
-        //     for (let y = spread; y < max; y+=spread) {
-        //         new TestEmitter(new Vector(x, y), new Vector(1, 0));
-        //     }
-        // }
-        // emitter = new Emitter(position, () => {});
         _a.time = 0;
         this.isRunning = true;
-        // Game.activeScene = new GameScene(Game.renderer);
-        // Game.activeScene.load();
-        _a.activeScene = new MainMenuScene(_a.renderer);
+        _a.activeScene = new GameScene(_a.renderer);
         _a.activeScene.load();
+        // Game.activeScene = new MainMenuScene(Game.renderer);
+        // Game.activeScene.load();
         this.loop();
     }
     loop() {
@@ -74,5 +64,5 @@ Game.maxFps = 60;
 Game.frameInterval = 1000 / _a.maxFps;
 Game.previousTimeMs = 0;
 export default Game;
-new Game(document.getElementById("canvas"));
+new Game(document.getElementById("game"));
 //# sourceMappingURL=Game.js.map

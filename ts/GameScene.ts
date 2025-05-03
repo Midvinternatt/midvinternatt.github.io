@@ -25,7 +25,7 @@ export default class GameScene implements IScene {
 
     constructor(renderer: Renderer) {
         this.renderer = renderer;
-        this.sceneBounds = new SceneBounds(0, 0, renderer.screenWidth, renderer.screenHeight);
+        this.sceneBounds = new SceneBounds(0, 0, renderer.width, renderer.height);
         this.userInterface = new UserInterface();
         this.enemies = new Array<Entity>();
         this.projectiles = new Array<Projectile>();

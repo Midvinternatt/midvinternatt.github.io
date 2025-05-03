@@ -11,7 +11,7 @@ export default class MainMenuScene {
         this.selected = 0;
     }
     load() {
-        const calculateX = this.renderer.screenWidth / 2 - this.buttonWidth / 2;
+        const calculateX = this.renderer.width / 2 - this.buttonWidth / 2;
         this.buttons.push(new Button("Start", calculateX, 200, this.buttonWidth, this.buttonHeight, () => {
             this.unload();
             Game.activeScene = new GameScene(Game.renderer);

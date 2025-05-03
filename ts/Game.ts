@@ -20,11 +20,6 @@ E:\Downloads\Shared\Desktop\kemono\241124\fernwet+twit.png
 */
 
 export default class Game {
-    // static canvas: HTMLCanvasElement;
-    // private backgroundCanvas: HTMLCanvasElement;
-    // private entityCanvas: HTMLCanvasElement;
-    // private projectileCanvas: HTMLCanvasElement;
-    // private context: CanvasRenderingContext2D;
     static keyEventHandler: KeyEventHandler;
     static time: number;
     static maxFps: number = 60;
@@ -32,14 +27,11 @@ export default class Game {
     static previousTimeMs: number = 0;
     static activeScene: IScene;
     static renderer: Renderer;
-
-    // static screenBounds: ScreenBounds;
-    // static player: Player;
     private isRunning: boolean = false;
 
-    constructor(canvas?: HTMLElement) {
+    constructor(gameContainer: HTMLElement) {
         Game.keyEventHandler = new KeyEventHandler();
-        Game.renderer = new Renderer(document.getElementById("game"), window.innerWidth, window.innerHeight);
+        Game.renderer = new Renderer(gameContainer, 800, 600); //window.innerWidth, window.innerHeight);
 
         this.loadResources().then(() => {
             console.log("Successfully loaded sprites");
@@ -58,22 +50,12 @@ export default class Game {
     }
 
     start() {
-        // let max = Game.canvas.height; // 1000;
-        // let spread = 100;
-        // for (let x = spread; x < max; x+=spread) {
-        //     for (let y = spread; y < max; y+=spread) {
-        //         new TestEmitter(new Vector(x, y), new Vector(1, 0));
-        //     }
-        // }
-
-        // emitter = new Emitter(position, () => {});
-
         Game.time = 0;
         this.isRunning = true;
-        // Game.activeScene = new GameScene(Game.renderer);
-        // Game.activeScene.load();
-        Game.activeScene = new MainMenuScene(Game.renderer);
+        Game.activeScene = new GameScene(Game.renderer);
         Game.activeScene.load();
+        // Game.activeScene = new MainMenuScene(Game.renderer);
+        // Game.activeScene.load();
         this.loop();
     }
 
@@ -94,40 +76,6 @@ export default class Game {
         });
     }
 
-    // update() {
-    //     Game.time++;
-        // Game.player.velocity.x = 0;
-        // Game.player.velocity.y = 0;
-
-        // if(this._keyEventHandler.isKeyPressed(KEY.UP))
-        //     Game.player.velocity.y = -1;
-        // else if(this._keyEventHandler.isKeyPressed(KEY.DOWN)) 
-        //     Game.player.velocity.y = 1;
-        // if(this._keyEventHandler.isKeyPressed(KEY.LEFT))
-        //     Game.player.velocity.x = -1;
-        // else if(this._keyEventHandler.isKeyPressed(KEY.RIGHT)) 
-        //     Game.player.velocity.x = 1;
-
-        // Game.player.velocity.normalize().scale(Game.player.speed);
-        
-        // if(this._keyEventHandler.isKeyPressed(KEY.SHOOT)) {
-        //     Game.player.autofire();
-        // }
-
-        // Game.player.update();
-    //     Enemy.forEach(enemy => {
-    //         enemy.update();
-    //     });
-    //     Projectile.forEach(projectile => {
-    //         projectile.update();
-    //     });
-    //     Emitter.forEach(emitter => {
-    //         emitter.update();
-    //     });
-
-    //     Debug(Projectile.count);
-    // }
-
     // render() {
         // this.context.save();
         // this.context.setTransform(1, 0, 0, 1, 0, 0);
@@ -144,4 +92,4 @@ export default class Game {
     // }
 }
 
-new Game(document.getElementById("canvas"));
+new Game(document.getElementById("game"));

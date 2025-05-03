@@ -8,10 +8,10 @@ import Button from "./Button.js";
 export default class MainMenuScene implements IScene {
     renderer: Renderer;
     private buttons: Array<Button>;
-    selected: number;
+    private selected: number;
 
-    buttonWidth: number = 400;
-    buttonHeight: number = 50;
+    private buttonWidth: number = 400;
+    private buttonHeight: number = 50;
 
     constructor(renderer: Renderer) {
         this.renderer = renderer;
@@ -20,7 +20,7 @@ export default class MainMenuScene implements IScene {
     }
 
     load(): void {
-        const calculateX = this.renderer.screenWidth / 2 - this.buttonWidth / 2;
+        const calculateX = this.renderer.width / 2 - this.buttonWidth / 2;
 
         this.buttons.push(new Button("Start", calculateX, 200, this.buttonWidth, this.buttonHeight, () => {
             this.unload();

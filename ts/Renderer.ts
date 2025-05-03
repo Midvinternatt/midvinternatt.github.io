@@ -3,33 +3,61 @@ import Sprite from "./Sprite.js";
 export enum CanvasLayer {
     Background,
     Entities,
+    Menu,
     Projectiles,
     UserInterface
 }
 
 export default class Renderer {
     private gameContainer: HTMLElement;
-    screenWidth: number;
-    screenHeight: number;
+    private _width: number;
+    private _height: number;
     private canvasList: Map<CanvasLayer, HTMLCanvasElement>;
     private contextList: Map<CanvasLayer, CanvasRenderingContext2D>;
+
+    get width() {
+        return this._width;
+    }
+    get height() {
+        return this._height;
+    }
 
     constructor(gameContainer: HTMLElement, width: number, height: number) {
         while(gameContainer.firstElementChild) { gameContainer.firstElementChild.remove(); }
         
-        gameContainer.style.width = width.toString(); // Ta bort senare
-        gameContainer.style.height = height.toString(); // Ta bort senare
+        gameContainer.style.width = width.toString() + "px"; // Ta bort senare
+        gameContainer.style.height = height.toString() + "px"; // Ta bort senare
 
         this.gameContainer = gameContainer;
-        this.screenWidth = width;
-        this.screenHeight = height;
+        this._width = width;
+        this._height = height;
         this.canvasList = new Map<CanvasLayer, HTMLCanvasElement>();
         this.contextList = new Map<CanvasLayer, CanvasRenderingContext2D>();
 
+        function addLayer(renderer: Renderer, layer: CanvasLayer, options?: CanvasRenderingContext2DSettings) {
+            let canvas = document.createElement("canvas");
+                // canvas.style.background = "#000";
+                canvas.width = renderer._width;
+                canvas.height = renderer._height;
+                canvas.style.width = "${renderer._width}px";
+                canvas.style.height = "${renderer._height}px";
+            let context = canvas.getContext("2d", options);
+                context.imageSmoothingEnabled = false;
+            renderer.canvasList.set(layer, canvas);
+            renderer.contextList.set(layer, context);
+            renderer.gameContainer.appendChild(canvas);
+
+            context.fillStyle = "#fff";
+        }
+
+        addLayer(this, CanvasLayer.Entities, { alpha: true });
+        addLayer(this, CanvasLayer.Projectiles, { alpha: true });
+
+        /*
         let canvas = document.createElement("canvas");
             canvas.style.background = "#000";
-            canvas.width = this.screenWidth;
-            canvas.height = this.screenHeight;
+            canvas.width = width;
+            canvas.height = height;
         let context = canvas.getContext("2d");
             context.imageSmoothingEnabled = false;
         this.canvasList.set(CanvasLayer.Entities, canvas);
@@ -37,8 +65,9 @@ export default class Renderer {
         this.canvasList.set(CanvasLayer.Projectiles, canvas); // Skapa egna till dessa
         this.contextList.set(CanvasLayer.Projectiles, context); // Skapa egna till dessa
         this.gameContainer.appendChild(canvas);
+        */
 
-        context.fillStyle = "#fff"; // Ta bort senare
+        // context.fillStyle = "#fff"; // Ta bort senare
         
         // Scene.BackgroundContext = Scene.BackgroundCanvas.getContext("2d", { alpha: false });
         // this.entityContext = this.entityCanvas.getContext("2d"); // , { willreadfrequently: true }
@@ -52,6 +81,9 @@ export default class Renderer {
         //     Game.canvas.width = window.innerWidth;
         // });
     }
+    addCanvasLayer(layer: CanvasLayer, imageSmoothingEnabled: boolean = false) {
+    }
+
     clearCanvas() {
         this.canvasList.forEach((canvas, layer) => {
             this.contextList.get(layer).clearRect(0, 0, canvas.width, canvas.height);

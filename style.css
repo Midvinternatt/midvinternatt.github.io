@@ -10,7 +10,12 @@
 html, body {
     margin: 0 !important;
     padding: 0 !important;
-    overflow: hidden;
+    height: 100%;
+    /* overflow: hidden; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(60, 52, 52);
 }
 
 /* canvas { */
@@ -21,7 +26,14 @@ html, body {
 /* } */
 
 #game {
-    height: 100vh;
+    /* height: 100vh; */
+    /* display: inline; */
+    
+    background: black;
+    /* position: relative; */
+}
+canvas {
+    position: absolute;
 }
 
 #debug {

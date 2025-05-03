@@ -82,7 +82,7 @@ export class BB extends RotatingEmitter {
         // console.log("hite");
         let b = new Bullet(this.position.copy(), this.direction.copy(), 8);
         b.draw = (renderer) => {
-            renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
+            renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
         };
         b.update = (scene) => {
             b.move(scene.sceneBounds);
@@ -126,7 +126,7 @@ export class CircleEmitter extends Emitter {
         for (let i = 0; i < this.count; i++) {
             let b = new Bullet(this.position.copy(), angle.copy(), 8);
             b.draw = (renderer) => {
-                renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
+                renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
             };
             b.update = (scene) => {
                 b.move(scene.sceneBounds);
@@ -170,7 +170,7 @@ export class TestEmitter extends Emitter {
             return;
         let b = new Bullet(this.position.copy(), this.direction.copy(), 8);
         b.draw = (renderer) => {
-            renderer.drawRect(CanvasLayer.Entities, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
+            renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
         };
         b.update = (scene) => {
             b.move(scene.sceneBounds);
