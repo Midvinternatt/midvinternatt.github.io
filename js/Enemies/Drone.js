@@ -55,5 +55,8 @@ class DroneBullet extends Projectile {
         if (!sceneBounds.containsVector(this.position))
             this.kill();
     }
+    draw(renderer) {
+        renderer.drawRect(CanvasLayer.Projectiles, this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
+    }
 }
 //# sourceMappingURL=Drone.js.map

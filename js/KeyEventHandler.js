@@ -9,22 +9,26 @@ export var KEY;
 })(KEY || (KEY = {}));
 export default class KeyEventHandler {
     constructor() {
-        this.pressedKeyes = new Set();
-        // this._keyState = new Array();
+        this._pressedKeyes = new Set();
         window.addEventListener("keydown", this.keyEvent.bind(this));
         window.addEventListener("keyup", this.keyEvent.bind(this));
+    }
+    isKeyPressed(key) {
+        return this._pressedKeyes.has(key);
+    }
+    /**
+     * Releases all pressed keys
+     */
+    reset() {
+        this._pressedKeyes.clear();
     }
     keyEvent(event) {
         if (event.repeat)
             return;
-        (event.type == "keydown") ? this.pressedKeyes.add(event.key) : this.pressedKeyes.delete(event.key);
-        // this._keyState[event.key] = (event.type == "keydown");
-    }
-    isKeyPressed(key) {
-        return this.pressedKeyes.has(key);
-    }
-    reset() {
-        this.pressedKeyes.clear();
+        if (event.type == "keydown")
+            this._pressedKeyes.add(event.key);
+        else
+            this._pressedKeyes.delete(event.key);
     }
 }
 //# sourceMappingURL=KeyEventHandler.js.map

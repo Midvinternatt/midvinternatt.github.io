@@ -4,6 +4,7 @@ import Projectile from "./Projectile.js";
 import { canBeHit } from "../Interfaces/IHittable.js";
 import GameScene from "../GameScene.js";
 import SceneBounds from "../SceneBounds.js";
+import Renderer, { CanvasLayer } from "../Renderer.js";
 
 export default class Bullet extends Projectile {
     constructor(position: Vector, velocity: Vector, size: number) {
@@ -24,5 +25,8 @@ export default class Bullet extends Projectile {
         this.position.add(this.velocity);
         if(!sceneBounds.containsVector(this.position))
             this.kill();
+    }
+    draw(renderer: Renderer) {
+        renderer.drawRect(CanvasLayer.Projectiles, this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
     }
 }

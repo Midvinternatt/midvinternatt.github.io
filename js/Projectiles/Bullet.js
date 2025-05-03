@@ -1,6 +1,7 @@
 import Enemy from "../Enemies/Enemy.js";
 import Projectile from "./Projectile.js";
 import { canBeHit } from "../Interfaces/IHittable.js";
+import { CanvasLayer } from "../Renderer.js";
 export default class Bullet extends Projectile {
     constructor(position, velocity, size) {
         super(position, size, size, size, size);
@@ -20,6 +21,9 @@ export default class Bullet extends Projectile {
         this.position.add(this.velocity);
         if (!sceneBounds.containsVector(this.position))
             this.kill();
+    }
+    draw(renderer) {
+        renderer.drawRect(CanvasLayer.Projectiles, this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
     }
 }
 //# sourceMappingURL=Bullet.js.map

@@ -1,15 +1,24 @@
 import Rectangle from "./Rectangle.js";
 export default class SceneBounds extends Rectangle {
+    /**
+     * Creates a new object centered at screen-coordinates (x, y)
+     */
     constructor(x, y, width, height) {
         super(width, height);
         this.x = x;
         this.y = y;
+        this.left = this.x - (this.width / 2) | 0;
+        this.right = this.x + (this.width / 2) | 0;
+        this.top = this.y - (this.height / 2) | 0;
+        this.bottom = this.y + (this.height / 2) | 0;
     }
     containsVector(vector) {
-        return (0 < vector.x && vector.x < this.width) && (0 < vector.y && vector.y < this.height);
+        return (this.left <= vector.x && vector.x <= this.right &&
+            this.top <= vector.y && vector.y <= this.bottom);
     }
     containsCoordinate(x, y) {
-        return (0 < x && x < this.width) && (0 < y && y < this.height);
+        return (this.left <= x && x <= this.right &&
+            this.top <= y && y <= this.bottom);
     }
 }
 /*

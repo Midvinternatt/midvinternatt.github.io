@@ -10,6 +10,9 @@ export default abstract class Rectangle {
         this.height = height;
     }
 
+    /**
+     * Returns true if this completely encompasses the passed rectangle
+     */
     contains(other: Rectangle): boolean {
         return (
             other.x >= this.x &&
@@ -19,7 +22,10 @@ export default abstract class Rectangle {
         );
     }
 
-    intersects(other: Rectangle) {
+    /**
+     * Returns true if this and the passed rectangle overlap at any point
+     */
+    intersects(other: Rectangle): boolean {
         return (
             (this.x - this.width / 2) < (other.x + other.width / 2) &&
             (this.x + this.width / 2) > (other.x - other.width / 2) &&

@@ -1,10 +1,6 @@
 import Entity from "../Entity.js";
 import Vector from "../Vector.js";
 
-interface IHitable {
-    hit(): void;
-}
-
 export default abstract class Enemy extends Entity {
     private static _enemyList: Enemy[] = new Array();
 

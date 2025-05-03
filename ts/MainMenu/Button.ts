@@ -1,34 +1,34 @@
 import Renderer, { CanvasLayer } from "../Renderer.js";
 
 export default class Button {
-    private text: string;
-    private x: number;
-    private y: number;
-    private width: number;
-    private height: number;
+    private _x: number;
+    private _y: number;
+    private _width: number;
+    private _height: number;
 
+    text: string;
     selected: boolean;
-    trigger: Function;
+    readonly trigger: () => void;
     // private sprite;
 
-    constructor(text: string, x: number, y: number, width: number, height: number, triggerCallback: Function) {
+    constructor(text: string, x: number, y: number, width: number, height: number, triggerCallback: () => void) {
         this.text = text;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        this._x = x;
+        this._y = y;
+        this._width = width;
+        this._height = height;
         this.selected = false;
         this.trigger = triggerCallback;
     }
 
     draw(renderer: Renderer) {
         if(this.selected) {
-            renderer.drawRect(CanvasLayer.Entities, this.x, this.y, this.width, this.height, "#fff");
-            renderer.drawText(CanvasLayer.Entities, this.text, this.x + this.width / 2, this.y + this.height / 2 + 10, {font: "bold 40px Courier New", color: "#f00"});
+            renderer.drawRect(CanvasLayer.Entities, this._x, this._y, this._width, this._height, "#fff");
+            renderer.drawText(CanvasLayer.Entities, this.text, this._x + this._width / 2, this._y + this._height / 2 + 10, {font: "bold 40px Courier New", color: "#f00"});
         }
         else {
-            renderer.drawRect(CanvasLayer.Entities, this.x, this.y, this.width, this.height, "#666");
-            renderer.drawText(CanvasLayer.Entities, this.text, this.x + this.width / 2, this.y + this.height / 2 + 10, {font: "bold 40px Courier New", color: "#600"});
+            renderer.drawRect(CanvasLayer.Entities, this._x, this._y, this._width, this._height, "#666");
+            renderer.drawText(CanvasLayer.Entities, this.text, this._x + this._width / 2, this._y + this._height / 2 + 10, {font: "bold 40px Courier New", color: "#600"});
         }
     }
 }

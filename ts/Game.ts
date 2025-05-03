@@ -10,13 +10,6 @@ import GameScene from "./GameScene.js";
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
     Optimering: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
                 https://hacks.mozilla.org/2013/05/optimizing-your-javascript-game-for-firefox-os/
-
-E:\Downloads\Shared\Desktop\gelbooru\f588c1d6cdbc67168698e6571edea55b.jpg
-E:\Downloads\Shared\Desktop\gelbooru\6e78f16ebfb7b8691e023d8949bf25d5.jpg
-E:\Downloads\Shared\Desktop\gelbooru\ea8985e53cb13ebdd1cf50f987b362ed.jpg
-E:\Downloads\Shared\Desktop\kemono\241124\ちさたき+(2).png
-E:\Downloads\Shared\Desktop\kemono\250225\bae+rat+butt.png
-E:\Downloads\Shared\Desktop\kemono\241124\fernwet+twit.png
 */
 
 export default class Game {
@@ -31,14 +24,14 @@ export default class Game {
 
     constructor(gameContainer: HTMLElement) {
         Game.keyEventHandler = new KeyEventHandler();
-        Game.renderer = new Renderer(gameContainer, 800, 600); //window.innerWidth, window.innerHeight);
+        Game.renderer = new Renderer(gameContainer, window.innerWidth, window.innerHeight);
+        // Game.renderer = new Renderer(gameContainer, 800, 600);
 
         this.loadResources().then(() => {
             console.log("Successfully loaded sprites");
             this.start();
         }, () => {
             console.log("Failed to load sprites");
-            
         });
     }
 
@@ -52,10 +45,10 @@ export default class Game {
     start() {
         Game.time = 0;
         this.isRunning = true;
-        Game.activeScene = new GameScene(Game.renderer);
-        Game.activeScene.load();
         // Game.activeScene = new MainMenuScene(Game.renderer);
         // Game.activeScene.load();
+        Game.activeScene = new GameScene(Game.renderer);
+        Game.activeScene.load();
         this.loop();
     }
 

@@ -1,10 +1,16 @@
 export default class Vector {
     static nullVector: Vector = new Vector(0, 0);
 
+    x: number;
+    y: number;
+
     /**
      * Creates a new two-dimensional vector
      */
-    constructor(public x: number, public y: number) { }
+    constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+    }
     
     get length(): number {
         return Math.sqrt(this.x * this.x + this.y * this.y);
@@ -12,15 +18,18 @@ export default class Vector {
     get angle(): number {
         return Math.atan2(this.y, this.x);
     }
-    set angle(newValue: number) {
-        this.x = Math.cos(newValue);
-        this.y = Math.sin(newValue);
-    }
+    // set angle(newValue: number) {
+    //     this.x = Math.cos(newValue);
+    //     this.y = Math.sin(newValue);
+    // }
 
     setAngle(angle: number, length?: number): Vector {
         this.x = Math.cos(angle) * (length ?? 1);
         this.y = Math.sin(angle) * (length ?? 1);
         return this;
+    }
+    setLength(length: number) {
+
     }
     scale(scaleValue: number): Vector {
         this.x *= scaleValue;
@@ -33,27 +42,27 @@ export default class Vector {
         this.y = this.y / l || 0;
         return this;
     }
-    add(otherVector: Vector): Vector {
-        this.x += otherVector.x;
-        this.y += otherVector.y;
+    add(other: Vector): Vector {
+        this.x += other.x;
+        this.y += other.y;
         return this;
     }
-    subtract(otherVector: Vector): Vector {
-        this.x -= otherVector.x;
-        this.y -= otherVector.y;
+    subtract(other: Vector): Vector {
+        this.x -= other.x;
+        this.y -= other.y;
         return this;
     }
-    dot(otherVector: Vector): Vector {
-        this.x *= otherVector.x;
-        this.y *= otherVector.y;
+    dot(other: Vector): Vector {
+        this.x *= other.x;
+        this.y *= other.y;
         return this;
     }
     
     /**
-     * Returns true if this vectors data matches passed vector
+     * Returns true if this vectors data matches the passed vector
      */
-    equals(otherVector: Vector): boolean {
-        return this.x === otherVector.x && this.y === otherVector.y
+    equals(other: Vector): boolean {
+        return this.x === other.x && this.y === other.y
     }
     /**
      * Creates a new Vector object with the same data as this vector
@@ -64,9 +73,9 @@ export default class Vector {
     /**
      * Replicates the data of this vector onto the passed vector
      */
-    replicate(otherVector: Vector): Vector {
-        otherVector.x = this.x;
-        otherVector.y = this.y;
-        return otherVector;
+    replicate(other: Vector): Vector {
+        other.x = this.x;
+        other.y = this.y;
+        return other;
     }
 }

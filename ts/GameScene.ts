@@ -25,13 +25,13 @@ export default class GameScene implements IScene {
 
     constructor(renderer: Renderer) {
         this.renderer = renderer;
-        this.sceneBounds = new SceneBounds(0, 0, renderer.width, renderer.height);
+        this.sceneBounds = new SceneBounds(renderer.width / 2, renderer.height / 2, renderer.width, renderer.height);
         this.userInterface = new UserInterface();
         this.enemies = new Array<Entity>();
         this.projectiles = new Array<Projectile>();
     }
     load() {
-        this.player = new Player(new Vector(this.sceneBounds.width / 2, this.sceneBounds.height - 50), 50, 50, this);
+        this.player = new Player(new Vector(this.sceneBounds.width / 2, this.sceneBounds.height - 50), 50, 50);
         this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
         this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
         this.player.moveSpeed = 8;
@@ -61,7 +61,7 @@ export default class GameScene implements IScene {
             this.player.autofire();
         }
         
-        this.player.update();
+        this.player.update(this);
         Enemy.forEach(enemy => {
             enemy.update(this);
         });
@@ -69,12 +69,13 @@ export default class GameScene implements IScene {
             projectile.update(this);
         });
         Emitter.forEach(emitter => {
-            emitter.update(this);
+            emitter.update(this); 
         });
         
         this.userInterface.update();
 
-        Debug(Projectile.count);
+        Debug(`Projectiles: ${Projectile.count}`);
+        // Debug(`X: ${Math.floor(this.player.position.x)} Y: ${Math.floor(this.player.position.y)}`);
     }
     draw() {
         this.renderer.clearCanvas();

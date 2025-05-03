@@ -1,5 +1,6 @@
 import CollisionBox from "./CollisionBox.js";
 export default class Entity {
+    // sprite: Sprite;
     constructor(position, width, height, collisionWidth, collisionHeight) {
         this.position = position;
         this.width = width;

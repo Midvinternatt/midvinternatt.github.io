@@ -3,12 +3,18 @@ export default class Rectangle {
         this.width = width;
         this.height = height;
     }
+    /**
+     * Returns true if this completely encompasses the passed rectangle
+     */
     contains(other) {
         return (other.x >= this.x &&
             other.y >= this.y &&
             (other.x + other.width) <= (this.x + this.width) &&
             (other.y + other.height) <= (this.y + this.height));
     }
+    /**
+     * Returns true if this and the passed rectangle overlap at any point
+     */
     intersects(other) {
         return ((this.x - this.width / 2) < (other.x + other.width / 2) &&
             (this.x + this.width / 2) > (other.x - other.width / 2) &&

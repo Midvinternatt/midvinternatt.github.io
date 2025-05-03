@@ -13,13 +13,13 @@ import Railgun from "./Weapons/RailGun.js";
 export default class GameScene {
     constructor(renderer) {
         this.renderer = renderer;
-        this.sceneBounds = new SceneBounds(0, 0, renderer.width, renderer.height);
+        this.sceneBounds = new SceneBounds(renderer.width / 2, renderer.height / 2, renderer.width, renderer.height);
         this.userInterface = new UserInterface();
         this.enemies = new Array();
         this.projectiles = new Array();
     }
     load() {
-        this.player = new Player(new Vector(this.sceneBounds.width / 2, this.sceneBounds.height - 50), 50, 50, this);
+        this.player = new Player(new Vector(this.sceneBounds.width / 2, this.sceneBounds.height - 50), 50, 50);
         this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
         this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
         this.player.moveSpeed = 8;
@@ -43,7 +43,7 @@ export default class GameScene {
         if (Game.keyEventHandler.isKeyPressed(KEY.SHOOT)) {
             this.player.autofire();
         }
-        this.player.update();
+        this.player.update(this);
         Enemy.forEach(enemy => {
             enemy.update(this);
         });
@@ -54,7 +54,8 @@ export default class GameScene {
             emitter.update(this);
         });
         this.userInterface.update();
-        Debug(Projectile.count);
+        Debug(`Projectiles: ${Projectile.count}`);
+        // Debug(`X: ${Math.floor(this.player.position.x)} Y: ${Math.floor(this.player.position.y)}`);
     }
     draw() {
         this.renderer.clearCanvas();

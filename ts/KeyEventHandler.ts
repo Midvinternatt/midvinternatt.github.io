@@ -8,26 +8,31 @@ export enum KEY {
 }
 
 export default class KeyEventHandler {
-    // private _keyState: boolean[];
-    private pressedKeyes: Set<string>;
+    private _pressedKeyes: Set<string>;
 
     constructor() {
-        this.pressedKeyes = new Set<string>();
-        // this._keyState = new Array();
+        this._pressedKeyes = new Set<string>();
         window.addEventListener("keydown", this.keyEvent.bind(this));
         window.addEventListener("keyup", this.keyEvent.bind(this));
     }
-    private keyEvent(event: KeyboardEvent): void {
+    
+    isKeyPressed(key: KEY): boolean {
+        return this._pressedKeyes.has(key);
+    }
+    /**
+     * Releases all pressed keys
+     */
+    reset() {
+        this._pressedKeyes.clear();
+    }
+
+    private keyEvent(event: KeyboardEvent) {
         if(event.repeat)
             return;
         
-        (event.type == "keydown") ? this.pressedKeyes.add(event.key) : this.pressedKeyes.delete(event.key);
-        // this._keyState[event.key] = (event.type == "keydown");
-    }
-    isKeyPressed(key: KEY) {
-        return this.pressedKeyes.has(key);
-    }
-    reset() {
-        this.pressedKeyes.clear();
+        if(event.type == "keydown")
+            this._pressedKeyes.add(event.key);
+        else
+            this._pressedKeyes.delete(event.key);
     }
 }

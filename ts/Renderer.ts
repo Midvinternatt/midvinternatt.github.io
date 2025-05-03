@@ -9,11 +9,11 @@ export enum CanvasLayer {
 }
 
 export default class Renderer {
-    private gameContainer: HTMLElement;
+    private _gameContainer: HTMLElement;
     private _width: number;
     private _height: number;
-    private canvasList: Map<CanvasLayer, HTMLCanvasElement>;
-    private contextList: Map<CanvasLayer, CanvasRenderingContext2D>;
+    private _canvasList: Map<CanvasLayer, HTMLCanvasElement>;
+    private _contextList: Map<CanvasLayer, CanvasRenderingContext2D>;
 
     get width() {
         return this._width;
@@ -25,27 +25,25 @@ export default class Renderer {
     constructor(gameContainer: HTMLElement, width: number, height: number) {
         while(gameContainer.firstElementChild) { gameContainer.firstElementChild.remove(); }
         
-        gameContainer.style.width = width.toString() + "px"; // Ta bort senare
-        gameContainer.style.height = height.toString() + "px"; // Ta bort senare
-
-        this.gameContainer = gameContainer;
+        this._gameContainer = gameContainer;
+        this._gameContainer.style.width = `${width}px`;
+        this._gameContainer.style.height = `${height}px`;
         this._width = width;
         this._height = height;
-        this.canvasList = new Map<CanvasLayer, HTMLCanvasElement>();
-        this.contextList = new Map<CanvasLayer, CanvasRenderingContext2D>();
+        this._canvasList = new Map<CanvasLayer, HTMLCanvasElement>();
+        this._contextList = new Map<CanvasLayer, CanvasRenderingContext2D>();
 
         function addLayer(renderer: Renderer, layer: CanvasLayer, options?: CanvasRenderingContext2DSettings) {
-            let canvas = document.createElement("canvas");
-                // canvas.style.background = "#000";
+            const canvas = document.createElement("canvas");
                 canvas.width = renderer._width;
                 canvas.height = renderer._height;
-                canvas.style.width = "${renderer._width}px";
-                canvas.style.height = "${renderer._height}px";
-            let context = canvas.getContext("2d", options);
+                // canvas.style.width = "${renderer._width}px";
+                // canvas.style.height = "${renderer._height}px";
+            const context = canvas.getContext("2d", options);
                 context.imageSmoothingEnabled = false;
-            renderer.canvasList.set(layer, canvas);
-            renderer.contextList.set(layer, context);
-            renderer.gameContainer.appendChild(canvas);
+            renderer._canvasList.set(layer, canvas);
+            renderer._contextList.set(layer, context);
+            renderer._gameContainer.appendChild(canvas);
 
             context.fillStyle = "#fff";
         }
@@ -81,12 +79,10 @@ export default class Renderer {
         //     Game.canvas.width = window.innerWidth;
         // });
     }
-    addCanvasLayer(layer: CanvasLayer, imageSmoothingEnabled: boolean = false) {
-    }
 
     clearCanvas() {
-        this.canvasList.forEach((canvas, layer) => {
-            this.contextList.get(layer).clearRect(0, 0, canvas.width, canvas.height);
+        this._canvasList.forEach((canvas, layer) => {
+            this._contextList.get(layer).clearRect(0, 0, canvas.width, canvas.height);
         });
         // this.backgroundContext.clearRect(0, 0, this.backgroundCanvas.width, this.backgroundCanvas.height);
         // this.projectileContext.clearRect(0, 0, this.projectileCanvas.width, this.projectileCanvas.height);
@@ -102,19 +98,19 @@ export default class Renderer {
 
     }
 
-    drawImage(layer: CanvasLayer, image: CanvasImageSource, dx: number, dy: number) {
-        this.contextList.get(layer).drawImage(image, dx, dy);
+    drawImage(layer: CanvasLayer, image: CanvasImageSource, x: number, y: number) {
+        this._contextList.get(layer).drawImage(image, x|0, y|0);
     }
 
     drawRect(layer: CanvasLayer, x: number, y: number, w: number, h: number, color?: string) {
-        if(color) this.contextList.get(layer).fillStyle = color;
-        this.contextList.get(layer).fillRect(Math.floor(x), Math.floor(y), w, h);
+        if(color) this._contextList.get(layer).fillStyle = color;
+        this._contextList.get(layer).fillRect(x|0, y|0, w|0, h|0);
     }
 
     drawText(layer: CanvasLayer, text: string, x: number, y: number, style?: {font: string, color: string}) {
-        if(style.font) this.contextList.get(layer).font = style.font;
-        if(style.color) this.contextList.get(layer).fillStyle = style.color;
-        const measure = this.contextList.get(layer).measureText(text);
-        this.contextList.get(layer).fillText(text, x - measure.width / 2, y);
+        if(style.font) this._contextList.get(layer).font = style.font;
+        if(style.color) this._contextList.get(layer).fillStyle = style.color;
+        const measure = this._contextList.get(layer).measureText(text);
+        this._contextList.get(layer).fillText(text, x - measure.width / 2, y);
     }
 }

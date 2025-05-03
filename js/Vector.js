@@ -12,14 +12,16 @@ class Vector {
     get angle() {
         return Math.atan2(this.y, this.x);
     }
-    set angle(newValue) {
-        this.x = Math.cos(newValue);
-        this.y = Math.sin(newValue);
-    }
+    // set angle(newValue: number) {
+    //     this.x = Math.cos(newValue);
+    //     this.y = Math.sin(newValue);
+    // }
     setAngle(angle, length) {
         this.x = Math.cos(angle) * (length !== null && length !== void 0 ? length : 1);
         this.y = Math.sin(angle) * (length !== null && length !== void 0 ? length : 1);
         return this;
+    }
+    setLength(length) {
     }
     scale(scaleValue) {
         this.x *= scaleValue;
@@ -32,26 +34,26 @@ class Vector {
         this.y = this.y / l || 0;
         return this;
     }
-    add(otherVector) {
-        this.x += otherVector.x;
-        this.y += otherVector.y;
+    add(other) {
+        this.x += other.x;
+        this.y += other.y;
         return this;
     }
-    subtract(otherVector) {
-        this.x -= otherVector.x;
-        this.y -= otherVector.y;
+    subtract(other) {
+        this.x -= other.x;
+        this.y -= other.y;
         return this;
     }
-    dot(otherVector) {
-        this.x *= otherVector.x;
-        this.y *= otherVector.y;
+    dot(other) {
+        this.x *= other.x;
+        this.y *= other.y;
         return this;
     }
     /**
-     * Returns true if this vectors data matches passed vector
+     * Returns true if this vectors data matches the passed vector
      */
-    equals(otherVector) {
-        return this.x === otherVector.x && this.y === otherVector.y;
+    equals(other) {
+        return this.x === other.x && this.y === other.y;
     }
     /**
      * Creates a new Vector object with the same data as this vector
@@ -62,10 +64,10 @@ class Vector {
     /**
      * Replicates the data of this vector onto the passed vector
      */
-    replicate(otherVector) {
-        otherVector.x = this.x;
-        otherVector.y = this.y;
-        return otherVector;
+    replicate(other) {
+        other.x = this.x;
+        other.y = this.y;
+        return other;
     }
 }
 Vector.nullVector = new Vector(0, 0);

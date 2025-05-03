@@ -12,6 +12,7 @@ import Enemy from "./Enemy.js";
 export default class Drone extends Enemy implements IHittable {
     velocity: Vector;
     weapon: DroneEmitter;
+    sprite: Sprite;
 
     constructor(position: Vector) {
         super(position, 100, 100);
@@ -66,5 +67,8 @@ class DroneBullet extends Projectile {
         this.position.add(this.velocity);
         if(!sceneBounds.containsVector(this.position))
             this.kill();
+    }
+    draw(renderer: Renderer) {
+        renderer.drawRect(CanvasLayer.Projectiles, this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
     }
 }
