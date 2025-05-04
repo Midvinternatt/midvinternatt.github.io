@@ -1,11 +1,11 @@
-import ICollidable from "./Interfaces/ICollidable.js";
-import IDrawable from "./Interfaces/IDrawable.js";
-import CollisionBox from "./CollisionBox.js";
-import Sprite from "./Sprite.js";
-import Vector from "./Vector.js";
-import Renderer from "./Renderer.js";
-import SceneBounds from "./SceneBounds.js";
-import GameScene from "./GameScene.js";
+import ICollidable from "./../Interfaces/ICollidable.js";
+import IDrawable from "./../Interfaces/IDrawable.js";
+import CollisionBox from "./../CollisionBox.js";
+import Sprite from "./../Sprite.js";
+import Vector from "./../Vector.js";
+import Renderer from "./../Renderer.js";
+import SceneBounds from "./../SceneBounds.js";
+import GameScene from "./../GameScene.js";
 
 export default abstract class Entity implements IDrawable, ICollidable {
     position: Vector;

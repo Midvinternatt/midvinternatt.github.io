@@ -1,6 +1,6 @@
 import Game from "../Game.js";
 import Vector from "../Vector.js";
-import Player from "../Player.js";
+import Player from "../Entities/Player.js";
 
 export default abstract class Weapon {
     owner: Player;

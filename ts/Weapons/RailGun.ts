@@ -2,7 +2,7 @@ import Bullet from "../Projectiles/Bullet.js";
 import Vector from "../Vector.js";
 import Weapon from "./Weapon.js";
 import GAMEDATA from "../Config.js";
-import Player from "../Player.js";
+import Player from "../Entities/Player.js";
 import Game from "../Game.js";
 
 export default class Railgun extends Weapon {

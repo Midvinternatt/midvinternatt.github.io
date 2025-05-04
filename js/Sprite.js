@@ -11,11 +11,15 @@ export var SPRITE;
 (function (SPRITE) {
     SPRITE[SPRITE["PLAYER_SHIP"] = 0] = "PLAYER_SHIP";
     SPRITE[SPRITE["PLAYER_SHIP2"] = 1] = "PLAYER_SHIP2";
-    SPRITE[SPRITE["DRONE"] = 2] = "DRONE";
+    SPRITE[SPRITE["PLAYER_SHIP3"] = 2] = "PLAYER_SHIP3";
+    SPRITE[SPRITE["PLAYER_SHIP4"] = 3] = "PLAYER_SHIP4";
+    SPRITE[SPRITE["DRONE"] = 4] = "DRONE";
 })(SPRITE || (SPRITE = {}));
 const spriteSheet = [
-    { id: SPRITE.PLAYER_SHIP, file: "ship.png", w: 50, h: 50 },
-    { id: SPRITE.PLAYER_SHIP2, file: "ship2.png", w: 50, h: 50 },
+    { id: SPRITE.PLAYER_SHIP, file: "ship11.png", w: 64, h: 64 },
+    { id: SPRITE.PLAYER_SHIP2, file: "ship22.png", w: 64, h: 64 },
+    { id: SPRITE.PLAYER_SHIP3, file: "ship33.png", w: 64, h: 64 },
+    { id: SPRITE.PLAYER_SHIP4, file: "ship44.png", w: 64, h: 64 },
     { id: SPRITE.DRONE, file: "1.png", w: 100, h: 100 }
 ];
 class SpriteNew {

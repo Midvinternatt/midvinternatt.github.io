@@ -1,12 +1,12 @@
-import Emitter, { IWeapon } from "../Emitters/Emitter.js";
-import Game from "../Game.js";
-import GameScene from "../GameScene.js";
-import IHittable from "../Interfaces/IHittable.js";
-import Projectile from "../Projectiles/Projectile.js";
-import Renderer, { CanvasLayer } from "../Renderer.js";
-import SceneBounds from "../SceneBounds.js";
-import Sprite, { SPRITE } from "../Sprite.js";
-import Vector from "../Vector.js";
+import Emitter, { IWeapon } from "../../Emitters/Emitter.js";
+import Game from "../../Game.js";
+import GameScene from "../../GameScene.js";
+import IHittable from "../../Interfaces/IHittable.js";
+import Projectile from "../../Projectiles/Projectile.js";
+import Renderer, { CanvasLayer } from "../../Renderer.js";
+import SceneBounds from "../../SceneBounds.js";
+import Sprite, { SPRITE } from "../../Sprite.js";
+import Vector from "../../Vector.js";
 import Enemy from "./Enemy.js";
 
 export default class Drone extends Enemy implements IHittable {

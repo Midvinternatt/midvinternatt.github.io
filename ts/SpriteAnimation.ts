@@ -23,7 +23,7 @@ export default class SpriteAnimation {
         if(this.tick > this.frameRate) {
             this.currentFrame++;
             this.tick = 0;
-            if(this.currentFrame > 1)
+            if(this.currentFrame > 3)
                 this.currentFrame = 0;
         }
 

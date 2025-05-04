@@ -1,7 +1,7 @@
-import Enemy from "../Enemies/Enemy.js";
+import Enemy from "../Entities/Enemies/Enemy.js";
 import Game from "../Game.js";
 import GameScene from "../GameScene.js";
-import Player from "../Player.js";
+import Player from "../Entities/Player.js";
 import Bullet from "../Projectiles/Bullet.js";
 import Projectile from "../Projectiles/Projectile.js";
 import Renderer, { CanvasLayer } from "../Renderer.js";

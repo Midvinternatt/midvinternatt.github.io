@@ -1,4 +1,4 @@
-import Enemy from "../Enemies/Enemy.js";
+import Enemy from "../Entities/Enemies/Enemy.js";
 import Vector from "../Vector.js";
 import Projectile from "./Projectile.js";
 import { canBeHit } from "../Interfaces/IHittable.js";

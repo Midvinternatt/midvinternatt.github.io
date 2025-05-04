@@ -3,6 +3,8 @@ import Renderer from "./Renderer.js";
 export enum SPRITE {
     PLAYER_SHIP,
     PLAYER_SHIP2,
+    PLAYER_SHIP3,
+    PLAYER_SHIP4,
     DRONE
 }
 
@@ -16,8 +18,10 @@ type spritedata = {
 }
 
 const spriteSheet: spritedata[] = [
-    { id: SPRITE.PLAYER_SHIP, file: "ship.png", w: 50, h: 50 },
-    { id: SPRITE.PLAYER_SHIP2, file: "ship2.png", w: 50, h: 50 },
+    { id: SPRITE.PLAYER_SHIP, file: "ship11.png", w: 64, h: 64 },
+    { id: SPRITE.PLAYER_SHIP2, file: "ship22.png", w: 64, h: 64 },
+    { id: SPRITE.PLAYER_SHIP3, file: "ship33.png", w: 64, h: 64 },
+    { id: SPRITE.PLAYER_SHIP4, file: "ship44.png", w: 64, h: 64 },
     { id: SPRITE.DRONE, file: "1.png", w: 100, h: 100 }
 ];
 
@@ -63,6 +67,7 @@ export default class Sprite {
             const img = new Image();
             img.src = sprite.file;
             const bitmap = await createImageBitmap(img, sprite.x ?? 0, sprite.y ?? 0, sprite.w, sprite.h);
+            
             return ({ sprite, bitmap });
         });
 

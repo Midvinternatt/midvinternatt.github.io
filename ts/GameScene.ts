@@ -1,12 +1,12 @@
 import Debug from "./Debug.js";
 import Emitter, { BB } from "./Emitters/Emitter.js";
-import Drone from "./Enemies/Drone.js";
-import Enemy from "./Enemies/Enemy.js";
-import Entity from "./Entity.js";
+import Drone from "./Entities/Enemies/Drone.js";
+import Enemy from "./Entities/Enemies/Enemy.js";
+import Entity from "./Entities/Entity.js";
 import Game from "./Game.js";
 import IScene from "./Interfaces/IScene.js";
 import { KEY } from "./KeyEventHandler.js";
-import Player from "./Player.js";
+import Player from "./Entities/Player.js";
 import Projectile from "./Projectiles/Projectile.js";
 import Renderer from "./Renderer.js";
 import SceneBounds from "./SceneBounds.js";
@@ -31,7 +31,7 @@ export default class GameScene implements IScene {
         this.projectiles = new Array<Projectile>();
     }
     load() {
-        this.player = new Player(new Vector(this.sceneBounds.width / 2, this.sceneBounds.height - 50), 50, 50);
+        this.player = new Player(new Vector(this.sceneBounds.width / 2, this.sceneBounds.height - 50), 64, 64);
         this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
         this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
         this.player.moveSpeed = 8;
