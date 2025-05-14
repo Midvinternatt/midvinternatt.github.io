@@ -10,23 +10,30 @@ export default class Drone extends Enemy {
     weapon;
     sprite;
     constructor(position) {
-        super(position, 100, 100);
-        // this.sprite = Sprite.getSprite(SPRITE.DRONE);
-        this.weapon = new DroneEmitter(this, new Vector(0, 50), new Vector(0, 1));
+        super(position, 64, 64);
+        this.weapon = new DroneEmitter(this, new Vector(0, 26), new Vector(0, 1));
+        this.velocity = new Vector(4, 0);
         let animations = {
-            idle: { frameCount: 0, frameDuration: 0, loop: false }
+            idle: { frameCount: 10, frameDuration: 6, loop: true }
         };
-        this.sprite = new Sprite(document.getElementById("1"), 100, 100, animations);
+        this.sprite = new Sprite(document.getElementById("DRONE"), 64, 64, animations);
         this.sprite.playAnimation("idle");
     }
     hit() {
         this.weapon.kill();
         this.kill();
     }
-    update() { }
+    move(sceneBounds) {
+        if (this.position.x <= sceneBounds.left + 32 || this.position.x >= sceneBounds.right - 32)
+            this.velocity.x = this.velocity.x * -1;
+        this.position.add(this.velocity);
+    }
+    update(scene) {
+        this.move(scene.sceneBounds);
+        this.sprite.update();
+    }
     draw(renderer) {
         this.sprite.draw(CanvasLayer.Entities, renderer, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
-        // renderer.drawImage(CanvasLayer.Entities, this.sprite.bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }
 class DroneEmitter extends Emitter {
@@ -52,7 +59,7 @@ class DroneEmitter extends Emitter {
 }
 class DroneBullet extends Projectile {
     constructor(position, velocity) {
-        super(position, 10, 10);
+        super(position, 6, 6);
         this.velocity = velocity;
     }
     update(scene) {

@@ -43,6 +43,7 @@ export default class Sprite {
         if(!this.currentAnimation.loop)
             return;
 
+        
         if (this.currentAnimationElapsed++ >= this.currentAnimation.frameDuration) {
             this.currentAnimationFrameIndex = (this.currentAnimationFrameIndex + 1) % this.currentAnimation.frameCount;
             this.currentAnimationElapsed = 0;

@@ -36,8 +36,10 @@ export default class GameScene implements IScene {
         this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
         this.player.moveSpeed = 8;
         
-        new Drone(new Vector(this.sceneBounds.width / 2, 100));
-        testScene(this);
+        new Drone(new Vector(this.sceneBounds.width / 2, 150));
+        new Drone(new Vector(this.sceneBounds.width / 2 + 100, 100));
+        new Drone(new Vector(this.sceneBounds.width / 2 - 100, 100));
+        // testScene(this);
     }
     start() {
 
