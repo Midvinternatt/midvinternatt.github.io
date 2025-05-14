@@ -8,6 +8,7 @@ export var KEY;
     KEY["PAUSE"] = "p";
 })(KEY || (KEY = {}));
 export default class KeyEventHandler {
+    _pressedKeyes;
     constructor() {
         this._pressedKeyes = new Set();
         window.addEventListener("keydown", this.keyEvent.bind(this));

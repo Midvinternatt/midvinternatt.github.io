@@ -7,6 +7,11 @@ export var CanvasLayer;
     CanvasLayer[CanvasLayer["UserInterface"] = 4] = "UserInterface";
 })(CanvasLayer || (CanvasLayer = {}));
 export default class Renderer {
+    _gameContainer;
+    _width;
+    _height;
+    _canvasList;
+    _contextList;
     get width() {
         return this._width;
     }
@@ -75,7 +80,8 @@ export default class Renderer {
         // Scene.ProjectileContext.clearRect(0, 0, Scene.ProjectileCanvas.width, Scene.ProjectileCanvas.height);
         // Scene.ProjectileContext.restore();
     }
-    drawSprite(layer, sprite) {
+    drawSprite(layer, image, x, y, frameIndex, width, height) {
+        this._contextList.get(layer).drawImage(image, frameIndex * width, 0, width, height, x | 0, y | 0, width, height);
     }
     drawImage(layer, image, x, y) {
         this._contextList.get(layer).drawImage(image, x | 0, y | 0);

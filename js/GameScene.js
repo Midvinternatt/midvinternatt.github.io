@@ -1,4 +1,3 @@
-import Debug from "./Debug.js";
 import Emitter, { BB } from "./Emitters/Emitter.js";
 import Drone from "./Entities/Enemies/Drone.js";
 import Enemy from "./Entities/Enemies/Enemy.js";
@@ -11,6 +10,12 @@ import UserInterface from "./UserInterface.js";
 import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
 export default class GameScene {
+    renderer;
+    sceneBounds;
+    userInterface;
+    player;
+    enemies;
+    projectiles;
     constructor(renderer) {
         this.renderer = renderer;
         this.sceneBounds = new SceneBounds(renderer.width / 2, renderer.height / 2, renderer.width, renderer.height);
@@ -54,7 +59,7 @@ export default class GameScene {
             emitter.update(this);
         });
         this.userInterface.update();
-        Debug(`Projectiles: ${Projectile.count}`);
+        // Debug(`Projectiles: ${Projectile.count}`);
         // Debug(`X: ${Math.floor(this.player.position.x)} Y: ${Math.floor(this.player.position.y)}`);
     }
     draw() {

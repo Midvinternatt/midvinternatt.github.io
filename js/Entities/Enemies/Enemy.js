@@ -1,5 +1,6 @@
 import Entity from "../Entity.js";
-class Enemy extends Entity {
+export default class Enemy extends Entity {
+    static _enemyList = new Array();
     constructor(position, width, height) {
         super(position, width, height);
         Enemy._enemyList.push(this);
@@ -11,6 +12,4 @@ class Enemy extends Entity {
         Enemy._enemyList.forEach(callback);
     }
 }
-Enemy._enemyList = new Array();
-export default Enemy;
 //# sourceMappingURL=Enemy.js.map

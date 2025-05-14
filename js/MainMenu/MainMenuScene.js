@@ -3,9 +3,12 @@ import GameScene from "../GameScene.js";
 import { KEY } from "../KeyEventHandler.js";
 import Button from "./Button.js";
 export default class MainMenuScene {
+    renderer;
+    buttons;
+    selected;
+    buttonWidth = 400;
+    buttonHeight = 50;
     constructor(renderer) {
-        this.buttonWidth = 400;
-        this.buttonHeight = 50;
         this.renderer = renderer;
         this.buttons = new Array();
         this.selected = 0;

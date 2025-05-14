@@ -1,5 +1,12 @@
 import { CanvasLayer } from "../Renderer.js";
 export default class Button {
+    _x;
+    _y;
+    _width;
+    _height;
+    text;
+    selected;
+    trigger;
     // private sprite;
     constructor(text, x, y, width, height, triggerCallback) {
         this.text = text;

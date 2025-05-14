@@ -4,8 +4,8 @@ import Vector from "./Vector.js";
 export default class SceneBounds extends Rectangle {
     readonly x: number;
     readonly y: number;
-    override readonly width: number;
-    override readonly height: number;
+    declare readonly width: number;
+    declare readonly height: number;
 
     readonly left: number;
     readonly right: number;

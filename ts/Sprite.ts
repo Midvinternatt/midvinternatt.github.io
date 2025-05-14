@@ -1,4 +1,78 @@
-import Renderer from "./Renderer.js";
+import Debug from "./Debug.js";
+import Renderer, { CanvasLayer } from "./Renderer.js";
+
+export interface Animation {
+    frameCount: number,
+    frameDuration: number,
+    loop: boolean
+}
+
+export default class Sprite {
+    private image: HTMLImageElement;
+    private width: number;
+    private height: number;
+
+    private animations: Map<string, Animation>;
+    private currentAnimation: Animation;
+    private currentAnimationFrameIndex: number;
+    private currentAnimationElapsed: number;
+
+    constructor(image: HTMLImageElement, width: number, height: number, animations: Record<string, Animation>, defaultAnimation?: string) {
+        this.image = image;
+        this.width = width;
+        this.height = height;
+        this.animations = new Map(Object.entries(animations));
+        if(defaultAnimation)
+            this.playAnimation(defaultAnimation);
+
+        Debug("Created sprite");
+    }
+    playAnimation(animation: string) {
+        if(!this.animations.get(animation))
+            throw new Error(`Attempted to play non-existant animation '${animation}'`);
+
+        this.currentAnimation = this.animations.get(animation);
+        this.currentAnimationFrameIndex = 0;
+        this.currentAnimationElapsed = 0;
+        
+    }
+    update() {
+        if(!this.currentAnimation)
+            throw new Error("Attempted to update sprite with undefined animation");
+        
+        if(!this.currentAnimation.loop)
+            return;
+
+        if (this.currentAnimationElapsed++ >= this.currentAnimation.frameDuration) {
+            this.currentAnimationFrameIndex = (this.currentAnimationFrameIndex + 1) % this.currentAnimation.frameCount;
+            this.currentAnimationElapsed = 0;
+        }
+    }
+    draw(layer: CanvasLayer, renderer: Renderer, x: number, y: number) {
+        if(!this.currentAnimation)
+            throw new Error("Attempted to draw sprite with undefined animation");
+
+        renderer.drawSprite(layer, this.image, x, y, this.currentAnimationFrameIndex, this.width, this.height);
+    }
+
+
+    static async LoadResources(): Promise<void> {
+        const promises = spriteSheet.map(async (sprite: spritedata) => {
+            const img = new Image();
+            img.src = sprite.file;
+            const bitmap = await createImageBitmap(img, sprite.x ?? 0, sprite.y ?? 0, sprite.w, sprite.h);
+            
+            return ({ sprite, bitmap });
+        });
+
+        const resolves = await Promise.all(promises);
+        resolves.forEach((obj) => {
+            SpriteOld.spriteMap.set(obj.sprite.id, new SpriteOld(obj.bitmap));
+        });
+    }
+}
+
+
 
 export enum SPRITE {
     PLAYER_SHIP,
@@ -18,47 +92,18 @@ type spritedata = {
 }
 
 const spriteSheet: spritedata[] = [
-    { id: SPRITE.PLAYER_SHIP, file: "ship11.png", w: 64, h: 64 },
+    { id: SPRITE.PLAYER_SHIP, file: "ship.png", w: 64, h: 64 },
     { id: SPRITE.PLAYER_SHIP2, file: "ship22.png", w: 64, h: 64 },
     { id: SPRITE.PLAYER_SHIP3, file: "ship33.png", w: 64, h: 64 },
     { id: SPRITE.PLAYER_SHIP4, file: "ship44.png", w: 64, h: 64 },
     { id: SPRITE.DRONE, file: "1.png", w: 100, h: 100 }
 ];
 
-interface Animation {
-    name: string,
-    frames: string[],
-    frameDuration: number,
-    loop: boolean
-}
-
-class SpriteNew {
-    private image: HTMLImageElement;
-    private width: number;
-    private height: number;
-
-    constructor() {
-
-    }
-    addAnimation(animation: Animation) {
-
-    }
-    playAnimation(string ) {
-
-    }
-    update(currentGameTime: number) {
-
-    }
-    draw(renderer: Renderer) {
-
-    }
-}
-
 /*
     Spara en collision ImageData för varje sprite
 */
-export default class Sprite {
-    static spriteMap: Map<SPRITE, Sprite> = new Map();
+export class SpriteOld {
+    static spriteMap: Map<SPRITE, SpriteOld> = new Map();
 
     constructor(public bitmap: ImageBitmap) { }
 
@@ -73,10 +118,10 @@ export default class Sprite {
 
         const resolves = await Promise.all(promises);
         resolves.forEach((obj) => {
-            Sprite.spriteMap.set(obj.sprite.id, new Sprite(obj.bitmap));
+            SpriteOld.spriteMap.set(obj.sprite.id, new SpriteOld(obj.bitmap));
         });
     }
-    static getSprite(sprite: SPRITE): Sprite {
+    static getSprite(sprite: SPRITE): SpriteOld {
         return this.spriteMap.get(sprite);
     }
     // static createSprite(elementId: string, index: SPRITE): Promise<Sprite | void> {

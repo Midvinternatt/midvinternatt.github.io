@@ -1,12 +1,56 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+import Debug from "./Debug.js";
+export default class Sprite {
+    image;
+    width;
+    height;
+    animations;
+    currentAnimation;
+    currentAnimationFrameIndex;
+    currentAnimationElapsed;
+    constructor(image, width, height, animations, defaultAnimation) {
+        this.image = image;
+        this.width = width;
+        this.height = height;
+        this.animations = new Map(Object.entries(animations));
+        if (defaultAnimation)
+            this.playAnimation(defaultAnimation);
+        Debug("Created sprite");
+    }
+    playAnimation(animation) {
+        if (!this.animations.get(animation))
+            throw new Error(`Attempted to play non-existant animation '${animation}'`);
+        this.currentAnimation = this.animations.get(animation);
+        this.currentAnimationFrameIndex = 0;
+        this.currentAnimationElapsed = 0;
+    }
+    update() {
+        if (!this.currentAnimation)
+            throw new Error("Attempted to update sprite with undefined animation");
+        if (!this.currentAnimation.loop)
+            return;
+        if (this.currentAnimationElapsed++ >= this.currentAnimation.frameDuration) {
+            this.currentAnimationFrameIndex = (this.currentAnimationFrameIndex + 1) % this.currentAnimation.frameCount;
+            this.currentAnimationElapsed = 0;
+        }
+    }
+    draw(layer, renderer, x, y) {
+        if (!this.currentAnimation)
+            throw new Error("Attempted to draw sprite with undefined animation");
+        renderer.drawSprite(layer, this.image, x, y, this.currentAnimationFrameIndex, this.width, this.height);
+    }
+    static async LoadResources() {
+        const promises = spriteSheet.map(async (sprite) => {
+            const img = new Image();
+            img.src = sprite.file;
+            const bitmap = await createImageBitmap(img, sprite.x ?? 0, sprite.y ?? 0, sprite.w, sprite.h);
+            return ({ sprite, bitmap });
+        });
+        const resolves = await Promise.all(promises);
+        resolves.forEach((obj) => {
+            SpriteOld.spriteMap.set(obj.sprite.id, new SpriteOld(obj.bitmap));
+        });
+    }
+}
 export var SPRITE;
 (function (SPRITE) {
     SPRITE[SPRITE["PLAYER_SHIP"] = 0] = "PLAYER_SHIP";
@@ -16,50 +60,35 @@ export var SPRITE;
     SPRITE[SPRITE["DRONE"] = 4] = "DRONE";
 })(SPRITE || (SPRITE = {}));
 const spriteSheet = [
-    { id: SPRITE.PLAYER_SHIP, file: "ship11.png", w: 64, h: 64 },
+    { id: SPRITE.PLAYER_SHIP, file: "ship.png", w: 64, h: 64 },
     { id: SPRITE.PLAYER_SHIP2, file: "ship22.png", w: 64, h: 64 },
     { id: SPRITE.PLAYER_SHIP3, file: "ship33.png", w: 64, h: 64 },
     { id: SPRITE.PLAYER_SHIP4, file: "ship44.png", w: 64, h: 64 },
     { id: SPRITE.DRONE, file: "1.png", w: 100, h: 100 }
 ];
-class SpriteNew {
-    constructor() {
-    }
-    addAnimation(animation) {
-    }
-    playAnimation(string) {
-    }
-    update(currentGameTime) {
-    }
-    draw(renderer) {
-    }
-}
 /*
     Spara en collision ImageData för varje sprite
 */
-class Sprite {
+export class SpriteOld {
+    bitmap;
+    static spriteMap = new Map();
     constructor(bitmap) {
         this.bitmap = bitmap;
     }
-    static LoadSprites() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const promises = spriteSheet.map((sprite) => __awaiter(this, void 0, void 0, function* () {
-                var _a, _b;
-                const img = new Image();
-                img.src = sprite.file;
-                const bitmap = yield createImageBitmap(img, (_a = sprite.x) !== null && _a !== void 0 ? _a : 0, (_b = sprite.y) !== null && _b !== void 0 ? _b : 0, sprite.w, sprite.h);
-                return ({ sprite, bitmap });
-            }));
-            const resolves = yield Promise.all(promises);
-            resolves.forEach((obj) => {
-                Sprite.spriteMap.set(obj.sprite.id, new Sprite(obj.bitmap));
-            });
+    static async LoadSprites() {
+        const promises = spriteSheet.map(async (sprite) => {
+            const img = new Image();
+            img.src = sprite.file;
+            const bitmap = await createImageBitmap(img, sprite.x ?? 0, sprite.y ?? 0, sprite.w, sprite.h);
+            return ({ sprite, bitmap });
+        });
+        const resolves = await Promise.all(promises);
+        resolves.forEach((obj) => {
+            SpriteOld.spriteMap.set(obj.sprite.id, new SpriteOld(obj.bitmap));
         });
     }
     static getSprite(sprite) {
         return this.spriteMap.get(sprite);
     }
 }
-Sprite.spriteMap = new Map();
-export default Sprite;
 //# sourceMappingURL=Sprite.js.map

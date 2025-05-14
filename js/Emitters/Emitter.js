@@ -1,7 +1,13 @@
 import Game from "../Game.js";
 import Bullet from "../Projectiles/Bullet.js";
 import { CanvasLayer } from "../Renderer.js";
-class Emitter {
+export default class Emitter {
+    static _emitterList = new Array();
+    position;
+    direction;
+    callback;
+    // speed: number;
+    active;
     constructor(position, direction, callback) {
         this.position = position;
         this.direction = direction;
@@ -23,9 +29,9 @@ class Emitter {
         this._emitterList.forEach(callback);
     }
 }
-Emitter._emitterList = new Array();
-export default Emitter;
 export class RepeatingEmitter extends Emitter {
+    triggerRate;
+    lastTriggered;
     constructor(position, direction, triggerRate, callback) {
         super(position, direction, callback);
         this.triggerRate = triggerRate;
@@ -44,6 +50,8 @@ export class RepeatingEmitter extends Emitter {
     }
 }
 export class RotatingEmitter extends RepeatingEmitter {
+    turnRate;
+    turnAngle;
     constructor(position, direction, triggerRate, turnRate, callback) {
         super(position, direction, triggerRate, callback);
         this.turnRate = Math.PI / 180 * turnRate;
@@ -55,6 +63,9 @@ export class RotatingEmitter extends RepeatingEmitter {
     }
 }
 export class BB extends RotatingEmitter {
+    count = 4;
+    owner;
+    color;
     getRandomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -65,7 +76,6 @@ export class BB extends RotatingEmitter {
     }
     constructor(position, direction, triggerRate, turnRate, callback) {
         super(position, direction, triggerRate, turnRate, callback);
-        this.count = 4;
         this.color = this.getRandomColor();
     }
     update() {
@@ -94,6 +104,12 @@ export class BB extends RotatingEmitter {
     }
 }
 export class CircleEmitter extends Emitter {
+    count = 4;
+    triggerRate = 5;
+    lastTriggered = 0;
+    turnRate = Math.PI / 14;
+    turnAngle = 0;
+    color;
     getRandomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -104,11 +120,6 @@ export class CircleEmitter extends Emitter {
     }
     constructor(deltaPosition, direction, callback) {
         super(deltaPosition, direction.scale(3), callback);
-        this.count = 4;
-        this.triggerRate = 5;
-        this.lastTriggered = 0;
-        this.turnRate = Math.PI / 14;
-        this.turnAngle = 0;
         // this.turnRate = Math.PI/(Math.random()*8);
         this.color = this.getRandomColor();
     }
@@ -139,6 +150,11 @@ export class CircleEmitter extends Emitter {
     }
 }
 export class TestEmitter extends Emitter {
+    triggerRate = 1;
+    lastTriggered = 0;
+    turnAngle = 0;
+    turnRate = Math.PI / 2;
+    color;
     getRandomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -149,10 +165,6 @@ export class TestEmitter extends Emitter {
     }
     constructor(deltaPosition, direction, callback) {
         super(deltaPosition, direction, callback);
-        this.triggerRate = 1;
-        this.lastTriggered = 0;
-        this.turnAngle = 0;
-        this.turnRate = Math.PI / 2;
         this.turnRate = Math.PI / (Math.random() * 8);
         this.color = this.getRandomColor();
     }

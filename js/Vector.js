@@ -1,4 +1,7 @@
-class Vector {
+export default class Vector {
+    static nullVector = new Vector(0, 0);
+    x;
+    y;
     /**
      * Creates a new two-dimensional vector
      */
@@ -17,8 +20,8 @@ class Vector {
     //     this.y = Math.sin(newValue);
     // }
     setAngle(angle, length) {
-        this.x = Math.cos(angle) * (length !== null && length !== void 0 ? length : 1);
-        this.y = Math.sin(angle) * (length !== null && length !== void 0 ? length : 1);
+        this.x = Math.cos(angle) * (length ?? 1);
+        this.y = Math.sin(angle) * (length ?? 1);
         return this;
     }
     setLength(length) {
@@ -70,6 +73,4 @@ class Vector {
         return other;
     }
 }
-Vector.nullVector = new Vector(0, 0);
-export default Vector;
 //# sourceMappingURL=Vector.js.map

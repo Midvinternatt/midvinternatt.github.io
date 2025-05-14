@@ -1,5 +1,3 @@
-import Sprite from "./Sprite.js";
-
 export enum CanvasLayer {
     Background,
     Entities,
@@ -94,8 +92,8 @@ export default class Renderer {
         // Scene.ProjectileContext.restore();
     }
 
-    drawSprite(layer: CanvasLayer, sprite: Sprite) {
-
+    drawSprite(layer: CanvasLayer, image: CanvasImageSource, x: number, y: number, frameIndex: number, width: number, height: number) {
+        this._contextList.get(layer).drawImage(image, frameIndex * width, 0, width, height, x|0, y|0, width, height);
     }
 
     drawImage(layer: CanvasLayer, image: CanvasImageSource, x: number, y: number) {
@@ -103,7 +101,8 @@ export default class Renderer {
     }
 
     drawRect(layer: CanvasLayer, x: number, y: number, w: number, h: number, color?: string) {
-        if(color) this._contextList.get(layer).fillStyle = color;
+        if(color)
+            this._contextList.get(layer).fillStyle = color;
         this._contextList.get(layer).fillRect(x|0, y|0, w|0, h|0);
     }
 

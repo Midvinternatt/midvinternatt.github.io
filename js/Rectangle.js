@@ -1,4 +1,6 @@
 export default class Rectangle {
+    width;
+    height;
     constructor(width, height) {
         this.width = width;
         this.height = height;
@@ -32,6 +34,8 @@ export default class Rectangle {
     }
 }
 export class IntersectionRectangle extends Rectangle {
+    x;
+    y;
     constructor(x, y, width, height) {
         super(width, height);
         this.x = x;

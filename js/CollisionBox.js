@@ -1,5 +1,6 @@
 import Rectangle from "./Rectangle.js";
 export default class CollisionBox extends Rectangle {
+    owner;
     get x() {
         return this.owner.position.x;
     }

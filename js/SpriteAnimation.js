@@ -1,4 +1,8 @@
 export default class SpriteAnimation {
+    frames;
+    frameRate;
+    tick;
+    currentFrame;
     constructor(frameRate) {
         this.frames = new Array();
         this.frameRate = frameRate;

@@ -10,6 +10,8 @@ import GameScene from "./GameScene.js";
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
     Optimering: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
                 https://hacks.mozilla.org/2013/05/optimizing-your-javascript-game-for-firefox-os/
+
+    https://foozlecc.itch.io/void-main-ship
 */
 
 export default class Game {
@@ -37,7 +39,7 @@ export default class Game {
 
     loadResources() {
         return Promise.all([
-            Sprite.LoadSprites()
+            // Sprite.LoadSprites()
             // Sound.LoadSounds()
          ]);
     }
@@ -46,7 +48,6 @@ export default class Game {
         Game.time = 0;
         this.isRunning = true;
         // Game.activeScene = new MainMenuScene(Game.renderer);
-        // Game.activeScene.load();
         Game.activeScene = new GameScene(Game.renderer);
         Game.activeScene.load();
         this.loop();

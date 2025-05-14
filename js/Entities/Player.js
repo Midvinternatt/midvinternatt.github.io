@@ -1,25 +1,25 @@
 import Vector from "../Vector.js";
 import Entity from "./Entity.js";
-import Sprite, { SPRITE } from "../Sprite.js";
-import SpriteAnimation from "../SpriteAnimation.js";
+import Sprite from "../Sprite.js";
 import { CanvasLayer } from "../Renderer.js";
 export default class Player extends Entity {
+    static one;
+    velocity;
+    sprite;
+    _weaponList;
+    health = 3;
+    maxHealth = 3;
+    moveSpeed = 8;
     constructor(position, width, height) {
         super(position, width, height);
-        this.health = 3;
-        this.maxHealth = 3;
-        this.moveSpeed = 8;
         this.position = position;
         this.velocity = new Vector(0, 0);
-        // this.scene = scene;
-        this.sprite = Sprite.getSprite(SPRITE.PLAYER_SHIP); //.imageBitmapList.get(SPRITE.PLAYER_SHIP);
-        this.sprites = new SpriteAnimation(5);
-        this.sprites.addSprite(Sprite.getSprite(SPRITE.PLAYER_SHIP));
-        this.sprites.addSprite(Sprite.getSprite(SPRITE.PLAYER_SHIP2));
-        this.sprites.addSprite(Sprite.getSprite(SPRITE.PLAYER_SHIP3));
-        this.sprites.addSprite(Sprite.getSprite(SPRITE.PLAYER_SHIP4));
-        // this.sprite =  <HTMLImageElement> document.getElementById("PLAYER_SHIP");
         this._weaponList = new Array();
+        let animations = {
+            idle: { frameCount: 5, frameDuration: 6, loop: true }
+        };
+        this.sprite = new Sprite(document.getElementById("PLAYER_SHIP"), width, height, animations); //.imageBitmapList.get(SPRITE.PLAYER_SHIP);
+        this.sprite.playAnimation("idle");
     }
     addWeapon(newWeapon) {
         this._weaponList.push(newWeapon);
@@ -63,10 +63,11 @@ export default class Player extends Entity {
     update(scene) {
         if (!this.velocity.equals(Vector.nullVector))
             this.move(scene.sceneBounds);
-        this.sprites.nextFrame();
+        this.sprite.update();
     }
     draw(renderer) {
-        renderer.drawImage(CanvasLayer.Entities, this.sprites.getFrame().bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+        this.sprite.draw(CanvasLayer.Entities, renderer, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+        // renderer.drawImage(CanvasLayer.Entities, this.sprites.getFrame().bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }
 //# sourceMappingURL=Player.js.map

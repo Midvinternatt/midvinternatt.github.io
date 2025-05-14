@@ -1,5 +1,11 @@
 import Rectangle from "./Rectangle.js";
 export default class SceneBounds extends Rectangle {
+    x;
+    y;
+    left;
+    right;
+    top;
+    bottom;
     /**
      * Creates a new object centered at screen-coordinates (x, y)
      */

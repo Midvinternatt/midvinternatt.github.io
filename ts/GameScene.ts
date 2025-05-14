@@ -74,7 +74,7 @@ export default class GameScene implements IScene {
         
         this.userInterface.update();
 
-        Debug(`Projectiles: ${Projectile.count}`);
+        // Debug(`Projectiles: ${Projectile.count}`);
         // Debug(`X: ${Math.floor(this.player.position.x)} Y: ${Math.floor(this.player.position.y)}`);
     }
     draw() {

@@ -1,5 +1,9 @@
 import Game from "../Game.js";
 export default class Weapon {
+    owner;
+    attachmentPosition;
+    fireRate;
+    lastFired;
     constructor(owner, attachmentPosition, fireRate) {
         this.owner = owner;
         this.attachmentPosition = attachmentPosition;

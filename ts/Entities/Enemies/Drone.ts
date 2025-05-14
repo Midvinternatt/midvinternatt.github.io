@@ -5,7 +5,7 @@ import IHittable from "../../Interfaces/IHittable.js";
 import Projectile from "../../Projectiles/Projectile.js";
 import Renderer, { CanvasLayer } from "../../Renderer.js";
 import SceneBounds from "../../SceneBounds.js";
-import Sprite, { SPRITE } from "../../Sprite.js";
+import Sprite from "../../Sprite.js";
 import Vector from "../../Vector.js";
 import Enemy from "./Enemy.js";
 
@@ -16,8 +16,15 @@ export default class Drone extends Enemy implements IHittable {
 
     constructor(position: Vector) {
         super(position, 100, 100);
-        this.sprite = Sprite.getSprite(SPRITE.DRONE);
+
         this.weapon = new DroneEmitter(this, new Vector(0, 50), new Vector(0, 1));
+        
+        let animations = {
+            idle: { frameCount: 0, frameDuration: 0, loop: false }
+        };
+
+        this.sprite = new Sprite(<HTMLImageElement> document.getElementById("1"), 100, 100, animations);
+        this.sprite.playAnimation("idle");
     }
 
     hit(): void {
@@ -26,7 +33,7 @@ export default class Drone extends Enemy implements IHittable {
     }
     update(): void { }
     draw(renderer: Renderer): void {
-        renderer.drawImage(CanvasLayer.Entities, this.sprite.bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+        this.sprite.draw(CanvasLayer.Entities, renderer, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }
 

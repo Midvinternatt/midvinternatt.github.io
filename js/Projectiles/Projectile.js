@@ -1,5 +1,11 @@
 import CollisionBox from "../CollisionBox.js";
-class Projectile {
+export default class Projectile {
+    static _projectileList = new Array();
+    position;
+    velocity;
+    width;
+    height;
+    collisionBox;
     // sprite: Sprite;
     static get count() {
         return Projectile._projectileList.length;
@@ -8,7 +14,7 @@ class Projectile {
         this.position = position;
         this.width = width;
         this.height = height;
-        this.collisionBox = new CollisionBox(this, collisionWidth !== null && collisionWidth !== void 0 ? collisionWidth : width, collisionHeight !== null && collisionHeight !== void 0 ? collisionHeight : height);
+        this.collisionBox = new CollisionBox(this, collisionWidth ?? width, collisionHeight ?? height);
         if (Projectile.count < 10000)
             Projectile._projectileList.push(this);
     }
@@ -22,6 +28,4 @@ class Projectile {
         Projectile._projectileList.forEach(callback);
     }
 }
-Projectile._projectileList = new Array();
-export default Projectile;
 //# sourceMappingURL=Projectile.js.map
