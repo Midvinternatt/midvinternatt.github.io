@@ -26,7 +26,7 @@ export default class Player extends Entity {
         let animations = {
             idle: { frameCount: 5, frameDuration: 6, loop: true }
         };
-        this.sprite = new Sprite(<HTMLImageElement> document.getElementById("PLAYER_SHIP"), width, height, animations); //.imageBitmapList.get(SPRITE.PLAYER_SHIP);
+        this.sprite = new Sprite(<HTMLImageElement> document.getElementById("PLAYER_SHIP"), width, height, animations);
         this.sprite.playAnimation("idle");
     }
 
@@ -87,6 +87,5 @@ export default class Player extends Entity {
 
     draw(renderer: Renderer) {
         this.sprite.draw(CanvasLayer.Entities, renderer, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
-        // renderer.drawImage(CanvasLayer.Entities, this.sprites.getFrame().bitmap, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
     }
 }

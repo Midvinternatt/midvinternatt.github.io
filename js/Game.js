@@ -8,6 +8,7 @@ import GameScene from "./GameScene.js";
                 https://hacks.mozilla.org/2013/05/optimizing-your-javascript-game-for-firefox-os/
 
     https://foozlecc.itch.io/void-main-ship
+    https://foozlecc.itch.io/void-fleet-pack-1
 */
 export default class Game {
     static keyEventHandler;
