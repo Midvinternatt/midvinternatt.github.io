@@ -40,9 +40,7 @@ export default class GameScene implements IScene {
         new Drone(new Vector(this.sceneBounds.width / 2 + 100, 100));
         new Drone(new Vector(this.sceneBounds.width / 2 - 100, 100));
         // testScene(this);
-    }
-    start() {
-
+        return true;
     }
     update() {
         this.player.velocity.x = 0;

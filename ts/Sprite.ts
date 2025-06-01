@@ -1,31 +1,49 @@
+import Assets from "./Assets.js";
 import Debug from "./Debug.js";
 import Renderer, { CanvasLayer } from "./Renderer.js";
+import { SpriteType } from "./SpriteDefinitions.js";
 
-export interface Animation {
+export type SpriteAnimation = {
+    row: number,
     frameCount: number,
+    // frames: Array<ImageBitmap>,
     frameDuration: number,
     loop: boolean
-}
+};
+
+export type SpriteData = {
+    imagePath: string;
+    width: number;
+    height: number;
+    animations: Record<string, SpriteAnimation>
+};
+
+export type SpriteFrame = {
+
+};
 
 export default class Sprite {
     private image: HTMLImageElement;
     private width: number;
-    private height: number;
+    private height: number; 
 
-    private animations: Map<string, Animation>;
-    private currentAnimation: Animation;
+    private animations: Map<string, SpriteAnimation>;
+    private currentAnimation: SpriteAnimation;
     private currentAnimationFrameIndex: number;
     private currentAnimationElapsed: number;
 
-    constructor(image: HTMLImageElement, width: number, height: number, animations: Record<string, Animation>, defaultAnimation?: string) {
-        this.image = image;
-        this.width = width;
-        this.height = height;
-        this.animations = new Map(Object.entries(animations));
+    // constructor(image: HTMLImageElement, width: number, height: number, animations: Record<string, SpriteAnimation>, defaultAnimation?: string) {
+    // constructor(spriteType: SpriteType, defaultAnimation?: string) {
+    constructor(data: SpriteData, defaultAnimation?: string) {
+        this.image = Assets.getImage(data.imagePath);
+        this.width = data.width;
+        this.height = data.height;
+        this.animations = new Map(Object.entries(data.animations));
+        
         if(defaultAnimation)
             this.playAnimation(defaultAnimation);
 
-        Debug("Created sprite");
+        Debug("Sprite(): Created sprite from " + this.image.src);
     }
     playAnimation(animation: string) {
         if(!this.animations.get(animation))
@@ -34,7 +52,6 @@ export default class Sprite {
         this.currentAnimation = this.animations.get(animation);
         this.currentAnimationFrameIndex = 0;
         this.currentAnimationElapsed = 0;
-        
     }
     update() {
         if(!this.currentAnimation)
@@ -42,7 +59,6 @@ export default class Sprite {
         
         if(!this.currentAnimation.loop)
             return;
-
         
         if (this.currentAnimationElapsed++ >= this.currentAnimation.frameDuration) {
             this.currentAnimationFrameIndex = (this.currentAnimationFrameIndex + 1) % this.currentAnimation.frameCount;
@@ -53,7 +69,7 @@ export default class Sprite {
         if(!this.currentAnimation)
             throw new Error("Attempted to draw sprite with undefined animation");
 
-        renderer.drawSprite(layer, this.image, x, y, this.currentAnimationFrameIndex, this.width, this.height);
+        renderer.drawSprite(layer, this.image, x, y, this.currentAnimationFrameIndex, this.width, this.height, this.currentAnimation.row);
     }
 
 

@@ -4,7 +4,7 @@ export default class Entity {
     collisionBox;
     width;
     height;
-    // sprite: Sprite;
+    sprite;
     constructor(position, width, height, collisionWidth, collisionHeight) {
         this.position = position;
         this.width = width;

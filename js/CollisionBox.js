@@ -11,14 +11,16 @@ export default class CollisionBox extends Rectangle {
         super(width, height);
         this.owner = owner;
     }
-}
-/*
+} /*
+
+
+
 export default class CollisionBox {
     _owner: Collidable;
-    _width: number;
-    _height: number;
+_width: number;
+_height: number;
 
-    */ /*
+*/ /*
     Potentiellt flytta till Sprite?
 _image: ImageData;
 static _offscreenCanvas: OffscreenCanvas;
@@ -49,5 +51,5 @@ checkForPreciseCollision(otherCollisionBox: CollisionBox) {
 
 }
 }
-*/ 
+*/
 //# sourceMappingURL=CollisionBox.js.map

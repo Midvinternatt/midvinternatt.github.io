@@ -1,3 +1,4 @@
+import Assets from "../../Assets.js";
 import Emitter, { IWeapon } from "../../Emitters/Emitter.js";
 import Game from "../../Game.js";
 import GameScene from "../../GameScene.js";
@@ -6,26 +7,19 @@ import Projectile from "../../Projectiles/Projectile.js";
 import Renderer, { CanvasLayer } from "../../Renderer.js";
 import SceneBounds from "../../SceneBounds.js";
 import Sprite from "../../Sprite.js";
+import { SpriteType } from "../../SpriteDefinitions.js";
 import Vector from "../../Vector.js";
 import Enemy from "./Enemy.js";
 
 export default class Drone extends Enemy implements IHittable {
     velocity: Vector;
     weapon: DroneEmitter;
-    sprite: Sprite;
 
     constructor(position: Vector) {
         super(position, 64, 64);
-
         this.weapon = new DroneEmitter(this, new Vector(0, 26), new Vector(0, 1));
-        this.velocity = new Vector(4, 0);
-        
-        let animations = {
-            idle: { frameCount: 10, frameDuration: 6, loop: true }
-        };
-
-        this.sprite = new Sprite(<HTMLImageElement> document.getElementById("DRONE"), 64, 64, animations);
-        this.sprite.playAnimation("idle");
+        this.velocity = new Vector(4, 1);
+        this.sprite = new Sprite(Assets.getSpriteData(SpriteType.Drone), "idle");
     }
 
     hit(): void {
@@ -33,6 +27,9 @@ export default class Drone extends Enemy implements IHittable {
         this.kill();
     }
     move(sceneBounds: SceneBounds): void {
+        if(this.position.y > sceneBounds.bottom)
+            this.position.y = sceneBounds.top;
+
         if(this.position.x <= sceneBounds.left + 32 || this.position.x >= sceneBounds.right - 32)
             this.velocity.x = this.velocity.x * -1;
 

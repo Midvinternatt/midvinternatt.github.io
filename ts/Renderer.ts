@@ -92,8 +92,8 @@ export default class Renderer {
         // Scene.ProjectileContext.restore();
     }
 
-    drawSprite(layer: CanvasLayer, image: CanvasImageSource, x: number, y: number, frameIndex: number, width: number, height: number) {
-        this._contextList.get(layer).drawImage(image, frameIndex * width, 0, width, height, x|0, y|0, width, height);
+    drawSprite(layer: CanvasLayer, image: CanvasImageSource, x: number, y: number, frameIndex: number, width: number, height: number, row?: number) {
+        this._contextList.get(layer).drawImage(image, 1 + frameIndex * (width + 1), 1 + row * (height + 1), width, height, x|0, y|0, width, height);
     }
 
     drawImage(layer: CanvasLayer, image: CanvasImageSource, x: number, y: number) {

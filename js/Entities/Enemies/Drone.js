@@ -1,29 +1,28 @@
+import Assets from "../../Assets.js";
 import Emitter from "../../Emitters/Emitter.js";
 import Game from "../../Game.js";
 import Projectile from "../../Projectiles/Projectile.js";
 import { CanvasLayer } from "../../Renderer.js";
 import Sprite from "../../Sprite.js";
+import { SpriteType } from "../../SpriteDefinitions.js";
 import Vector from "../../Vector.js";
 import Enemy from "./Enemy.js";
 export default class Drone extends Enemy {
     velocity;
     weapon;
-    sprite;
     constructor(position) {
         super(position, 64, 64);
         this.weapon = new DroneEmitter(this, new Vector(0, 26), new Vector(0, 1));
-        this.velocity = new Vector(4, 0);
-        let animations = {
-            idle: { frameCount: 10, frameDuration: 6, loop: true }
-        };
-        this.sprite = new Sprite(document.getElementById("DRONE"), 64, 64, animations);
-        this.sprite.playAnimation("idle");
+        this.velocity = new Vector(4, 1);
+        this.sprite = new Sprite(Assets.getSpriteData(SpriteType.Drone), "idle");
     }
     hit() {
         this.weapon.kill();
         this.kill();
     }
     move(sceneBounds) {
+        if (this.position.y > sceneBounds.bottom)
+            this.position.y = sceneBounds.top;
         if (this.position.x <= sceneBounds.left + 32 || this.position.x >= sceneBounds.right - 32)
             this.velocity.x = this.velocity.x * -1;
         this.position.add(this.velocity);

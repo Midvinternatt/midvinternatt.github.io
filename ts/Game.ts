@@ -4,6 +4,8 @@ import Renderer from "./Renderer.js";
 import MainMenuScene from "./MainMenu/MainMenuScene.js";
 import IScene from "./Interfaces/IScene.js";
 import GameScene from "./GameScene.js";
+import Assets from "./Assets.js";
+import Debug from "./Debug.js";
 
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
@@ -31,18 +33,25 @@ export default class Game {
         // Game.renderer = new Renderer(gameContainer, 800, 600);
 
         this.loadResources().then(() => {
-            console.log("Successfully loaded sprites");
+            Debug("Game(): Successfully loaded sprites");
             this.start();
         }, () => {
-            console.log("Failed to load sprites");
+            Debug("Game(): Failed to load sprites");
         });
     }
 
     loadResources() {
         return Promise.all([
+            Assets.loadSprites()
             // Sprite.LoadSprites()
             // Sound.LoadSounds()
          ]);
+    }
+
+    loadAllAssets() {
+        return Promise.all([
+            Assets.loadSprites()
+        ]);
     }
 
     start() {

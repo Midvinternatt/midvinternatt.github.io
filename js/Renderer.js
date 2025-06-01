@@ -80,8 +80,8 @@ export default class Renderer {
         // Scene.ProjectileContext.clearRect(0, 0, Scene.ProjectileCanvas.width, Scene.ProjectileCanvas.height);
         // Scene.ProjectileContext.restore();
     }
-    drawSprite(layer, image, x, y, frameIndex, width, height) {
-        this._contextList.get(layer).drawImage(image, frameIndex * width, 0, width, height, x | 0, y | 0, width, height);
+    drawSprite(layer, image, x, y, frameIndex, width, height, row) {
+        this._contextList.get(layer).drawImage(image, 1 + frameIndex * (width + 1), 1 + row * (height + 1), width, height, x | 0, y | 0, width, height);
     }
     drawImage(layer, image, x, y) {
         this._contextList.get(layer).drawImage(image, x | 0, y | 0);

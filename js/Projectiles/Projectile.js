@@ -6,7 +6,7 @@ export default class Projectile {
     width;
     height;
     collisionBox;
-    // sprite: Sprite;
+    sprite;
     static get count() {
         return Projectile._projectileList.length;
     }

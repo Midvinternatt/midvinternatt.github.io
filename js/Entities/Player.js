@@ -1,25 +1,20 @@
 import Vector from "../Vector.js";
 import Entity from "./Entity.js";
-import Sprite from "../Sprite.js";
 import { CanvasLayer } from "../Renderer.js";
+import Assets from "../Assets.js";
+import { SpriteType } from "../SpriteDefinitions.js";
+import Sprite from "../Sprite.js";
 export default class Player extends Entity {
     static one;
     velocity;
-    sprite;
-    _weaponList;
+    _weaponList = new Array();
     health = 3;
     maxHealth = 3;
     moveSpeed = 8;
     constructor(position, width, height) {
         super(position, width, height);
-        this.position = position;
         this.velocity = new Vector(0, 0);
-        this._weaponList = new Array();
-        let animations = {
-            idle: { frameCount: 5, frameDuration: 6, loop: true }
-        };
-        this.sprite = new Sprite(document.getElementById("PLAYER_SHIP"), width, height, animations);
-        this.sprite.playAnimation("idle");
+        this.sprite = new Sprite(Assets.getSpriteData(SpriteType.Player), "idle");
     }
     addWeapon(newWeapon) {
         this._weaponList.push(newWeapon);

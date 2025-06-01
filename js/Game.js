@@ -1,6 +1,8 @@
 import KeyEventHandler from "./KeyEventHandler.js";
 import Renderer from "./Renderer.js";
 import GameScene from "./GameScene.js";
+import Assets from "./Assets.js";
+import Debug from "./Debug.js";
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
@@ -24,16 +26,22 @@ export default class Game {
         Game.renderer = new Renderer(gameContainer, window.innerWidth, window.innerHeight);
         // Game.renderer = new Renderer(gameContainer, 800, 600);
         this.loadResources().then(() => {
-            console.log("Successfully loaded sprites");
+            Debug("Game(): Successfully loaded sprites");
             this.start();
         }, () => {
-            console.log("Failed to load sprites");
+            Debug("Game(): Failed to load sprites");
         });
     }
     loadResources() {
         return Promise.all([
-        // Sprite.LoadSprites()
-        // Sound.LoadSounds()
+            Assets.loadSprites()
+            // Sprite.LoadSprites()
+            // Sound.LoadSounds()
+        ]);
+    }
+    loadAllAssets() {
+        return Promise.all([
+            Assets.loadSprites()
         ]);
     }
     start() {

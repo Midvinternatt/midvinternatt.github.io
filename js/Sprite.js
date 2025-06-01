@@ -1,3 +1,4 @@
+import Assets from "./Assets.js";
 import Debug from "./Debug.js";
 export default class Sprite {
     image;
@@ -7,14 +8,15 @@ export default class Sprite {
     currentAnimation;
     currentAnimationFrameIndex;
     currentAnimationElapsed;
-    constructor(image, width, height, animations, defaultAnimation) {
-        this.image = image;
-        this.width = width;
-        this.height = height;
-        this.animations = new Map(Object.entries(animations));
+    // constructor(image: HTMLImageElement, width: number, height: number, animations: Record<string, SpriteAnimation>, defaultAnimation?: string) {
+    constructor(data, defaultAnimation) {
+        this.image = Assets.getImage(data.imagePath);
+        this.width = data.width;
+        this.height = data.height;
+        this.animations = new Map(Object.entries(data.animations));
         if (defaultAnimation)
             this.playAnimation(defaultAnimation);
-        Debug("Created sprite");
+        Debug("Sprite(): Created sprite from " + this.image.src);
     }
     playAnimation(animation) {
         if (!this.animations.get(animation))
@@ -36,7 +38,7 @@ export default class Sprite {
     draw(layer, renderer, x, y) {
         if (!this.currentAnimation)
             throw new Error("Attempted to draw sprite with undefined animation");
-        renderer.drawSprite(layer, this.image, x, y, this.currentAnimationFrameIndex, this.width, this.height);
+        renderer.drawSprite(layer, this.image, x, y, this.currentAnimationFrameIndex, this.width, this.height, this.currentAnimation.row);
     }
     static async LoadResources() {
         const promises = spriteSheet.map(async (sprite) => {

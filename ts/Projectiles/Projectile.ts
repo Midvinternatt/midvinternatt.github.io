@@ -14,7 +14,7 @@ export default abstract class Projectile implements IDrawable, ICollidable {
     width: number;
     height: number;
     collisionBox: CollisionBox;
-    // sprite: Sprite;
+    sprite: Sprite;
 
     static get count(): number {
         return Projectile._projectileList.length;

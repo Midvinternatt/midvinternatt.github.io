@@ -10,16 +10,16 @@ export default class CollisionBox extends Rectangle {
     get y(): number {
         return this.owner.position.y;
     }
-
+    
     constructor(owner: Collidable, width: number, height: number) {
         super(width, height);
         this.owner = owner;
-    }
-}
-
-/*
-export default class CollisionBox {
-    _owner: Collidable;
+    }}/*
+    
+    
+    
+    export default class CollisionBox {
+        _owner: Collidable;
     _width: number;
     _height: number;
 
