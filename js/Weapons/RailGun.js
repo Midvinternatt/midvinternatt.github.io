@@ -9,7 +9,7 @@ export default class Railgun extends Weapon {
     }
     shoot() {
         this.lastFired = Game.time;
-        new Bullet(this.attachmentPosition.copy().add(this.owner.position), new Vector(0, -8), 6);
+        return new Bullet(this.attachmentPosition.copy().add(this.owner.position), new Vector(0, -8), 6);
     }
 }
 //# sourceMappingURL=RailGun.js.map

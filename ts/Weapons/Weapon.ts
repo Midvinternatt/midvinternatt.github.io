@@ -1,6 +1,7 @@
 import Game from "../Game.js";
 import Vector from "../Vector.js";
 import Player from "../Entities/Player.js";
+import Projectile from "../Projectiles/Projectile.js";
 
 export default abstract class Weapon {
     owner: Player;
@@ -27,7 +28,7 @@ export default abstract class Weapon {
         else
             this.lastFired = Number.MAX_VALUE;
     }
-    abstract shoot(): void;
+    abstract shoot(): Projectile;
 }
 
 export abstract class ConeWeapon {

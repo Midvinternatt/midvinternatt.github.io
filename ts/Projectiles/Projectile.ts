@@ -8,24 +8,20 @@ import SceneBounds from "../SceneBounds.js";
 import GameScene from "../GameScene.js";
 
 export default abstract class Projectile implements IDrawable, ICollidable {
-    private static _projectileList: Projectile[] = new Array();
     position: Vector;
     velocity: Vector;
     width: number;
     height: number;
+    isDead: boolean;
     collisionBox: CollisionBox;
     sprite: Sprite;
 
-    static get count(): number {
-        return Projectile._projectileList.length;
-    }
     constructor(position: Vector, width: number, height: number, collisionWidth?: number, collisionHeight?: number) {
         this.position = position;
         this.width = width;
         this.height = height;
+        this.isDead = false;
         this.collisionBox = new CollisionBox(this, collisionWidth ?? width, collisionHeight ?? height);
-            if(Projectile.count < 10000)
-        Projectile._projectileList.push(this);
     }
     checkCollision(target: Collidable): boolean {
         return this.collisionBox.intersects(target.collisionBox);
@@ -33,10 +29,7 @@ export default abstract class Projectile implements IDrawable, ICollidable {
     abstract update(scene: GameScene): void;
     abstract move(sceneBounds: SceneBounds): void;
     kill() {
-        Projectile._projectileList.splice(Projectile._projectileList.indexOf(this), 1);
+        this.isDead = true;
     }
     abstract draw(renderer: Renderer): void;
-    static forEach(callback: (element: Projectile) => void) {
-        Projectile._projectileList.forEach(callback);
-    }
 }

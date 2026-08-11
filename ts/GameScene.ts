@@ -58,16 +58,20 @@ export default class GameScene implements IScene {
         this.player.velocity.normalize().scale(this.player.moveSpeed);
         
         if(Game.keyEventHandler.isKeyPressed(KEY.SHOOT)) {
-            this.player.autofire();
+            this.player.autofire(this);
         }
         
         this.player.update(this);
         Enemy.forEach(enemy => {
             enemy.update(this);
         });
-        Projectile.forEach(projectile => {
+        for (let i = this.projectiles.length-1; i >= 0; i--){
+            const projectile = this.projectiles[i];
             projectile.update(this);
-        });
+
+            if(projectile.isDead)
+                this.projectiles.splice(i, 1);
+        }
         Emitter.forEach(emitter => {
             emitter.update(this); 
         });
@@ -84,14 +88,19 @@ export default class GameScene implements IScene {
         Enemy.forEach(enemy => {
             enemy.draw(this.renderer);
         });
-        Projectile.forEach(projectile => {
+        for (let i = this.projectiles.length-1; i >= 0; i--){
+            const projectile = this.projectiles[i];
             projectile.draw(this.renderer);
-        });
+        }
         
         this.userInterface.draw(this.renderer);
     }
     unload(): void {
         
+    }
+
+    spawnProjectile(projectile: Projectile) {
+        this.projectiles.push(projectile);
     }
 }
 

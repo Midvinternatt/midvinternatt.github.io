@@ -19,10 +19,12 @@ export default class Player extends Entity {
     addWeapon(newWeapon) {
         this._weaponList.push(newWeapon);
     }
-    autofire() {
+    autofire(scene) {
         this._weaponList.forEach(weapon => {
-            if (weapon.isReady)
-                weapon.shoot();
+            if (weapon.isReady) {
+                const bullet = weapon.shoot();
+                scene.spawnProjectile(bullet);
+            }
         });
     }
     kill() {

@@ -9,8 +9,8 @@ export default class Railgun extends Weapon {
     constructor(owner: Player, attachmentPosition: Vector) {
         super(owner, attachmentPosition, GAMEDATA.RAILGUN_COOLDOWN)
     }
-    shoot() {
+    shoot(): Bullet {
         this.lastFired = Game.time;
-        new Bullet(this.attachmentPosition.copy().add(this.owner.position), new Vector(0, -8), 6);
+        return new Bullet(this.attachmentPosition.copy().add(this.owner.position), new Vector(0, -8), 6);
     }
 }
