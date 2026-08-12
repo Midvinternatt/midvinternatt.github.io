@@ -2,7 +2,8 @@ import KeyEventHandler from "./Input/KeyEventHandler.js";
 import Renderer from "./Renderer.js";
 import GameScene from "./GameScene.js";
 import Assets from "./Assets.js";
-import Debug from "./Debug.js";
+import Debug from "./Debug/Debug.js";
+import DebugOverlay from "./Debug/DebugOverlay.js";
 /* Bra länkar
     Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
@@ -21,10 +22,13 @@ export default class Game {
     static activeScene;
     static renderer;
     isRunning = false;
+    static debugActive = true;
     constructor(gameContainer) {
         Game.keyEventHandler = new KeyEventHandler();
         Game.renderer = new Renderer(gameContainer, window.innerWidth, window.innerHeight);
         // Game.renderer = new Renderer(gameContainer, 800, 600);
+        if (Game.debugActive)
+            DebugOverlay.init();
         this.loadResources().then(() => {
             Debug("Game(): Successfully loaded sprites");
             this.start();

@@ -2,13 +2,13 @@ import Emitter, { BB } from "./Emitters/Emitter.js";
 import Drone from "./Entities/Enemies/Drone.js";
 import Enemy from "./Entities/Enemies/Enemy.js";
 import Game from "./Game.js";
-import { KEY } from "./KeyEventHandler.js";
 import Player from "./Entities/Player.js";
 import Projectile from "./Projectiles/Projectile.js";
 import SceneBounds from "./SceneBounds.js";
 import UserInterface from "./UserInterface.js";
 import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
+import DebugOverlay from "./Debug/DebugOverlay.js";
 export default class GameScene {
     renderer;
     sceneBounds;
@@ -65,6 +65,8 @@ export default class GameScene {
         this.userInterface.update();
         // Debug(`Projectiles: ${Projectile.count}`);
         // Debug(`X: ${Math.floor(this.player.position.x)} Y: ${Math.floor(this.player.position.y)}`);
+        if (Game.debugActive)
+            DebugOverlay.update(this);
     }
     draw() {
         this.renderer.clearCanvas();
@@ -84,7 +86,8 @@ export default class GameScene {
         this.projectiles.push(projectile);
     }
 }
-function testScene(scene) {
+/*
+function testScene(scene: GameScene) {
     // let count = 4;
     // new RotatingEmitter(new Vector(0, 0), new Vector(3, 0), 10, 5, (position, direction) => {
     //     let angle: Vector = direction.copy().scale(3);
@@ -99,27 +102,32 @@ function testScene(scene) {
     //         angle.setAngle(angle.angle + 2 * Math.PI / count, 3);
     //     }
     // });
+
+    
     let spread = 8;
-    for (let x = scene.sceneBounds.width / (spread + 1); x < scene.sceneBounds.width; x += (scene.sceneBounds.width / (spread + 1))) {
-        for (let y = scene.sceneBounds.height / (spread + 1); y < scene.sceneBounds.height; y += (scene.sceneBounds.height / (spread + 1))) {
+    for (let x = scene.sceneBounds.width / (spread+1); x < scene.sceneBounds.width; x+=(scene.sceneBounds.width / (spread+1))) {
+        for (let y = scene.sceneBounds.height / (spread+1); y < scene.sceneBounds.height; y+=(scene.sceneBounds.height / (spread+1))) {
             // new RotatingEmitter(new Vector(x, y), new Vector(3, 0), 10, 5, (position, direction) => {
-            // let angle: Vector = direction.copy().scale(3);
-            // for (let i = 0; i < count; i++) {
-            // let b: Bullet = new Bullet(position.copy(), direction.copy(), 8);
-            // b.draw = (renderer: Renderer) => {
-            //     renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
-            // };
-            // b.update = () => {
-            //     b.move();
-            // };
-            //     angle.setAngle(angle.angle + 2 * Math.PI / count, 3);
-            // }
+                // let angle: Vector = direction.copy().scale(3);
+                // for (let i = 0; i < count; i++) {
+                    // let b: Bullet = new Bullet(position.copy(), direction.copy(), 8);
+                    // b.draw = (renderer: Renderer) => {
+                    //     renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height);
+                    // };
+                    // b.update = () => {
+                    //     b.move();
+                    // };
+                //     angle.setAngle(angle.angle + 2 * Math.PI / count, 3);
+                // }
             // });
+
             // new CircleEmitter(new Vector(x, y), new Vector(1, 0));
+
             // new BB(new Vector(-22, -3), new Vector(3, 0), 10, 5);
             // new BB(new Vector(22, -3), new Vector(3, 0), 5, 10);
-            new BB(new Vector(x, y), new Vector(Math.random() * 5, 0), Math.random() * 5, Math.random() * 20, () => { });
+            new BB(new Vector(x, y), new Vector(Math.random()*5, 0), Math.random()*5, Math.random()*20, () => {});
         }
     }
 }
+*/
 //# sourceMappingURL=GameScene.js.map

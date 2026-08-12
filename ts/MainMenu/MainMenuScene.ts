@@ -1,7 +1,6 @@
 import Game from "../Game.js";
 import GameScene from "../GameScene.js";
 import IScene from "../Interfaces/IScene.js";
-import KeyEventHandler, { KEY } from "../KeyEventHandler.js";
 import Renderer from "../Renderer.js";
 import Button from "./Button.js";
 

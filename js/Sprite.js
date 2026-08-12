@@ -1,5 +1,5 @@
 import Assets from "./Assets.js";
-import Debug from "./Debug.js";
+import Debug from "./Debug/Debug.js";
 export default class Sprite {
     image;
     width;

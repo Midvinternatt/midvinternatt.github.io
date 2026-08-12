@@ -36,17 +36,185 @@ canvas {
     position: absolute;
 }
 
-#debug {
+/* #debug {
     top: 0;
     left: 0;
+    width: 200px;
+    height: 100%;
     position:absolute;
-    padding: 5px;
     color: white;
-    border: 1px solid white;
+    border-right: 1px solid white;
     background: black;
     z-index: 1;
 }
 
+#debug .button {
+    position: inherit;
+    top: 5px;
+    left: 5px;
+    font-size: larger;
+    cursor: pointer;
+}
+
+#debug-overlay {
+    position: inherit;
+    top: 100px;
+    background: black;
+    display: none;
+} */
+
+/* #debug .attribute {
+    color: red;
+}
+#debug .value {
+    color: blue;
+} */
+
 img {
     display: none;
+}
+
+/* =================================
+   Debug Overlay
+   ================================= */
+
+#debug-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 999999;
+
+    font-family: monospace;
+    font-size: 14px;
+}
+
+
+/* =================================
+   Hamburger button
+   ================================= */
+
+#debug-toggle {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+
+    width: 40px;
+    height: 40px;
+
+    padding: 8px;
+
+    /* display: flex; */
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid #444;
+    border-radius: 4px;
+
+    cursor: pointer;
+
+    pointer-events: auto;
+
+    z-index: 1000000;
+}
+
+#debug-toggle span {
+    display: block;
+
+    width: 20px;
+    height: 2px;
+
+    background: #00ff88;
+}
+
+
+/* =================================
+   Sidebar
+   ================================= */
+
+#debug-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 280px;
+    height: 100vh;
+
+    box-sizing: border-box;
+
+    background: rgba(10, 10, 10, 0.95);
+    color: #fff;
+
+    border-right: 1px solid #333;
+
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+
+    z-index: 999999;
+}
+
+#debug-sidebar.open {
+    transform: translateX(0);
+}
+
+/* =================================
+   Header
+   ================================= */
+
+.debug-header {
+    height: 64px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
+    /* Plats för hamburgerknappen */
+    /* padding-left: 64px; */
+    padding-left: 16px;
+
+    color: #00ff88;
+    background: #151515;
+
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    border-bottom: 1px solid #333;
+}
+
+/* =================================
+   Content
+   ================================= */
+
+.debug-content {
+    padding: 10px 16px;
+}
+
+.debug-content p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    margin: 0;
+    padding: 7px 0;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.debug-label {
+    color: #aaa;
+}
+
+.debug-value {
+    color: #00ff88;
+    text-align: right;
+}
+
+#debug-sidebar.open {
+    transform: translateX(0);
 }

@@ -1,11 +1,9 @@
-import Debug from "./Debug.js";
 import Emitter, { BB } from "./Emitters/Emitter.js";
 import Drone from "./Entities/Enemies/Drone.js";
 import Enemy from "./Entities/Enemies/Enemy.js";
 import Entity from "./Entities/Entity.js";
 import Game from "./Game.js";
 import IScene from "./Interfaces/IScene.js";
-import { KEY } from "./KeyEventHandler.js";
 import Player from "./Entities/Player.js";
 import Projectile from "./Projectiles/Projectile.js";
 import Renderer from "./Renderer.js";
@@ -13,6 +11,7 @@ import SceneBounds from "./SceneBounds.js";
 import UserInterface from "./UserInterface.js";
 import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
+import DebugOverlay from "./Debug/DebugOverlay.js";
 
 export default class GameScene implements IScene {
     readonly renderer: Renderer;
@@ -78,8 +77,8 @@ export default class GameScene implements IScene {
         
         this.userInterface.update();
 
-        // Debug(`Projectiles: ${Projectile.count}`);
-        // Debug(`X: ${Math.floor(this.player.position.x)} Y: ${Math.floor(this.player.position.y)}`);
+        if(Game.debugActive)
+            DebugOverlay.update(this);
     }
     draw() {
         this.renderer.clearCanvas();
@@ -146,3 +145,4 @@ function testScene(scene: GameScene) {
         }
     }
 }
+*/

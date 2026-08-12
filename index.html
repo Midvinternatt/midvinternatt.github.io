@@ -108,10 +108,49 @@
 			<img id="PLAYER_SHIP" src="assets/ship.png">
 			<img id="DRONE" src="assets/drone.png">
 		</div>
-		<span id="debug">-</span>
 		<div id="game"></div>
-		<!-- <canvas id="canvas">
 
-		</canvas> -->
+        <!-- Debug Overlay -->
+        <div id="debug-overlay">
+            <!-- Hamburger -->
+            <button id="debug-toggle" aria-label="Toggle debug sidebar">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Sidebar -->
+            <aside id="debug-sidebar">
+                <div class="debug-header">
+                    DEBUG
+                </div>
+
+                <div class="debug-content">
+                    <p>
+                        <span class="debug-label">Game time:</span>
+                        <span id="debug-time" class="debug-value">-</span>
+                    </p>
+
+                    <p>
+                        <span class="debug-label">Position:</span>
+                        <span id="debug-position" class="debug-value">-, -</span>
+                    </p>
+
+                    <p>
+                        <span class="debug-label">Projectiles:</span>
+                        <span id="debug-projectiles" class="debug-value">-</span>
+                    </p>
+
+                    <p>
+                        <span class="debug-label">Level time:</span>
+                        <span id="debug-leveltime" class="debug-value">-</span>
+                    </p>
+
+
+                </div>
+
+            </aside>
+
+        </div>
 	</body>
 </html>

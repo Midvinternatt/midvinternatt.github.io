@@ -1,7 +1,7 @@
 import Game from "../Game.js";
 import GameScene from "../GameScene.js";
-import { KEY } from "../KeyEventHandler.js";
 import Button from "./Button.js";
+import KEY from "../Input/Key.js";
 export default class MainMenuScene {
     renderer;
     buttons;
