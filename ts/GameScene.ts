@@ -1,7 +1,4 @@
-import Emitter, { BB } from "./Emitters/Emitter.js";
-import Drone from "./Entities/Enemies/Drone.js";
 import Enemy from "./Entities/Enemies/Enemy.js";
-import Entity from "./Entities/Entity.js";
 import Game from "./Game.js";
 import IScene from "./Interfaces/IScene.js";
 import Player from "./Entities/Player.js";
@@ -31,16 +28,22 @@ export default class GameScene implements IScene {
         this.projectiles = new Array<Projectile>();
     }
     load() {
-        this.player = new Player(new Vector(this.sceneBounds.width / 2, this.sceneBounds.height - 50), 64, 64);
-        this.player.addWeapon(new Railgun(this.player, new Vector(-22, -3)));
-        this.player.addWeapon(new Railgun(this.player, new Vector(22, -3)));
-        this.player.moveSpeed = 8;
-        
-        new Drone(new Vector(this.sceneBounds.width / 2, 150));
-        new Drone(new Vector(this.sceneBounds.width / 2 + 100, 100));
-        new Drone(new Vector(this.sceneBounds.width / 2 - 100, 100));
-        // testScene(this);
-        return true;
+        this.start();
+    }
+    start() {
+        this.player = new Player({
+            position: new Vector(this.sceneBounds.width / 2, this.sceneBounds.height - 50),
+            width: 64,
+            height: 64,
+            stats: {
+                health: 3,
+                maxHealth: 3,
+                moveSpeed: 8
+            }
+        });
+        this.player.addWeapon(new Railgun({owner: this.player, attachmentPosition: new Vector(-22, -3)}));
+        this.player.addWeapon(new Railgun({owner: this.player, attachmentPosition: new Vector(22, -3)}));
+
     }
     update() {
         this.player.update(this);
@@ -81,7 +84,7 @@ export default class GameScene implements IScene {
         
         this.userInterface.draw(this.renderer);
     }
-    unload(): void {
+    unload() {
         
     }
 

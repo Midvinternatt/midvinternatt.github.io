@@ -80,7 +80,7 @@ export class RotatingEmitter extends RepeatingEmitter {
         this.turnAngle = direction.angle;
     }
     override trigger(): void {
-        this.direction.setAngle(this.turnAngle+=this.turnRate, 1);
+        this.direction.setAngle(this.turnAngle+=this.turnRate/*, 1*/);
         super.trigger();
     }
 }
@@ -114,9 +114,16 @@ export class BB extends RotatingEmitter implements ICircleEmitter {
         // for (let i = 0; i < this.count; i++) {
             // let b: Bullet = new Bullet(Game.activeScene.player.position.copy().add(this.position), angle.copy(), 8);
             // console.log("hite");
-            let b: Bullet = new Bullet(this.position.copy(), this.direction.copy(), 8);
+            let b: Bullet = new Bullet({position: this.position.copy(), velocity: this.direction.copy(), size: 8});
             b.draw = (renderer: Renderer) => {
-                renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
+                renderer.drawRect({
+                    layer: CanvasLayer.Projectiles,
+                    x: b.position.x - (b.width / 2),
+                    y: b.position.y - (b.height / 2),
+                    width: b.width,
+                    height: b.height,
+                    color: this.color
+                });
             };
             b.update = (scene: GameScene) => {
                 b.move(scene.sceneBounds);
@@ -163,9 +170,16 @@ export class CircleEmitter extends Emitter implements ICircleEmitter {
         this.lastTriggered = Game.time;
         let angle: Vector = this.direction.copy();
         for (let i = 0; i < this.count; i++) {
-            let b: Bullet = new Bullet(this.position.copy(), angle.copy(), 8);
+            let b: Bullet = new Bullet({position: this.position.copy(), velocity: angle.copy(), size: 8});
             b.draw = (renderer: Renderer) => {
-                renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
+                renderer.drawRect({
+                    layer: CanvasLayer.Projectiles,
+                    x: b.position.x - (b.width / 2),
+                    y: b.position.y - (b.height / 2),
+                    width: b.width,
+                    height: b.height,
+                    color: this.color
+                });
             };
             b.update = (scene: GameScene) => {
                 b.move(scene.sceneBounds);    
@@ -173,9 +187,9 @@ export class CircleEmitter extends Emitter implements ICircleEmitter {
                 //     b.kill();
                 // }
             };
-            angle.setAngle(angle.angle + 2 * Math.PI / this.count, 3);
+            angle.setAngle(angle.angle + 2 * Math.PI / this.count/*, 3*/).setLength(3);
         }
-        this.direction.setAngle(this.turnAngle+=this.turnRate, 3);
+        this.direction.setAngle(this.turnAngle+=this.turnRate/*, 3*/).setLength(3);
     }
 }
 
@@ -211,9 +225,16 @@ export class TestEmitter extends Emitter {
         this.lastTriggered = Game.time;
         // if(Projectile.count >= 10000)
         //     return;
-        let b: Bullet = new Bullet(this.position.copy(), this.direction.copy(), 8);
+        let b: Bullet = new Bullet({position: this.position.copy(), velocity: this.direction.copy(), size: 8});
         b.draw = (renderer: Renderer) => {
-            renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
+            renderer.drawRect({
+                layer: CanvasLayer.Projectiles,
+                x: b.position.x - (b.width / 2),
+                y: b.position.y - (b.height / 2),
+                width: b.width,
+                height: b.height,
+                color: this.color
+            });
         };
         
         b.update = (scene: GameScene) => {
@@ -223,6 +244,6 @@ export class TestEmitter extends Emitter {
             // }
         };
 
-        this.direction.setAngle(this.turnAngle+=this.turnRate, 1);
+        this.direction.setAngle(this.turnAngle+=this.turnRate/*, 1*/);
     }
 }

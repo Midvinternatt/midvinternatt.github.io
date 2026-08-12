@@ -58,7 +58,7 @@ export class RotatingEmitter extends RepeatingEmitter {
         this.turnAngle = direction.angle;
     }
     trigger() {
-        this.direction.setAngle(this.turnAngle += this.turnRate, 1);
+        this.direction.setAngle(this.turnAngle += this.turnRate /*, 1*/);
         super.trigger();
     }
 }
@@ -89,9 +89,16 @@ export class BB extends RotatingEmitter {
         // for (let i = 0; i < this.count; i++) {
         // let b: Bullet = new Bullet(Game.activeScene.player.position.copy().add(this.position), angle.copy(), 8);
         // console.log("hite");
-        let b = new Bullet(this.position.copy(), this.direction.copy(), 8);
+        let b = new Bullet({ position: this.position.copy(), velocity: this.direction.copy(), size: 8 });
         b.draw = (renderer) => {
-            renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
+            renderer.drawRect({
+                layer: CanvasLayer.Projectiles,
+                x: b.position.x - (b.width / 2),
+                y: b.position.y - (b.height / 2),
+                width: b.width,
+                height: b.height,
+                color: this.color
+            });
         };
         b.update = (scene) => {
             b.move(scene.sceneBounds);
@@ -134,9 +141,16 @@ export class CircleEmitter extends Emitter {
         this.lastTriggered = Game.time;
         let angle = this.direction.copy();
         for (let i = 0; i < this.count; i++) {
-            let b = new Bullet(this.position.copy(), angle.copy(), 8);
+            let b = new Bullet({ position: this.position.copy(), velocity: angle.copy(), size: 8 });
             b.draw = (renderer) => {
-                renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
+                renderer.drawRect({
+                    layer: CanvasLayer.Projectiles,
+                    x: b.position.x - (b.width / 2),
+                    y: b.position.y - (b.height / 2),
+                    width: b.width,
+                    height: b.height,
+                    color: this.color
+                });
             };
             b.update = (scene) => {
                 b.move(scene.sceneBounds);
@@ -144,9 +158,9 @@ export class CircleEmitter extends Emitter {
                 //     b.kill();
                 // }
             };
-            angle.setAngle(angle.angle + 2 * Math.PI / this.count, 3);
+            angle.setAngle(angle.angle + 2 * Math.PI / this.count /*, 3*/).setLength(3);
         }
-        this.direction.setAngle(this.turnAngle += this.turnRate, 3);
+        this.direction.setAngle(this.turnAngle += this.turnRate /*, 3*/).setLength(3);
     }
 }
 export class TestEmitter extends Emitter {
@@ -179,9 +193,16 @@ export class TestEmitter extends Emitter {
         this.lastTriggered = Game.time;
         // if(Projectile.count >= 10000)
         //     return;
-        let b = new Bullet(this.position.copy(), this.direction.copy(), 8);
+        let b = new Bullet({ position: this.position.copy(), velocity: this.direction.copy(), size: 8 });
         b.draw = (renderer) => {
-            renderer.drawRect(CanvasLayer.Projectiles, b.position.x - (b.width / 2), b.position.y - (b.height / 2), b.width, b.height, this.color);
+            renderer.drawRect({
+                layer: CanvasLayer.Projectiles,
+                x: b.position.x - (b.width / 2),
+                y: b.position.y - (b.height / 2),
+                width: b.width,
+                height: b.height,
+                color: this.color
+            });
         };
         b.update = (scene) => {
             b.move(scene.sceneBounds);
@@ -189,7 +210,7 @@ export class TestEmitter extends Emitter {
             //     b.kill();
             // }
         };
-        this.direction.setAngle(this.turnAngle += this.turnRate, 1);
+        this.direction.setAngle(this.turnAngle += this.turnRate /*, 1*/);
     }
 }
 //# sourceMappingURL=Emitter.js.map
