@@ -23,11 +23,25 @@ export default class Button {
 
     draw(renderer: Renderer) {
         if(this.selected) {
-            renderer.drawRect(CanvasLayer.Entities, this._x, this._y, this._width, this._height, "#fff");
+            renderer.drawRect({
+                layer: CanvasLayer.Entities,
+                x: this._x,
+                y: this._y,
+                width: this._width,
+                height: this._height,
+                color: "#fff"
+            });
             renderer.drawText(CanvasLayer.Entities, this.text, this._x + this._width / 2, this._y + this._height / 2 + 10, {font: "bold 40px Courier New", color: "#f00"});
         }
         else {
-            renderer.drawRect(CanvasLayer.Entities, this._x, this._y, this._width, this._height, "#666");
+            renderer.drawRect({
+                layer: CanvasLayer.Entities,
+                x: this._x,
+                y: this._y,
+                width: this._width,
+                height: this._height,
+                color: "#666"
+            });
             renderer.drawText(CanvasLayer.Entities, this.text, this._x + this._width / 2, this._y + this._height / 2 + 10, {font: "bold 40px Courier New", color: "#600"});
         }
     }

@@ -20,7 +20,7 @@ export default class Renderer {
         return this._height;
     }
 
-    constructor(gameContainer: HTMLElement, width: number, height: number) {
+    constructor({gameContainer, width, height}: {gameContainer: HTMLElement, width: number, height: number}) {
         while(gameContainer.firstElementChild) { gameContainer.firstElementChild.remove(); }
         
         this._gameContainer = gameContainer;
@@ -92,18 +92,37 @@ export default class Renderer {
         // Scene.ProjectileContext.restore();
     }
 
-    drawSprite(layer: CanvasLayer, image: CanvasImageSource, x: number, y: number, frameIndex: number, width: number, height: number, row?: number) {
+    drawSprite({layer, image, x, y, width, height, frameIndex, row}: {
+        layer: CanvasLayer,
+        image: CanvasImageSource,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        frameIndex: number,
+        row?: number}) {
         this._contextList.get(layer).drawImage(image, 1 + frameIndex * (width + 1), 1 + row * (height + 1), width, height, x|0, y|0, width, height);
     }
 
-    drawImage(layer: CanvasLayer, image: CanvasImageSource, x: number, y: number) {
+    drawImage({layer, image, x, y}: {
+        layer: CanvasLayer,
+        image: CanvasImageSource,
+        x: number,
+        y: number
+    }) {
         this._contextList.get(layer).drawImage(image, x|0, y|0);
     }
 
-    drawRect(layer: CanvasLayer, x: number, y: number, w: number, h: number, color?: string) {
-        if(color)
-            this._contextList.get(layer).fillStyle = color;
-        this._contextList.get(layer).fillRect(x|0, y|0, w|0, h|0);
+    drawRect({layer, x, y, width, height, color = "#FFF"}: {
+        layer: CanvasLayer,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        color?: string
+    }) {
+        this._contextList.get(layer).fillStyle = color;
+        this._contextList.get(layer).fillRect(x|0, y|0, width|0, height|0);
     }
 
     drawText(layer: CanvasLayer, text: string, x: number, y: number, style?: {font: string, color: string}) {

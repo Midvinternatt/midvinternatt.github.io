@@ -2,18 +2,18 @@ import { Collidable } from "./Interfaces/ICollidable.js";
 import Rectangle from "./Rectangle.js";
 
 export default class CollisionBox extends Rectangle {
-    owner: Collidable;
+    private _owner: Collidable;
 
     get x(): number {
-        return this.owner.position.x;
+        return this._owner.position.x;
     }
     get y(): number {
-        return this.owner.position.y;
+        return this._owner.position.y;
     }
     
-    constructor(owner: Collidable, width: number, height: number) {
+    constructor({owner, width, height}: {owner: Collidable, width: number, height: number}) {
         super(width, height);
-        this.owner = owner;
+        this._owner = owner;
     }}/*
     
     

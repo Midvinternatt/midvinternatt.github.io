@@ -1,4 +1,4 @@
-import ICollidable, { Collidable } from "./../Interfaces/ICollidable.js";
+import {ICollidable,  Collidable} from "./../Interfaces/ICollidable.js";
 import IDrawable from "./../Interfaces/IDrawable.js";
 import CollisionBox from "./../CollisionBox.js";
 import Sprite from "./../Sprite.js";
@@ -13,11 +13,21 @@ export default abstract class Entity implements IDrawable, ICollidable {
     height: number;
     sprite: Sprite;
 
-    constructor(position: Vector, width: number, height: number, collisionWidth?: number, collisionHeight?: number) {
+    constructor({position, width, height, collisionWidth, collisionHeight}: {
+        position: Vector,
+        width: number,
+        height: number,
+        collisionWidth?: number,
+        collisionHeight?: number
+    }) {
         this.position = position;
         this.width = width;
         this.height = height;
-        this.collisionBox = new CollisionBox(this, collisionWidth ?? width, collisionHeight ?? height);
+        this.collisionBox = new CollisionBox({
+            owner: this,
+            width: collisionWidth ?? width,
+            height: collisionHeight ?? height
+        });
     }
     checkCollision(target: Collidable): boolean {
         return this.collisionBox.intersects(target.collisionBox);

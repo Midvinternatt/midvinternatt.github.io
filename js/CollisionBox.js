@@ -1,15 +1,15 @@
 import Rectangle from "./Rectangle.js";
 export default class CollisionBox extends Rectangle {
-    owner;
+    _owner;
     get x() {
-        return this.owner.position.x;
+        return this._owner.position.x;
     }
     get y() {
-        return this.owner.position.y;
+        return this._owner.position.y;
     }
-    constructor(owner, width, height) {
+    constructor({ owner, width, height }) {
         super(width, height);
-        this.owner = owner;
+        this._owner = owner;
     }
 } /*
 

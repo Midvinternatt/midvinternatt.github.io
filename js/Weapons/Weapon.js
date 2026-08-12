@@ -4,7 +4,7 @@ export default class Weapon {
     attachmentPosition;
     fireRate;
     lastFired;
-    constructor(owner, attachmentPosition, fireRate) {
+    constructor({ owner, attachmentPosition, fireRate }) {
         this.owner = owner;
         this.attachmentPosition = attachmentPosition;
         this.fireRate = fireRate;

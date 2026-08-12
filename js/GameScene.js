@@ -35,45 +35,30 @@ export default class GameScene {
         return true;
     }
     update() {
-        this.player.velocity.x = 0;
-        this.player.velocity.y = 0;
-        if (Game.keyEventHandler.isKeyPressed(KEY.UP))
-            this.player.velocity.y -= 1;
-        if (Game.keyEventHandler.isKeyPressed(KEY.DOWN))
-            this.player.velocity.y += 1;
-        if (Game.keyEventHandler.isKeyPressed(KEY.LEFT))
-            this.player.velocity.x -= 1;
-        if (Game.keyEventHandler.isKeyPressed(KEY.RIGHT))
-            this.player.velocity.x += 1;
-        this.player.velocity.normalize().scale(this.player.moveSpeed);
-        if (Game.keyEventHandler.isKeyPressed(KEY.SHOOT)) {
-            this.player.autofire(this);
-        }
         this.player.update(this);
-        Enemy.forEach(enemy => {
+        for (let i = this.enemies.length - 1; i >= 0; i--) {
+            const enemy = this.enemies[i];
             enemy.update(this);
-        });
+            if (enemy.isDead)
+                this.enemies.splice(i, 1);
+        }
         for (let i = this.projectiles.length - 1; i >= 0; i--) {
             const projectile = this.projectiles[i];
             projectile.update(this);
             if (projectile.isDead)
                 this.projectiles.splice(i, 1);
         }
-        Emitter.forEach(emitter => {
-            emitter.update(this);
-        });
         this.userInterface.update();
-        // Debug(`Projectiles: ${Projectile.count}`);
-        // Debug(`X: ${Math.floor(this.player.position.x)} Y: ${Math.floor(this.player.position.y)}`);
         if (Game.debugActive)
             DebugOverlay.update(this);
     }
     draw() {
         this.renderer.clearCanvas();
         this.player.draw(this.renderer);
-        Enemy.forEach(enemy => {
+        for (let i = this.enemies.length - 1; i >= 0; i--) {
+            const enemy = this.enemies[i];
             enemy.draw(this.renderer);
-        });
+        }
         for (let i = this.projectiles.length - 1; i >= 0; i--) {
             const projectile = this.projectiles[i];
             projectile.draw(this.renderer);

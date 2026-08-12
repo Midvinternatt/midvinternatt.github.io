@@ -18,7 +18,7 @@ export default class Renderer {
     get height() {
         return this._height;
     }
-    constructor(gameContainer, width, height) {
+    constructor({ gameContainer, width, height }) {
         while (gameContainer.firstElementChild) {
             gameContainer.firstElementChild.remove();
         }
@@ -80,16 +80,15 @@ export default class Renderer {
         // Scene.ProjectileContext.clearRect(0, 0, Scene.ProjectileCanvas.width, Scene.ProjectileCanvas.height);
         // Scene.ProjectileContext.restore();
     }
-    drawSprite(layer, image, x, y, frameIndex, width, height, row) {
+    drawSprite({ layer, image, x, y, width, height, frameIndex, row }) {
         this._contextList.get(layer).drawImage(image, 1 + frameIndex * (width + 1), 1 + row * (height + 1), width, height, x | 0, y | 0, width, height);
     }
-    drawImage(layer, image, x, y) {
+    drawImage({ layer, image, x, y }) {
         this._contextList.get(layer).drawImage(image, x | 0, y | 0);
     }
-    drawRect(layer, x, y, w, h, color) {
-        if (color)
-            this._contextList.get(layer).fillStyle = color;
-        this._contextList.get(layer).fillRect(x | 0, y | 0, w | 0, h | 0);
+    drawRect({ layer, x, y, width, height, color = "#FFF" }) {
+        this._contextList.get(layer).fillStyle = color;
+        this._contextList.get(layer).fillRect(x | 0, y | 0, width | 0, height | 0);
     }
     drawText(layer, text, x, y, style) {
         if (style.font)

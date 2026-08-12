@@ -11,7 +11,7 @@ export default class Drone extends Enemy {
     velocity;
     weapon;
     constructor(position) {
-        super(position, 64, 64);
+        super({ position, width: 64, height: 64 });
         this.weapon = new DroneEmitter(this, new Vector(0, 26), new Vector(0, 1));
         this.velocity = new Vector(4, 1);
         this.sprite = new Sprite(Assets.getSpriteData(SpriteType.Drone), "idle");
@@ -32,7 +32,12 @@ export default class Drone extends Enemy {
         this.sprite.update();
     }
     draw(renderer) {
-        this.sprite.draw(CanvasLayer.Entities, renderer, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+        this.sprite.draw({
+            layer: CanvasLayer.Entities,
+            renderer,
+            x: this.position.x - (this.width / 2),
+            y: this.position.y - (this.height / 2)
+        });
     }
 }
 class DroneEmitter extends Emitter {
@@ -58,7 +63,7 @@ class DroneEmitter extends Emitter {
 }
 class DroneBullet extends Projectile {
     constructor(position, velocity) {
-        super(position, 6, 6);
+        super({ position, width: 6, height: 6 });
         this.velocity = velocity;
     }
     update(scene) {
@@ -72,7 +77,13 @@ class DroneBullet extends Projectile {
             this.kill();
     }
     draw(renderer) {
-        renderer.drawRect(CanvasLayer.Projectiles, this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
+        renderer.drawRect({
+            layer: CanvasLayer.Projectiles,
+            x: this.position.x - (this.width / 2),
+            y: this.position.y - (this.height / 2),
+            width: this.width,
+            height: this.height
+        });
     }
 }
 //# sourceMappingURL=Drone.js.map

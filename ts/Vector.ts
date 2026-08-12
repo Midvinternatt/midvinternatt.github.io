@@ -7,9 +7,9 @@ export default class Vector {
     /**
      * Creates a new two-dimensional vector
      */
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
+    constructor(x?: number, y?: number) {
+        this.x = x ?? 0;
+        this.y = y ?? 0;
     }
     
     get length(): number {
@@ -18,18 +18,16 @@ export default class Vector {
     get angle(): number {
         return Math.atan2(this.y, this.x);
     }
-    // set angle(newValue: number) {
-    //     this.x = Math.cos(newValue);
-    //     this.y = Math.sin(newValue);
-    // }
 
-    setAngle(angle: number, length?: number): Vector {
-        this.x = Math.cos(angle) * (length ?? 1);
-        this.y = Math.sin(angle) * (length ?? 1);
+    setAngle(angle: number/* length?: number*/): Vector {
+        this.x = Math.cos(angle);
+        this.y = Math.sin(angle);
         return this;
     }
-    setLength(length: number) {
-
+    setLength(length: number): Vector {
+        this.x *= length;
+        this.y *= length;
+        return this;
     }
     scale(scaleValue: number): Vector {
         this.x *= scaleValue;

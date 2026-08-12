@@ -14,14 +14,23 @@ export default class Player extends Entity {
     velocity: Vector;
     private _weaponList: Array<Weapon> = new Array<Weapon>();
 
-    health: number = 3;
-    maxHealth: number = 3;
-    moveSpeed: number = 8;
+    health: number;
+    maxHealth: number;
+    moveSpeed: number;
 
-    constructor(position: Vector, width: number, height: number) {
-        super(position, width, height);
+    constructor({position, width, height, stats: {health, maxHealth, moveSpeed}}: {
+        position: Vector,
+        width: number,
+        height: number,
+        stats: {health: number, maxHealth: number, moveSpeed: number}
+    }) {
+        super({position, width, height});
         this.velocity = new Vector(0, 0);
         this.sprite = new Sprite(Assets.getSpriteData(SpriteType.Player), "idle");
+
+        this.health = health;
+        this.maxHealth = maxHealth;
+        this.moveSpeed = moveSpeed;
     }
 
     addWeapon(newWeapon: Weapon) {
@@ -87,6 +96,11 @@ export default class Player extends Entity {
     }
 
     draw(renderer: Renderer) {
-        this.sprite.draw(CanvasLayer.Entities, renderer, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+        this.sprite.draw({
+            layer: CanvasLayer.Entities,
+            renderer,
+            x: this.position.x - (this.width / 2),
+            y: this.position.y - (this.height / 2)
+        });
     }
 }

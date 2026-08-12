@@ -32,8 +32,11 @@ export default class Game {
 
     constructor(gameContainer: HTMLElement) {
         Game.keyEventHandler = new KeyEventHandler();
-        Game.renderer = new Renderer(gameContainer, window.innerWidth, window.innerHeight);
-        // Game.renderer = new Renderer(gameContainer, 800, 600);
+        Game.renderer = new Renderer({
+            gameContainer,
+            width: 800,
+            height: 600
+        });
         
         if(Game.debugActive)
             DebugOverlay.init();

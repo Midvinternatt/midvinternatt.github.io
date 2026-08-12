@@ -6,8 +6,8 @@ export default class Vector {
      * Creates a new two-dimensional vector
      */
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        this.x = x ?? 0;
+        this.y = y ?? 0;
     }
     get length() {
         return Math.sqrt(this.x * this.x + this.y * this.y);
@@ -15,16 +15,15 @@ export default class Vector {
     get angle() {
         return Math.atan2(this.y, this.x);
     }
-    // set angle(newValue: number) {
-    //     this.x = Math.cos(newValue);
-    //     this.y = Math.sin(newValue);
-    // }
-    setAngle(angle, length) {
-        this.x = Math.cos(angle) * (length ?? 1);
-        this.y = Math.sin(angle) * (length ?? 1);
+    setAngle(angle /* length?: number*/) {
+        this.x = Math.cos(angle);
+        this.y = Math.sin(angle);
         return this;
     }
     setLength(length) {
+        this.x *= length;
+        this.y *= length;
+        return this;
     }
     scale(scaleValue) {
         this.x *= scaleValue;

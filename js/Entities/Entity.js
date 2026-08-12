@@ -5,11 +5,15 @@ export default class Entity {
     width;
     height;
     sprite;
-    constructor(position, width, height, collisionWidth, collisionHeight) {
+    constructor({ position, width, height, collisionWidth, collisionHeight }) {
         this.position = position;
         this.width = width;
         this.height = height;
-        this.collisionBox = new CollisionBox(this, collisionWidth ?? width, collisionHeight ?? height);
+        this.collisionBox = new CollisionBox({
+            owner: this,
+            width: collisionWidth ?? width,
+            height: collisionHeight ?? height
+        });
     }
     checkCollision(target) {
         return this.collisionBox.intersects(target.collisionBox);

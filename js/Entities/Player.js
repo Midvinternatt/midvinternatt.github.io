@@ -9,13 +9,16 @@ export default class Player extends Entity {
     static one;
     velocity;
     _weaponList = new Array();
-    health = 3;
-    maxHealth = 3;
-    moveSpeed = 8;
-    constructor(position, width, height) {
-        super(position, width, height);
+    health;
+    maxHealth;
+    moveSpeed;
+    constructor({ position, width, height, stats: { health, maxHealth, moveSpeed } }) {
+        super({ position, width, height });
         this.velocity = new Vector(0, 0);
         this.sprite = new Sprite(Assets.getSpriteData(SpriteType.Player), "idle");
+        this.health = health;
+        this.maxHealth = maxHealth;
+        this.moveSpeed = moveSpeed;
     }
     addWeapon(newWeapon) {
         this._weaponList.push(newWeapon);
@@ -67,7 +70,12 @@ export default class Player extends Entity {
         this.sprite.update();
     }
     draw(renderer) {
-        this.sprite.draw(CanvasLayer.Entities, renderer, this.position.x - (this.width / 2), this.position.y - (this.height / 2));
+        this.sprite.draw({
+            layer: CanvasLayer.Entities,
+            renderer,
+            x: this.position.x - (this.width / 2),
+            y: this.position.y - (this.height / 2)
+        });
     }
 }
 //# sourceMappingURL=Player.js.map

@@ -9,7 +9,11 @@ export default abstract class Weapon {
     fireRate: number;
     lastFired: number;
 
-    constructor(owner: Player, attachmentPosition: Vector, fireRate: number) {
+    constructor({owner, attachmentPosition, fireRate}: {
+        owner: Player,
+        attachmentPosition: Vector,
+        fireRate: number
+    }) {
         this.owner = owner;
         this.attachmentPosition = attachmentPosition;
         this.fireRate = fireRate;

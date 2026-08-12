@@ -7,12 +7,16 @@ export default class Projectile {
     isDead;
     collisionBox;
     sprite;
-    constructor(position, width, height, collisionWidth, collisionHeight) {
+    constructor({ position, width, height, collisionWidth, collisionHeight }) {
         this.position = position;
         this.width = width;
         this.height = height;
         this.isDead = false;
-        this.collisionBox = new CollisionBox(this, collisionWidth ?? width, collisionHeight ?? height);
+        this.collisionBox = new CollisionBox({
+            owner: this,
+            width: collisionWidth ?? width,
+            height: collisionHeight ?? height
+        });
     }
     checkCollision(target) {
         return this.collisionBox.intersects(target.collisionBox);

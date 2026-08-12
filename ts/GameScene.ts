@@ -17,16 +17,17 @@ export default class GameScene implements IScene {
     readonly renderer: Renderer;
     readonly sceneBounds: SceneBounds;
     readonly userInterface: UserInterface;
+    
+    readonly enemies: Array<Enemy>;
+    readonly projectiles: Array<Projectile>;
 
     player: Player;
-    readonly enemies: Array<Entity>;
-    readonly projectiles: Array<Projectile>;
 
     constructor(renderer: Renderer) {
         this.renderer = renderer;
         this.sceneBounds = new SceneBounds(renderer.width / 2, renderer.height / 2, renderer.width, renderer.height);
         this.userInterface = new UserInterface();
-        this.enemies = new Array<Entity>();
+        this.enemies = new Array<Enemy>();
         this.projectiles = new Array<Projectile>();
     }
     load() {
@@ -44,12 +45,14 @@ export default class GameScene implements IScene {
     update() {
         this.player.update(this);
 
+        for (let i = this.enemies.length-1; i >= 0; i--){
+            const enemy = this.enemies[i];
+            enemy.update(this);
 
+            if(enemy.isDead)
+                this.enemies.splice(i, 1);
         }
         
-        Enemy.forEach(enemy => {
-            enemy.update(this);
-        });
         for (let i = this.projectiles.length-1; i >= 0; i--){
             const projectile = this.projectiles[i];
             projectile.update(this);
@@ -57,9 +60,6 @@ export default class GameScene implements IScene {
             if(projectile.isDead)
                 this.projectiles.splice(i, 1);
         }
-        Emitter.forEach(emitter => {
-            emitter.update(this); 
-        });
         
         this.userInterface.update();
 
@@ -70,9 +70,10 @@ export default class GameScene implements IScene {
         this.renderer.clearCanvas();
 
         this.player.draw(this.renderer);
-        Enemy.forEach(enemy => {
+        for (let i = this.enemies.length-1; i >= 0; i--){
+            const enemy = this.enemies[i];
             enemy.draw(this.renderer);
-        });
+        }
         for (let i = this.projectiles.length-1; i >= 0; i--){
             const projectile = this.projectiles[i];
             projectile.draw(this.renderer);

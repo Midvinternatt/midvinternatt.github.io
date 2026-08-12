@@ -1,4 +1,3 @@
-import Enemy from "../Entities/Enemies/Enemy.js";
 import Vector from "../Vector.js";
 import Projectile from "./Projectile.js";
 import { canBeHit } from "../Interfaces/IHittable.js";
@@ -7,19 +6,31 @@ import SceneBounds from "../SceneBounds.js";
 import Renderer, { CanvasLayer } from "../Renderer.js";
 
 export default class Bullet extends Projectile {
-    constructor(position: Vector, velocity: Vector, size: number) {
-        super(position, size, size, size, size);
+    constructor({position, velocity, size}: {
+        position: Vector,
+        velocity: Vector,
+        size: number
+    }) {
+        super({
+            position,
+            width: size,
+            height: size,
+            collisionWidth: size,
+            collisionHeight: size
+        });
         this.velocity = velocity;
     }
     update(scene: GameScene): void {
-        this.move(scene.sceneBounds);    
-        Enemy.forEach(enemy => {
+        this.move(scene.sceneBounds);
+
+        for (let i = scene.enemies.length-1; i >= 0; i--){
+            const enemy = scene.enemies[i];
             if(this.checkCollision(enemy)) {
                 this.kill();
                 if(canBeHit(enemy))
                     enemy.hit();
             }
-        });
+        }
     }
     move(sceneBounds: SceneBounds) {
         this.position.add(this.velocity);
@@ -27,6 +38,12 @@ export default class Bullet extends Projectile {
             this.kill();
     }
     draw(renderer: Renderer) {
-        renderer.drawRect(CanvasLayer.Projectiles, this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
+        renderer.drawRect({
+            layer: CanvasLayer.Projectiles,
+            x: this.position.x - (this.width / 2),
+            y: this.position.y - (this.height / 2),
+            width: this.width,
+            height: this.height
+        });
     }
 }
