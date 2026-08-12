@@ -6,13 +6,11 @@ export default class Emitter {
     position;
     direction;
     callback;
-    // speed: number;
     active;
     constructor(position, direction, callback) {
         this.position = position;
         this.direction = direction;
         this.callback = callback;
-        // this.speed = direction.length;
         Emitter._emitterList.push(this);
     }
     kill() {
@@ -58,7 +56,7 @@ export class RotatingEmitter extends RepeatingEmitter {
         this.turnAngle = direction.angle;
     }
     trigger() {
-        this.direction.setAngle(this.turnAngle += this.turnRate /*, 1*/);
+        this.direction.setAngle(this.turnAngle += this.turnRate);
         super.trigger();
     }
 }
@@ -83,12 +81,6 @@ export class BB extends RotatingEmitter {
     }
     trigger() {
         super.trigger();
-        // if(Projectile.count >= 10000)
-        //     return;
-        // let angle: Vector = this.direction.copy();
-        // for (let i = 0; i < this.count; i++) {
-        // let b: Bullet = new Bullet(Game.activeScene.player.position.copy().add(this.position), angle.copy(), 8);
-        // console.log("hite");
         let b = new Bullet({ position: this.position.copy(), velocity: this.direction.copy(), size: 8 });
         b.draw = (renderer) => {
             renderer.drawRect({
@@ -106,8 +98,6 @@ export class BB extends RotatingEmitter {
                 b.kill();
             }
         };
-        // angle.setAngle(angle.angle + 2 * Math.PI / this.count, 3);
-        // }
     }
 }
 export class CircleEmitter extends Emitter {
@@ -127,7 +117,6 @@ export class CircleEmitter extends Emitter {
     }
     constructor(deltaPosition, direction, callback) {
         super(deltaPosition, direction.scale(3), callback);
-        // this.turnRate = Math.PI/(Math.random()*8);
         this.color = this.getRandomColor();
     }
     get isReady() {
@@ -154,13 +143,10 @@ export class CircleEmitter extends Emitter {
             };
             b.update = (scene) => {
                 b.move(scene.sceneBounds);
-                // if(b.checkCollision(Game.player)) {
-                //     b.kill();
-                // }
             };
-            angle.setAngle(angle.angle + 2 * Math.PI / this.count /*, 3*/).setLength(3);
+            angle.setAngle(angle.angle + 2 * Math.PI / this.count).setLength(3);
         }
-        this.direction.setAngle(this.turnAngle += this.turnRate /*, 3*/).setLength(3);
+        this.direction.setAngle(this.turnAngle += this.turnRate).setLength(3);
     }
 }
 export class TestEmitter extends Emitter {
@@ -191,8 +177,6 @@ export class TestEmitter extends Emitter {
     }
     trigger() {
         this.lastTriggered = Game.time;
-        // if(Projectile.count >= 10000)
-        //     return;
         let b = new Bullet({ position: this.position.copy(), velocity: this.direction.copy(), size: 8 });
         b.draw = (renderer) => {
             renderer.drawRect({
@@ -206,11 +190,8 @@ export class TestEmitter extends Emitter {
         };
         b.update = (scene) => {
             b.move(scene.sceneBounds);
-            // if(b.checkCollision(Game.player)) {
-            //     b.kill();
-            // }
         };
-        this.direction.setAngle(this.turnAngle += this.turnRate /*, 1*/);
+        this.direction.setAngle(this.turnAngle += this.turnRate);
     }
 }
 //# sourceMappingURL=Emitter.js.map

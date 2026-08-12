@@ -11,10 +11,6 @@ export default class KeyEventHandler {
     isKeyPressed(key) {
         return this._pressedKeys.has(key);
     }
-    /**
-     * Registers the callback-function to be called when key is pressed.
-     * @returns KeyCallback instance for later removal
-     */
     onPressed(key, callback) {
         let callbacks = this._callbacks.get(key);
         if (callbacks === undefined) {
@@ -29,9 +25,6 @@ export default class KeyEventHandler {
         callbacks.add(keyCallback);
         return keyCallback;
     }
-    /**
-     * Releases all pressed keys
-     */
     reset() {
         this._pressedKeys.clear();
     }

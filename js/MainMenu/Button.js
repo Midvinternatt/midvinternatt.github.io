@@ -7,7 +7,6 @@ export default class Button {
     text;
     selected;
     trigger;
-    // private sprite;
     constructor(text, x, y, width, height, triggerCallback) {
         this.text = text;
         this._x = x;

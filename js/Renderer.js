@@ -33,8 +33,6 @@ export default class Renderer {
             const canvas = document.createElement("canvas");
             canvas.width = renderer._width;
             canvas.height = renderer._height;
-            // canvas.style.width = "${renderer._width}px";
-            // canvas.style.height = "${renderer._height}px";
             const context = canvas.getContext("2d", options);
             context.imageSmoothingEnabled = false;
             renderer._canvasList.set(layer, canvas);
@@ -44,41 +42,11 @@ export default class Renderer {
         }
         addLayer(this, CanvasLayer.Entities, { alpha: true });
         addLayer(this, CanvasLayer.Projectiles, { alpha: true });
-        /*
-        let canvas = document.createElement("canvas");
-            canvas.style.background = "#000";
-            canvas.width = width;
-            canvas.height = height;
-        let context = canvas.getContext("2d");
-            context.imageSmoothingEnabled = false;
-        this.canvasList.set(CanvasLayer.Entities, canvas);
-        this.contextList.set(CanvasLayer.Entities, context);
-        this.canvasList.set(CanvasLayer.Projectiles, canvas); // Skapa egna till dessa
-        this.contextList.set(CanvasLayer.Projectiles, context); // Skapa egna till dessa
-        this.gameContainer.appendChild(canvas);
-        */
-        // context.fillStyle = "#fff"; // Ta bort senare
-        // Scene.BackgroundContext = Scene.BackgroundCanvas.getContext("2d", { alpha: false });
-        // this.entityContext = this.entityCanvas.getContext("2d"); // , { willreadfrequently: true }
-        // Scene.ProjectileContext = Scene.ProjectileCanvas.getContext("2d"); // , { willreadfrequently: true }
-        // Scene.BackgroundContext.imageSmoothingEnabled = false;
-        // this.entityContext.imageSmoothingEnabled = false;
-        // Scene.ProjectileContext.imageSmoothingEnabled = false;
-        // window.addEventListener("resize",function(){
-        //     Game.canvas.height = window.innerHeight;
-        //     Game.canvas.width = window.innerWidth;
-        // });
     }
     clearCanvas() {
         this._canvasList.forEach((canvas, layer) => {
             this._contextList.get(layer).clearRect(0, 0, canvas.width, canvas.height);
         });
-        // this.backgroundContext.clearRect(0, 0, this.backgroundCanvas.width, this.backgroundCanvas.height);
-        // this.projectileContext.clearRect(0, 0, this.projectileCanvas.width, this.projectileCanvas.height);
-        // Scene.ProjectileContext.save();
-        // Scene.ProjectileContext.setTransform(1, 0, 0, 1, 0, 0);
-        // Scene.ProjectileContext.clearRect(0, 0, Scene.ProjectileCanvas.width, Scene.ProjectileCanvas.height);
-        // Scene.ProjectileContext.restore();
     }
     drawSprite({ layer, image, x, y, width, height, frameIndex, row }) {
         this._contextList.get(layer).drawImage(image, 1 + frameIndex * (width + 1), 1 + row * (height + 1), width, height, x | 0, y | 0, width, height);
