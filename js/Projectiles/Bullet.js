@@ -1,4 +1,3 @@
-import Enemy from "../Entities/Enemies/Enemy.js";
 import Projectile from "./Projectile.js";
 import { canBeHit } from "../Interfaces/IHittable.js";
 import { CanvasLayer } from "../Renderer.js";
