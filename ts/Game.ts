@@ -1,5 +1,5 @@
 import Sprite from "./Sprite.js";
-import KeyEventHandler from "./KeyEventHandler.js";
+import KeyEventHandler from "./Input/KeyEventHandler.js";
 import Renderer from "./Renderer.js";
 import MainMenuScene from "./MainMenu/MainMenuScene.js";
 import IScene from "./Interfaces/IScene.js";

@@ -1,4 +1,4 @@
-import KeyEventHandler from "./KeyEventHandler.js";
+import KeyEventHandler from "./Input/KeyEventHandler.js";
 import Renderer from "./Renderer.js";
 import GameScene from "./GameScene.js";
 import Assets from "./Assets.js";
