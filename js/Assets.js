@@ -1,4 +1,4 @@
-import Debug from "./Debug.js";
+import Debug from "./Debug/Debug.js";
 import { SpriteDefinitions } from "./SpriteDefinitions.js";
 export default class Assets {
     static images = new Map();

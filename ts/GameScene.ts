@@ -42,25 +42,11 @@ export default class GameScene implements IScene {
         return true;
     }
     update() {
-        this.player.velocity.x = 0;
-        this.player.velocity.y = 0;
+        this.player.update(this);
 
-        if(Game.keyEventHandler.isKeyPressed(KEY.UP))
-            this.player.velocity.y -= 1;
-        if(Game.keyEventHandler.isKeyPressed(KEY.DOWN)) 
-            this.player.velocity.y += 1;
-        if(Game.keyEventHandler.isKeyPressed(KEY.LEFT))
-            this.player.velocity.x -= 1;
-        if(Game.keyEventHandler.isKeyPressed(KEY.RIGHT)) 
-            this.player.velocity.x += 1;
 
-        this.player.velocity.normalize().scale(this.player.moveSpeed);
-        
-        if(Game.keyEventHandler.isKeyPressed(KEY.SHOOT)) {
-            this.player.autofire(this);
         }
         
-        this.player.update(this);
         Enemy.forEach(enemy => {
             enemy.update(this);
         });
@@ -103,6 +89,7 @@ export default class GameScene implements IScene {
     }
 }
 
+/*
 function testScene(scene: GameScene) {
     // let count = 4;
     // new RotatingEmitter(new Vector(0, 0), new Vector(3, 0), 10, 5, (position, direction) => {

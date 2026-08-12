@@ -1,4 +1,4 @@
-import Debug from "./Debug.js";
+import Debug from "./Debug/Debug.js";
 import { SpriteData } from "./Sprite.js";
 import { SpriteDefinitions, SpriteType } from "./SpriteDefinitions.js";
 

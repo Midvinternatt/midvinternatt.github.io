@@ -7,6 +7,7 @@ import SceneBounds from "../SceneBounds.js";
 import Assets from "../Assets.js";
 import { SpriteType } from "../SpriteDefinitions.js";
 import Sprite from "../Sprite.js";
+import PlayerInput from "../Input/PlayerInput.js";
 
 export default class Player extends Entity {
     static one: Player;
@@ -26,7 +27,7 @@ export default class Player extends Entity {
     addWeapon(newWeapon: Weapon) {
         this._weaponList.push(newWeapon);
     }
-    autofire(scene: GameScene) {
+    shoot(scene: GameScene) {
         this._weaponList.forEach(weapon => {
             if(weapon.isReady){
                 const bullet = weapon.shoot();
@@ -74,8 +75,13 @@ export default class Player extends Entity {
     }
 
     update(scene: GameScene) {
+        this.velocity = PlayerInput.getMovement().normalize().scale(this.moveSpeed);
+
         if(!this.velocity.equals(Vector.nullVector))
             this.move(scene.sceneBounds);
+
+        if(PlayerInput.isShooting())
+            this.shoot(scene);
         
         this.sprite.update();
     }

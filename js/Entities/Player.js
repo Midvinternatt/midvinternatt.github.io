@@ -4,6 +4,7 @@ import { CanvasLayer } from "../Renderer.js";
 import Assets from "../Assets.js";
 import { SpriteType } from "../SpriteDefinitions.js";
 import Sprite from "../Sprite.js";
+import PlayerInput from "../Input/PlayerInput.js";
 export default class Player extends Entity {
     static one;
     velocity;
@@ -19,7 +20,7 @@ export default class Player extends Entity {
     addWeapon(newWeapon) {
         this._weaponList.push(newWeapon);
     }
-    autofire(scene) {
+    shoot(scene) {
         this._weaponList.forEach(weapon => {
             if (weapon.isReady) {
                 const bullet = weapon.shoot();
@@ -58,8 +59,11 @@ export default class Player extends Entity {
         //     this.position.y = (this.scene.sceneBounds.height - (this.height / 2));
     }
     update(scene) {
+        this.velocity = PlayerInput.getMovement().normalize().scale(this.moveSpeed);
         if (!this.velocity.equals(Vector.nullVector))
             this.move(scene.sceneBounds);
+        if (PlayerInput.isShooting())
+            this.shoot(scene);
         this.sprite.update();
     }
     draw(renderer) {

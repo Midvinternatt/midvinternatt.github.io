@@ -3,6 +3,7 @@ import GameScene from "../GameScene.js";
 import IScene from "../Interfaces/IScene.js";
 import Renderer from "../Renderer.js";
 import Button from "./Button.js";
+import KEY from "../Input/Key.js";
 
 export default class MainMenuScene implements IScene {
     renderer: Renderer;
