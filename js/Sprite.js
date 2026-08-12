@@ -8,7 +8,6 @@ export default class Sprite {
     currentAnimation;
     currentAnimationFrameIndex;
     currentAnimationElapsed;
-    // constructor(image: HTMLImageElement, width: number, height: number, animations: Record<string, SpriteAnimation>, defaultAnimation?: string) {
     constructor(data, defaultAnimation) {
         this.image = Assets.getImage(data.imagePath);
         this.width = data.width;
@@ -77,9 +76,6 @@ const spriteSheet = [
     { id: SPRITE.PLAYER_SHIP4, file: "ship44.png", w: 64, h: 64 },
     { id: SPRITE.DRONE, file: "1.png", w: 100, h: 100 }
 ];
-/*
-    Spara en collision ImageData för varje sprite
-*/
 export class SpriteOld {
     bitmap;
     static spriteMap = new Map();

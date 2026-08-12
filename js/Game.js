@@ -4,15 +4,6 @@ import GameScene from "./GameScene.js";
 import Assets from "./Assets.js";
 import Debug from "./Debug/Debug.js";
 import DebugOverlay from "./Debug/DebugOverlay.js";
-/* Bra länkar
-    Collision: https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-    Game loop: https://www.aleksandrhovhannisyan.com/blog/javascript-game-loop/
-    Optimering: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas
-                https://hacks.mozilla.org/2013/05/optimizing-your-javascript-game-for-firefox-os/
-
-    https://foozlecc.itch.io/void-main-ship
-    https://foozlecc.itch.io/void-fleet-pack-1
-*/
 export default class Game {
     static keyEventHandler;
     static time;
@@ -42,8 +33,6 @@ export default class Game {
     loadResources() {
         return Promise.all([
             Assets.loadSprites()
-            // Sprite.LoadSprites()
-            // Sound.LoadSounds()
         ]);
     }
     loadAllAssets() {
@@ -54,7 +43,6 @@ export default class Game {
     start() {
         Game.time = 0;
         this.isRunning = true;
-        // Game.activeScene = new MainMenuScene(Game.renderer);
         Game.activeScene = new GameScene(Game.renderer);
         Game.activeScene.load();
         this.loop();

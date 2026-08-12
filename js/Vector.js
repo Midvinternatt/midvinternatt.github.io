@@ -2,9 +2,6 @@ export default class Vector {
     static nullVector = new Vector(0, 0);
     x;
     y;
-    /**
-     * Creates a new two-dimensional vector
-     */
     constructor(x, y) {
         this.x = x ?? 0;
         this.y = y ?? 0;
@@ -15,7 +12,7 @@ export default class Vector {
     get angle() {
         return Math.atan2(this.y, this.x);
     }
-    setAngle(angle /* length?: number*/) {
+    setAngle(angle) {
         this.x = Math.cos(angle);
         this.y = Math.sin(angle);
         return this;
@@ -51,21 +48,12 @@ export default class Vector {
         this.y *= other.y;
         return this;
     }
-    /**
-     * Returns true if this vectors data matches the passed vector
-     */
     equals(other) {
         return this.x === other.x && this.y === other.y;
     }
-    /**
-     * Creates a new Vector object with the same data as this vector
-     */
     copy() {
         return new Vector(this.x, this.y);
     }
-    /**
-     * Replicates the data of this vector onto the passed vector
-     */
     replicate(other) {
         other.x = this.x;
         other.y = this.y;
