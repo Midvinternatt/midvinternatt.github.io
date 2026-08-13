@@ -3,7 +3,7 @@ import Vector from "../Vector.js";
 import Entity from "./Entity.js";
 import Renderer, { CanvasLayer } from "../Renderer.js";
 import GameScene from "../GameScene.js";
-import SceneBounds from "../SceneBounds.js";
+import SceneBounds from "../collision/SceneBounds.js";
 import Assets from "../Assets.js";
 import { SpriteType } from "../SpriteDefinitions.js";
 import Sprite from "../Sprite.js";

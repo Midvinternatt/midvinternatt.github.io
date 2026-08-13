@@ -4,7 +4,7 @@ import IScene from "./Interfaces/IScene.js";
 import Player from "./Entities/Player.js";
 import Projectile from "./Projectiles/Projectile.js";
 import Renderer from "./Renderer.js";
-import SceneBounds from "./SceneBounds.js";
+import SceneBounds from "./collision/SceneBounds.js";
 import UserInterface from "./UserInterface.js";
 import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
@@ -22,7 +22,10 @@ export default class GameScene implements IScene {
 
     constructor(renderer: Renderer) {
         this.renderer = renderer;
-        this.sceneBounds = new SceneBounds(renderer.width / 2, renderer.height / 2, renderer.width, renderer.height);
+        this.sceneBounds = new SceneBounds({
+            width: renderer.width,
+            height: renderer.height
+        });
         this.userInterface = new UserInterface();
         this.enemies = new Array<Enemy>();
         this.projectiles = new Array<Projectile>();

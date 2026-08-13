@@ -1,5 +1,5 @@
-import Rectangle from "./Rectangle.js";
-import Vector from "./Vector.js";
+import Rectangle from "../Rectangle.js";
+import Vector from "../Vector.js";
 export default class SceneBounds extends Rectangle {
     get x() {
         return this.left;

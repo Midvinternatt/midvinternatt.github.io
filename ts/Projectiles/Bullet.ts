@@ -2,7 +2,7 @@ import Vector from "../Vector.js";
 import Projectile from "./Projectile.js";
 import { canBeHit } from "../Interfaces/IHittable.js";
 import GameScene from "../GameScene.js";
-import SceneBounds from "../SceneBounds.js";
+import SceneBounds from "../collision/SceneBounds.js";
 import Renderer, { CanvasLayer } from "../Renderer.js";
 
 export default class Bullet extends Projectile {

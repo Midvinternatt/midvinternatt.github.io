@@ -5,7 +5,7 @@ import GameScene from "../../GameScene.js";
 import IHittable from "../../Interfaces/IHittable.js";
 import Projectile from "../../Projectiles/Projectile.js";
 import Renderer, { CanvasLayer } from "../../Renderer.js";
-import SceneBounds from "../../SceneBounds.js";
+import SceneBounds from "../../collision/SceneBounds.js";
 import Sprite from "../../Sprite.js";
 import { SpriteType } from "../../SpriteDefinitions.js";
 import Vector from "../../Vector.js";

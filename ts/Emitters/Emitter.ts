@@ -5,7 +5,7 @@ import Player from "../Entities/Player.js";
 import Bullet from "../Projectiles/Bullet.js";
 import Projectile from "../Projectiles/Projectile.js";
 import Renderer, { CanvasLayer } from "../Renderer.js";
-import SceneBounds from "../SceneBounds.js";
+import SceneBounds from "../collision/SceneBounds.js";
 import Vector from "../Vector.js";
 
 export interface ICircleEmitter {

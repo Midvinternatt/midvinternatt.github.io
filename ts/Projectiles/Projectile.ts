@@ -1,10 +1,10 @@
 import Vector from "../Vector.js";
 import Sprite from "../Sprite.js";
-import CollisionBox from "../CollisionBox.js";
+import CollisionBox from "../collision/CollisionBox.js";
 import IDrawable from "../Interfaces/IDrawable.js";
-import {ICollidable, Collidable} from "../Interfaces/ICollidable.js";
+import {ICollidable, Collidable} from "../collision/ICollidable.js";
 import Renderer from "../Renderer.js";
-import SceneBounds from "../SceneBounds.js";
+import SceneBounds from "../collision/SceneBounds.js";
 import GameScene from "../GameScene.js";
 
 export default abstract class Projectile implements IDrawable, ICollidable {

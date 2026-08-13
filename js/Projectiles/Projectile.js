@@ -1,4 +1,4 @@
-import CollisionBox from "../CollisionBox.js";
+import CollisionBox from "../collision/CollisionBox.js";
 export default class Projectile {
     position;
     velocity;
