@@ -9,6 +9,7 @@ import UserInterface from "./UserInterface.js";
 import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
 import DebugOverlay from "./Debug/DebugOverlay.js";
+import Level from "./Level.js";
 
 export default class GameScene implements IScene {
     readonly renderer: Renderer;
@@ -18,6 +19,7 @@ export default class GameScene implements IScene {
     readonly enemies: Array<Enemy>;
     readonly projectiles: Array<Projectile>;
 
+    level!: Level;
     player!: Player;
 
     constructor(renderer: Renderer) {
@@ -49,6 +51,7 @@ export default class GameScene implements IScene {
         this.player.addWeapon(new Railgun({owner: this.player, attachmentPosition: new Vector(-22, -3)}));
         this.player.addWeapon(new Railgun({owner: this.player, attachmentPosition: new Vector(22, -3)}));
 
+        this.startLevel("level01");
     }
 
     update() {
@@ -72,6 +75,7 @@ export default class GameScene implements IScene {
         
         this.userInterface.update();
 
+        this.level.update(this);
 
         if(Game.debugActive)
             DebugOverlay.update(this);
@@ -102,6 +106,10 @@ export default class GameScene implements IScene {
     }
     spawnEnemy(enemy: Enemy) {
         this.enemies.push(enemy);
+    }
+    startLevel(id: string) {
+        this.level = new Level();
+        this.level.start();
     }
 }
 
