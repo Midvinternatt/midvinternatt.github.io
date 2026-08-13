@@ -11,9 +11,9 @@ class BulletEmitter { // CircleEmitter / ConeEmitter / SquareEmitter
 }
 
 export default class EnemyScript {
-    enemy: Enemy;
+    enemy!: Enemy;
 
-    waypoint: Vector;
+    waypoint!: Vector;
 
     constructor(enemy: Enemy) {
 
@@ -40,9 +40,9 @@ class Wave {
 
 class Path {
     currentNode: number;
-    minimumDistance: number;
-    nodeList: Vector[];
-    killOnCompletion: boolean;
+    minimumDistance!: number;
+    nodeList!: Vector[];
+    killOnCompletion!: boolean;
 
     constructor(moveSpeed: number) {
         this.currentNode = 0;

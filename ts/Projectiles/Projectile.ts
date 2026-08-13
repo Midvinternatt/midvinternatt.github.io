@@ -9,12 +9,12 @@ import GameScene from "../GameScene.js";
 
 export default abstract class Projectile implements IDrawable, ICollidable {
     position: Vector;
-    velocity: Vector;
+    velocity!: Vector;
     width: number;
     height: number;
     isDead: boolean;
     collisionBox: CollisionBox;
-    sprite: Sprite;
+    sprite!: Sprite;
 
     constructor({position, width, height, collisionWidth, collisionHeight}: {
         position: Vector,

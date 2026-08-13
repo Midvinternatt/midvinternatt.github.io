@@ -28,9 +28,9 @@ export default class Sprite {
     private height: number; 
 
     private animations: Map<string, SpriteAnimation>;
-    private currentAnimation: SpriteAnimation;
-    private currentAnimationFrameIndex: number;
-    private currentAnimationElapsed: number;
+    private currentAnimation!: SpriteAnimation;
+    private currentAnimationFrameIndex!: number;
+    private currentAnimationElapsed!: number;
 
     // constructor(image: HTMLImageElement, width: number, height: number, animations: Record<string, SpriteAnimation>, defaultAnimation?: string) {
     // constructor(spriteType: SpriteType, defaultAnimation?: string) {
@@ -49,7 +49,7 @@ export default class Sprite {
         if(!this.animations.get(animation))
             throw new Error(`Attempted to play non-existant animation '${animation}'`);
 
-        this.currentAnimation = this.animations.get(animation);
+        this.currentAnimation = this.animations.get(animation)!;
         this.currentAnimationFrameIndex = 0;
         this.currentAnimationElapsed = 0;
     }
@@ -148,7 +148,7 @@ export class SpriteOld {
         });
     }
     static getSprite(sprite: SPRITE): SpriteOld {
-        return this.spriteMap.get(sprite);
+        return this.spriteMap.get(sprite)!;
     }
     // static createSprite(elementId: string, index: SPRITE): Promise<Sprite | void> {
     //     return Promise.resolve(

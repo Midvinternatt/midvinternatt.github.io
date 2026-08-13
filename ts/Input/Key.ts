@@ -6,7 +6,7 @@ enum KEY {
     SHOOT = " ",
     PAUSE = "p",
     
-    DEBUG = "F10"
+    DEBUG = "F1"
 }
 
 export default KEY;

@@ -18,11 +18,13 @@ export default class GameScene implements IScene {
     readonly enemies: Array<Enemy>;
     readonly projectiles: Array<Projectile>;
 
-    player: Player;
+    player!: Player;
 
     constructor(renderer: Renderer) {
         this.renderer = renderer;
         this.sceneBounds = new SceneBounds({
+            x: 0,
+            y: 0,
             width: renderer.width,
             height: renderer.height
         });

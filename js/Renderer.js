@@ -1,10 +1,7 @@
 export var CanvasLayer;
 (function (CanvasLayer) {
-    CanvasLayer[CanvasLayer["Background"] = 0] = "Background";
-    CanvasLayer[CanvasLayer["Entities"] = 1] = "Entities";
-    CanvasLayer[CanvasLayer["Menu"] = 2] = "Menu";
-    CanvasLayer[CanvasLayer["Projectiles"] = 3] = "Projectiles";
-    CanvasLayer[CanvasLayer["UserInterface"] = 4] = "UserInterface";
+    CanvasLayer[CanvasLayer["Entities"] = 0] = "Entities";
+    CanvasLayer[CanvasLayer["Projectiles"] = 1] = "Projectiles";
 })(CanvasLayer || (CanvasLayer = {}));
 export default class Renderer {
     _gameContainer;
@@ -59,10 +56,10 @@ export default class Renderer {
         this._contextList.get(layer).fillRect(x | 0, y | 0, width | 0, height | 0);
     }
     drawText(layer, text, x, y, style) {
-        if (style.font)
+        if (style) {
             this._contextList.get(layer).font = style.font;
-        if (style.color)
             this._contextList.get(layer).fillStyle = style.color;
+        }
         const measure = this._contextList.get(layer).measureText(text);
         this._contextList.get(layer).fillText(text, x - measure.width / 2, y);
     }

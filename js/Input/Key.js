@@ -6,7 +6,7 @@ var KEY;
     KEY["RIGHT"] = "d";
     KEY["SHOOT"] = " ";
     KEY["PAUSE"] = "p";
-    KEY["DEBUG"] = "F10";
+    KEY["DEBUG"] = "F1";
 })(KEY || (KEY = {}));
 export default KEY;
 //# sourceMappingURL=Key.js.map

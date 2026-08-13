@@ -11,7 +11,7 @@ export default abstract class Entity implements IDrawable, ICollidable {
     collisionBox: CollisionBox;
     width: number;
     height: number;
-    sprite: Sprite;
+    sprite!: Sprite;
 
     constructor({position, width, height, collisionWidth, collisionHeight}: {
         position: Vector,

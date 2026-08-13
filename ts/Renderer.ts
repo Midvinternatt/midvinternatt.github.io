@@ -1,9 +1,9 @@
 export enum CanvasLayer {
-    Background,
+    // Background,
     Entities,
-    Menu,
-    Projectiles,
-    UserInterface
+    // Menu,
+    Projectiles//,
+    // UserInterface
 }
 
 export default class Renderer {
@@ -37,7 +37,7 @@ export default class Renderer {
                 canvas.height = renderer._height;
                 // canvas.style.width = "${renderer._width}px";
                 // canvas.style.height = "${renderer._height}px";
-            const context = canvas.getContext("2d", options);
+            const context = canvas.getContext("2d", options)!;
                 context.imageSmoothingEnabled = false;
             renderer._canvasList.set(layer, canvas);
             renderer._contextList.set(layer, context);
@@ -80,7 +80,7 @@ export default class Renderer {
 
     clearCanvas() {
         this._canvasList.forEach((canvas, layer) => {
-            this._contextList.get(layer).clearRect(0, 0, canvas.width, canvas.height);
+            this._contextList.get(layer)!.clearRect(0, 0, canvas.width, canvas.height);
         });
         // this.backgroundContext.clearRect(0, 0, this.backgroundCanvas.width, this.backgroundCanvas.height);
         // this.projectileContext.clearRect(0, 0, this.projectileCanvas.width, this.projectileCanvas.height);
@@ -100,8 +100,8 @@ export default class Renderer {
         width: number,
         height: number,
         frameIndex: number,
-        row?: number}) {
-        this._contextList.get(layer).drawImage(image, 1 + frameIndex * (width + 1), 1 + row * (height + 1), width, height, x|0, y|0, width, height);
+        row: number}) {
+        this._contextList.get(layer)!.drawImage(image, 1 + frameIndex * (width + 1), 1 + row * (height + 1), width, height, x|0, y|0, width, height);
     }
 
     drawImage({layer, image, x, y}: {
@@ -110,7 +110,7 @@ export default class Renderer {
         x: number,
         y: number
     }) {
-        this._contextList.get(layer).drawImage(image, x|0, y|0);
+        this._contextList.get(layer)!.drawImage(image, x|0, y|0);
     }
 
     drawRect({layer, x, y, width, height, color = "#FFF"}: {
@@ -121,14 +121,16 @@ export default class Renderer {
         height: number,
         color?: string
     }) {
-        this._contextList.get(layer).fillStyle = color;
-        this._contextList.get(layer).fillRect(x|0, y|0, width|0, height|0);
+        this._contextList.get(layer)!.fillStyle = color;
+        this._contextList.get(layer)!.fillRect(x|0, y|0, width|0, height|0);
     }
 
     drawText(layer: CanvasLayer, text: string, x: number, y: number, style?: {font: string, color: string}) {
-        if(style.font) this._contextList.get(layer).font = style.font;
-        if(style.color) this._contextList.get(layer).fillStyle = style.color;
-        const measure = this._contextList.get(layer).measureText(text);
-        this._contextList.get(layer).fillText(text, x - measure.width / 2, y);
+        if(style) {
+            this._contextList.get(layer)!.font = style.font;
+            this._contextList.get(layer)!.fillStyle = style.color;
+        }
+        const measure = this._contextList.get(layer)!.measureText(text);
+        this._contextList.get(layer)!.fillText(text, x - measure.width / 2, y);
     }
 }

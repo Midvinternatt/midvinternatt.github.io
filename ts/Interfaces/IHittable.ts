@@ -1,4 +1,4 @@
-export function canBeHit (object): object is IHittable {
+export function canBeHit (object: any): object is IHittable {
     return (object as IHittable).hit !== undefined;
 }
 

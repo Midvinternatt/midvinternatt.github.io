@@ -26,7 +26,7 @@ export default abstract class Emitter {
     direction: Vector;
     callback: Function;
     // speed: number;
-    active: boolean;
+    active!: boolean;
 
     constructor(position: Vector, direction: Vector, callback: Function) {
         this.position = position;
@@ -87,7 +87,7 @@ export class RotatingEmitter extends RepeatingEmitter {
 
 export class BB extends RotatingEmitter implements ICircleEmitter {
     count: number = 4;
-    owner: Player;
+    owner!: Player;
     
     color: string;
     getRandomColor() {
@@ -99,7 +99,7 @@ export class BB extends RotatingEmitter implements ICircleEmitter {
         return color;
     }
 
-    constructor(position, direction, triggerRate, turnRate, callback) {
+    constructor(position: any, direction: any, triggerRate: any, turnRate: any, callback: any) {
         super(position, direction, triggerRate, turnRate, callback);
         this.color = this.getRandomColor();
     }
@@ -154,7 +154,7 @@ export class CircleEmitter extends Emitter implements ICircleEmitter {
         return color;
     }
 
-    constructor(deltaPosition: Vector, direction: Vector, callback) {
+    constructor(deltaPosition: Vector, direction: Vector, callback: any) {
         super(deltaPosition, direction.scale(3), callback);
         // this.turnRate = Math.PI/(Math.random()*8);
         this.color = this.getRandomColor();
@@ -209,7 +209,7 @@ export class TestEmitter extends Emitter {
         return color;
     }
 
-    constructor(deltaPosition: Vector, direction: Vector, callback) {
+    constructor(deltaPosition: Vector, direction: Vector, callback: any) {
         super(deltaPosition, direction, callback);
         this.turnRate = Math.PI/(Math.random()*8);
         this.color = this.getRandomColor();
