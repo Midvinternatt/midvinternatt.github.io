@@ -12,7 +12,13 @@ export default class Vector {
     get angle() {
         return Math.atan2(this.y, this.x);
     }
-    setAngle(angle) {
+    setAngleDegrees(angle) {
+        const radians = angle * Math.PI / 180;
+        this.x = Math.cos(radians);
+        this.y = Math.sin(radians);
+        return this;
+    }
+    setAngleRadians(angle) {
         this.x = Math.cos(angle);
         this.y = Math.sin(angle);
         return this;

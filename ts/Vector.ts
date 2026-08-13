@@ -19,7 +19,21 @@ export default class Vector {
         return Math.atan2(this.y, this.x);
     }
 
-    setAngle(angle: number/* length?: number*/): Vector {
+    /**
+     * Takes angle as radians and returns a normalized vector
+     */
+    setAngleDegrees(angle: number): Vector {
+        const radians = angle * Math.PI / 180;
+        this.x = Math.cos(radians);
+        this.y = Math.sin(radians);
+        return this;
+    }
+    /**
+     * Takes angle as degrees and returns a normalized vector
+     */
+    setAngleRadians(angle: number): Vector {
+        // this.x = Math.cos(angle) * (length ?? 1);
+        // this.y = Math.sin(angle) * (length ?? 1);
         this.x = Math.cos(angle);
         this.y = Math.sin(angle);
         return this;
