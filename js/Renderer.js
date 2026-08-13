@@ -46,7 +46,7 @@ export default class Renderer {
         });
     }
     drawSprite({ layer, image, x, y, width, height, frameIndex, row }) {
-        this._contextList.get(layer).drawImage(image, 1 + frameIndex * (width + 1), 1 + row * (height + 1), width, height, x | 0, y | 0, width, height);
+        this._contextList.get(layer).drawImage(image, frameIndex * width, row * height, width, height, x | 0, y | 0, width, height);
     }
     drawImage({ layer, image, x, y }) {
         this._contextList.get(layer).drawImage(image, x | 0, y | 0);

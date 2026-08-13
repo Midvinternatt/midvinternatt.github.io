@@ -50,6 +50,7 @@ export default class GameScene implements IScene {
         this.player.addWeapon(new Railgun({owner: this.player, attachmentPosition: new Vector(22, -3)}));
 
     }
+
     update() {
         this.player.update(this);
 
@@ -71,9 +72,11 @@ export default class GameScene implements IScene {
         
         this.userInterface.update();
 
+
         if(Game.debugActive)
             DebugOverlay.update(this);
     }
+
     draw() {
         this.renderer.clearCanvas();
 
@@ -89,12 +92,16 @@ export default class GameScene implements IScene {
         
         this.userInterface.draw(this.renderer);
     }
+
     unload() {
         
     }
 
     spawnProjectile(projectile: Projectile) {
         this.projectiles.push(projectile);
+    }
+    spawnEnemy(enemy: Enemy) {
+        this.enemies.push(enemy);
     }
 }
 

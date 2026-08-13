@@ -77,7 +77,9 @@ export default class GameScene {
     spawnProjectile(projectile) {
         this.projectiles.push(projectile);
     }
-}
+    spawnEnemy(enemy) {
+        this.enemies.push(enemy);
+    }
     }
 }
 //# sourceMappingURL=GameScene.js.map

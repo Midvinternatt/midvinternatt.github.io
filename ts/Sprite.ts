@@ -65,7 +65,12 @@ export default class Sprite {
             this.currentAnimationElapsed = 0;
         }
     }
-    draw({layer, renderer, x, y}: {layer: CanvasLayer, renderer: Renderer, x: number, y: number}) {
+    draw({layer, renderer, x, y}: {
+        layer: CanvasLayer,
+        renderer: Renderer,
+        x: number,
+        y: number
+    }) {
         if(!this.currentAnimation)
             throw new Error("Attempted to draw sprite with undefined animation");
 

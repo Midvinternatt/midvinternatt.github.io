@@ -47,12 +47,12 @@ export default class Assets {
     }
 
     static getImage(filePath: string): HTMLImageElement {
-        return Assets.images.get(filePath);
+        return Assets.images.get(filePath)!;
     }
 
     // Byt den här till getSpriteData så att varje entity har en egen sprite, behövs om de ska ha olika animationer samtidigt
     static getSpriteData(spriteType: SpriteType): SpriteData {
-        return Assets.sprites.get(spriteType);
+        return Assets.sprites.get(spriteType)!;
     }
 
 /* 

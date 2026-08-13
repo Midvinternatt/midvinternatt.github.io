@@ -88,21 +88,6 @@ export default class Game {
                 this.loop();
         });
     }
-
-    // render() {
-        // this.context.save();
-        // this.context.setTransform(1, 0, 0, 1, 0, 0);
-        // this.context.clearRect(0, 0, Game.canvas.width, Game.canvas.height);
-        // this.context.restore();
-
-        // Game.player.draw(this.context);
-        // Enemy.forEach(enemy => {
-        //     enemy.draw(this.context);
-        // });
-        // Projectile.forEach(projectile => {
-        //     projectile.draw(this.context);
-        // });
-    // }
 }
 
 new Game(document.getElementById("game")!);

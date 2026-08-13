@@ -100,8 +100,9 @@ export default class Renderer {
         width: number,
         height: number,
         frameIndex: number,
-        row: number}) {
-        this._contextList.get(layer)!.drawImage(image, 1 + frameIndex * (width + 1), 1 + row * (height + 1), width, height, x|0, y|0, width, height);
+        row: number
+    }) {
+        this._contextList.get(layer)!.drawImage(image, frameIndex * width, row * height, width, height, x|0, y|0, width, height);
     }
 
     drawImage({layer, image, x, y}: {
