@@ -1,0 +1,13 @@
+{
+    "id": "debug",
+    "name": "WTF",
+    "waves": [
+        {
+            "time": 0,
+            "position": {"x": 400, "y": 64},
+            "formation": {"type": "line", "amount": 1, "spacing": 100, "direction": 0},
+            "pattern": {"type": "line", "speed": 0, "angle": 90},
+            "enemy": {"type": "drone", "lifetime": 20}
+        }
+    ]
+}

@@ -7,8 +7,9 @@ export default class Projectile {
     isDead;
     collisionBox;
     sprite;
-    constructor({ position, width, height, collisionWidth, collisionHeight }) {
+    constructor({ position, velocity, width, height, collisionWidth, collisionHeight }) {
         this.position = position;
+        this.velocity = velocity;
         this.width = width;
         this.height = height;
         this.isDead = false;
@@ -20,6 +21,9 @@ export default class Projectile {
     }
     checkCollision(target) {
         return this.collisionBox.intersects(target.collisionBox);
+    }
+    move() {
+        this.position.add(this.velocity);
     }
     kill() {
         this.isDead = true;

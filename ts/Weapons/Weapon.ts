@@ -1,16 +1,16 @@
 import Game from "../Game.js";
 import Vector from "../Vector.js";
-import Player from "../Entities/Player.js";
-import Projectile from "../Projectiles/Projectile.js";
+import Entity from "../entities/Entity.js";
+import GameScene from "../GameScene.js";
 
 export default abstract class Weapon {
-    owner: Player;
+    owner: Entity;
     attachmentPosition: Vector;
     fireRate: number;
     lastFired: number;
 
     constructor({owner, attachmentPosition, fireRate}: {
-        owner: Player,
+        owner: Entity,
         attachmentPosition: Vector,
         fireRate: number
     }) {
@@ -32,7 +32,7 @@ export default abstract class Weapon {
         else
             this.lastFired = Number.MAX_VALUE;
     }
-    abstract shoot(): Projectile;
+    abstract shoot(scene: GameScene): void;
 }
 
 export abstract class ConeWeapon {

@@ -1,11 +1,18 @@
+import Game from "./Game.js";
+import GameData, { WaveData } from "./GameData.js";
 import GameScene from "./GameScene.js";
-export default class Level {
-    private currentWave: number;
-    time: number;
+import WaveManager from "./levels/WaveManager.js";
 
-    constructor() {
-        this.currentWave = 0;
-        this.time = 0;
+export default class Level {
+    private waveManager: WaveManager;
+
+    private currentWave: number = 0;
+    time: number = 0;
+    waves: WaveData[];
+
+    constructor(id: string) {
+        this.waves = GameData.getLevelData(id).waves;
+        this.waveManager = new WaveManager(GameData.getLevelData(id).waves);
     }
     
     start() {
@@ -13,5 +20,6 @@ export default class Level {
 
     update(scene: GameScene) {
         this.time++;
+        this.waveManager.update(this.time, scene);
     }
 }

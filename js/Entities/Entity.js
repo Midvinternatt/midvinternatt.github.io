@@ -1,19 +1,17 @@
-import CollisionBox from "./../collision/CollisionBox.js";
+import CollisionBox from "../collision/CollisionBox.js";
+import Sprite from "../Sprite.js";
 export default class Entity {
     position;
-    collisionBox;
     width;
     height;
     sprite;
-    constructor({ position, width, height, collisionWidth, collisionHeight }) {
+    collisionBox;
+    constructor({ position, sprite, width, height }) {
         this.position = position;
         this.width = width;
         this.height = height;
-        this.collisionBox = new CollisionBox({
-            owner: this,
-            width: collisionWidth ?? width,
-            height: collisionHeight ?? height
-        });
+        this.sprite = new Sprite(sprite.data);
+        this.collisionBox = new CollisionBox({ owner: this, width, height });
     }
     checkCollision(target) {
         return this.collisionBox.intersects(target.collisionBox);

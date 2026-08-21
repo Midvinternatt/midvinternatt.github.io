@@ -1,16 +1,13 @@
 export default class Vector {
     static nullVector: Vector = new Vector(0, 0);
 
-    x: number;
-    y: number;
-
     /**
      * Creates a new two-dimensional vector
      */
-    constructor(x?: number, y?: number) {
-        this.x = x ?? 0;
-        this.y = y ?? 0;
-    }
+    constructor(
+        public x: number,
+        public y: number
+    ) {}
     
     get length(): number {
         return Math.sqrt(this.x * this.x + this.y * this.y);
@@ -89,5 +86,9 @@ export default class Vector {
         other.x = this.x;
         other.y = this.y;
         return other;
+    }
+    static fromPolar({angle, length}: {angle: number, length: number}): Vector {
+        const radians = angle * Math.PI / 180;
+        return new Vector(Math.cos(radians) * length, Math.sin(radians) * length)
     }
 }

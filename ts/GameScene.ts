@@ -1,7 +1,7 @@
-import Enemy from "./Entities/Enemies/Enemy.js";
+import Enemy from "./entities/Enemy.js";
 import Game from "./Game.js";
 import IScene from "./Interfaces/IScene.js";
-import Player from "./Entities/Player.js";
+import Player from "./entities/Player.js";
 import Projectile from "./Projectiles/Projectile.js";
 import Renderer from "./Renderer.js";
 import SceneBounds from "./collision/SceneBounds.js";
@@ -10,6 +10,7 @@ import Vector from "./Vector.js";
 import Railgun from "./Weapons/RailGun.js";
 import DebugOverlay from "./Debug/DebugOverlay.js";
 import Level from "./Level.js";
+import Emitter from "./Emitters/Emitter.js";
 
 export default class GameScene implements IScene {
     readonly renderer: Renderer;
@@ -18,6 +19,7 @@ export default class GameScene implements IScene {
     
     readonly enemies: Array<Enemy>;
     readonly projectiles: Array<Projectile>;
+    readonly emitters: Array<Emitter>;
 
     level!: Level;
     player!: Player;
@@ -33,6 +35,7 @@ export default class GameScene implements IScene {
         this.userInterface = new UserInterface();
         this.enemies = new Array<Enemy>();
         this.projectiles = new Array<Projectile>();
+        this.emitters = new Array<Emitter>();
     }
     load() {
         this.start();
@@ -108,8 +111,7 @@ export default class GameScene implements IScene {
         this.enemies.push(enemy);
     }
     startLevel(id: string) {
-        this.level = new Level();
-        this.level.start();
+        this.level = new Level(id);
     }
 }
 

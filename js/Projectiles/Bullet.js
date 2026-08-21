@@ -1,40 +1,25 @@
-import Projectile from "./Projectile.js";
-import { canBeHit } from "../Interfaces/IHittable.js";
+import AssetsLoader from "../assets/AssetsLoader.js";
 import { CanvasLayer } from "../Renderer.js";
-export default class Bullet extends Projectile {
-    constructor({ position, velocity, size }) {
+import Sprite from "../Sprite.js";
+import PlayerProjectile from "./PlayerProjectile.js";
+export default class Bullet extends PlayerProjectile {
+    constructor({ position, velocity }) {
         super({
             position,
-            width: size,
-            height: size,
-            collisionWidth: size,
-            collisionHeight: size
+            velocity,
+            width: 32,
+            height: 32,
+            collisionWidth: 32,
+            collisionHeight: 32
         });
-        this.velocity = velocity;
-    }
-    update(scene) {
-        this.move(scene.sceneBounds);
-        for (let i = scene.enemies.length - 1; i >= 0; i--) {
-            const enemy = scene.enemies[i];
-            if (this.checkCollision(enemy)) {
-                this.kill();
-                if (canBeHit(enemy))
-                    enemy.hit();
-            }
-        }
-    }
-    move(sceneBounds) {
-        this.position.add(this.velocity);
-        if (!sceneBounds.containsVector(this.position))
-            this.kill();
+        this.sprite = new Sprite(AssetsLoader.getSpriteData("rocket"));
     }
     draw(renderer) {
-        renderer.drawRect({
+        this.sprite.draw({
             layer: CanvasLayer.Projectiles,
+            renderer,
             x: this.position.x - (this.width / 2),
-            y: this.position.y - (this.height / 2),
-            width: this.width,
-            height: this.height
+            y: this.position.y - (this.height / 2)
         });
     }
 }

@@ -1,7 +1,7 @@
 import Game from "./../Game.js";
-export default function Debug(msg) {
+export default function Debug(msg, caller) {
     if (Game.debugActive) {
-        console.log(msg);
+        console.log(`[ThisIsHell] ${caller ? `${caller}(): ` : ""}${msg}`);
     }
 }
 //# sourceMappingURL=Debug.js.map

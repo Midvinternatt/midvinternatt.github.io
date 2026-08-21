@@ -1,10 +1,10 @@
 export default class Vector {
-    static nullVector = new Vector(0, 0);
     x;
     y;
+    static nullVector = new Vector(0, 0);
     constructor(x, y) {
-        this.x = x ?? 0;
-        this.y = y ?? 0;
+        this.x = x;
+        this.y = y;
     }
     get length() {
         return Math.sqrt(this.x * this.x + this.y * this.y);
@@ -64,6 +64,10 @@ export default class Vector {
         other.x = this.x;
         other.y = this.y;
         return other;
+    }
+    static fromPolar({ angle, length }) {
+        const radians = angle * Math.PI / 180;
+        return new Vector(Math.cos(radians) * length, Math.sin(radians) * length);
     }
 }
 //# sourceMappingURL=Vector.js.map

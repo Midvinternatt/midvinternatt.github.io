@@ -1,9 +1,9 @@
 import KeyEventHandler from "./Input/KeyEventHandler.js";
 import Renderer from "./Renderer.js";
 import GameScene from "./GameScene.js";
-import Assets from "./Assets.js";
-import Debug from "./Debug/Debug.js";
+import AssetsLoader from "./assets/AssetsLoader.js";
 import DebugOverlay from "./Debug/DebugOverlay.js";
+import GameData from "./GameData.js";
 export default class Game {
     static keyEventHandler;
     static time;
@@ -19,25 +19,32 @@ export default class Game {
         Game.renderer = new Renderer({
             gameContainer,
             width: 800,
-            height: 600
+            height: 800
         });
         if (Game.debugActive)
             DebugOverlay.init();
-        this.loadResources().then(() => {
-            Debug("Game(): Successfully loaded sprites");
+        console.log("Loading game files");
+        Promise.all([
+            this.loadAssets(),
+            this.loadGameData()
+        ]).then(() => {
+            console.log("Finished game loading");
             this.start();
-        }, () => {
-            Debug("Game(): Failed to load sprites");
+        }).catch(error => {
+            console.error("Failed to load");
         });
     }
-    loadResources() {
+    async loadAssets() {
         return Promise.all([
-            Assets.loadSprites()
+            AssetsLoader.loadImages().then(() => console.log("Successfully loaded images")),
+            AssetsLoader.loadSprites().then(() => console.log("Successfully loaded sprites")),
+            AssetsLoader.loadSounds().then(() => console.log("Successfully loaded sounds"))
         ]);
     }
-    loadAllAssets() {
+    async loadGameData() {
         return Promise.all([
-            Assets.loadSprites()
+            GameData.loadLevels(),
+            GameData.loadEnemies()
         ]);
     }
     start() {

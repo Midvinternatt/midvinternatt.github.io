@@ -1,0 +1,34 @@
+{
+    "id": "level01",
+    "name": "Hellscape Prelude",
+    "waves": [
+        {
+            "time": 0,
+            "position": {"x": 200, "y": -32},
+            "formation": {"type": "line", "amount": 5, "spacing": 100, "direction": 0},
+            "pattern": {"type": "line", "speed": 1, "angle": 90},
+            "enemy": {"type": "drone", "lifetime": 20}
+        },
+        {
+            "time": 4,
+            "position": {"x": 0, "y": -32},
+            "formation": {"type": "line", "amount": 5, "spacing": 100, "direction": 0},
+            "pattern": {"type": "line", "speed": 1.4, "angle": 60},
+            "enemy": {"type": "drone", "lifetime": 20}
+        },
+        {
+            "time": 8,
+            "position": {"x": 400, "y": -32},
+            "formation": {"type": "line", "amount": 5, "spacing": 100, "direction": 0},
+            "pattern": {"type": "line", "speed": 1.4, "angle": 120},
+            "enemy": {"type": "drone", "lifetime": 20}
+        },
+        {
+            "time": 10,
+            "position": {"x": 300, "y": -32},
+            "formation": {"type": "line", "amount": 3, "spacing": 100, "direction": 0},
+            "pattern": {"type": "line", "speed": 2, "angle": 90},
+            "enemy": {"type": "drone", "lifetime": 20}
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 import CollisionBox from "../collision/CollisionBox.js";
-import Entity from "../Entities/Entity.js";
+import Entity from "../entities/Entity.js";
 import Projectile from "../Projectiles/Projectile.js";
 
 export type Collidable = Entity | Projectile;

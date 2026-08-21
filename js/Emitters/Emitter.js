@@ -1,6 +1,27 @@
 import Game from "../Game.js";
-import Bullet from "../Projectiles/Bullet.js";
+import EnemyProjectile from "../Projectiles/EnemyProjectile.js";
 import { CanvasLayer } from "../Renderer.js";
+class Bullet extends EnemyProjectile {
+    constructor({ position, velocity }) {
+        super({
+            position,
+            velocity,
+            width: 8,
+            height: 8,
+            collisionWidth: 8,
+            collisionHeight: 8
+        });
+    }
+    draw(renderer) {
+        renderer.drawRect({
+            layer: CanvasLayer.Projectiles,
+            x: this.position.x - (this.width / 2),
+            y: this.position.y - (this.height / 2),
+            width: this.width,
+            height: this.height
+        });
+    }
+}
 export default class Emitter {
     static _emitterList = new Array();
     position;
@@ -17,10 +38,10 @@ export default class Emitter {
         Emitter._emitterList.splice(Emitter._emitterList.indexOf(this), 1);
     }
     update(scene) {
-        this.trigger();
+        this.trigger(scene);
         this.kill();
     }
-    trigger() {
+    trigger(scene) {
         this.callback(this.position, this.direction);
     }
     static forEach(callback) {
@@ -38,13 +59,13 @@ export class RepeatingEmitter extends Emitter {
     get isReady() {
         return (this.lastTriggered + this.triggerRate) < Game.time;
     }
-    update() {
+    update(scene) {
         if (this.isReady)
-            this.trigger();
+            this.trigger(scene);
     }
-    trigger() {
+    trigger(scene) {
         this.lastTriggered = Game.time;
-        super.trigger();
+        super.trigger(scene);
     }
 }
 export class RotatingEmitter extends RepeatingEmitter {
@@ -55,9 +76,9 @@ export class RotatingEmitter extends RepeatingEmitter {
         this.turnRate = Math.PI / 180 * turnRate;
         this.turnAngle = direction.angle;
     }
-    trigger() {
-        this.direction.setAngle(this.turnAngle += this.turnRate);
-        super.trigger();
+    trigger(scene) {
+        this.direction.setAngleRadians(this.turnAngle += this.turnRate);
+        super.trigger(scene);
     }
 }
 export class BB extends RotatingEmitter {
@@ -76,12 +97,12 @@ export class BB extends RotatingEmitter {
         super(position, direction, triggerRate, turnRate, callback);
         this.color = this.getRandomColor();
     }
-    update() {
-        super.update();
+    update(scene) {
+        super.update(scene);
     }
-    trigger() {
-        super.trigger();
-        let b = new Bullet({ position: this.position.copy(), velocity: this.direction.copy(), size: 8 });
+    trigger(scene) {
+        super.trigger(scene);
+        let b = new Bullet({ position: this.position.copy(), velocity: this.direction.copy() });
         b.draw = (renderer) => {
             renderer.drawRect({
                 layer: CanvasLayer.Projectiles,
@@ -93,7 +114,7 @@ export class BB extends RotatingEmitter {
             });
         };
         b.update = (scene) => {
-            b.move(scene.sceneBounds);
+            b.move();
             if (b.checkCollision(scene.player)) {
                 b.kill();
             }
@@ -130,7 +151,7 @@ export class CircleEmitter extends Emitter {
         this.lastTriggered = Game.time;
         let angle = this.direction.copy();
         for (let i = 0; i < this.count; i++) {
-            let b = new Bullet({ position: this.position.copy(), velocity: angle.copy(), size: 8 });
+            let b = new Bullet({ position: this.position.copy(), velocity: angle.copy() });
             b.draw = (renderer) => {
                 renderer.drawRect({
                     layer: CanvasLayer.Projectiles,
@@ -142,11 +163,11 @@ export class CircleEmitter extends Emitter {
                 });
             };
             b.update = (scene) => {
-                b.move(scene.sceneBounds);
+                b.move();
             };
-            angle.setAngle(angle.angle + 2 * Math.PI / this.count).setLength(3);
+            angle.setAngleRadians(angle.angle + 2 * Math.PI / this.count).setLength(3);
         }
-        this.direction.setAngle(this.turnAngle += this.turnRate).setLength(3);
+        this.direction.setAngleRadians(this.turnAngle += this.turnRate).setLength(3);
     }
 }
 export class TestEmitter extends Emitter {
@@ -177,7 +198,7 @@ export class TestEmitter extends Emitter {
     }
     trigger() {
         this.lastTriggered = Game.time;
-        let b = new Bullet({ position: this.position.copy(), velocity: this.direction.copy(), size: 8 });
+        let b = new Bullet({ position: this.position.copy(), velocity: this.direction.copy() });
         b.draw = (renderer) => {
             renderer.drawRect({
                 layer: CanvasLayer.Projectiles,
@@ -189,9 +210,9 @@ export class TestEmitter extends Emitter {
             });
         };
         b.update = (scene) => {
-            b.move(scene.sceneBounds);
+            b.move();
         };
-        this.direction.setAngle(this.turnAngle += this.turnRate);
+        this.direction.setAngleRadians(this.turnAngle += this.turnRate);
     }
 }
 //# sourceMappingURL=Emitter.js.map

@@ -4,7 +4,6 @@ import CollisionBox from "../collision/CollisionBox.js";
 import IDrawable from "../Interfaces/IDrawable.js";
 import {ICollidable, Collidable} from "../collision/ICollidable.js";
 import Renderer from "../Renderer.js";
-import SceneBounds from "../collision/SceneBounds.js";
 import GameScene from "../GameScene.js";
 
 export default abstract class Projectile implements IDrawable, ICollidable {
@@ -16,14 +15,16 @@ export default abstract class Projectile implements IDrawable, ICollidable {
     collisionBox: CollisionBox;
     sprite!: Sprite;
 
-    constructor({position, width, height, collisionWidth, collisionHeight}: {
+    constructor({position, velocity, width, height, collisionWidth, collisionHeight}: {
         position: Vector,
+        velocity: Vector,
         width: number, 
         height: number,
         collisionWidth?: number,
         collisionHeight?: number
     }) {
         this.position = position;
+        this.velocity = velocity;
         this.width = width;
         this.height = height;
         this.isDead = false;
@@ -37,7 +38,9 @@ export default abstract class Projectile implements IDrawable, ICollidable {
         return this.collisionBox.intersects(target.collisionBox);
     }
     abstract update(scene: GameScene): void;
-    abstract move(sceneBounds: SceneBounds): void;
+    move() {
+        this.position.add(this.velocity);
+    }
     kill() {
         this.isDead = true;
     }

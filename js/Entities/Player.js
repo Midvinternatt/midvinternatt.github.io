@@ -1,9 +1,7 @@
 import Vector from "../Vector.js";
 import Entity from "./Entity.js";
 import { CanvasLayer } from "../Renderer.js";
-import Assets from "../Assets.js";
-import { SpriteType } from "../SpriteDefinitions.js";
-import Sprite from "../Sprite.js";
+import AssetsLoader from "../assets/AssetsLoader.js";
 import PlayerInput from "../Input/PlayerInput.js";
 export default class Player extends Entity {
     static one;
@@ -13,9 +11,16 @@ export default class Player extends Entity {
     maxHealth;
     moveSpeed;
     constructor({ position, width, height, stats: { health, maxHealth, moveSpeed } }) {
-        super({ position, width, height });
+        super({
+            position,
+            sprite: {
+                data: AssetsLoader.getSpriteData("player"),
+                defaultAnimation: "idle"
+            },
+            width,
+            height
+        });
         this.velocity = new Vector(0, 0);
-        this.sprite = new Sprite(Assets.getSpriteData(SpriteType.Player), "idle");
         this.health = health;
         this.maxHealth = maxHealth;
         this.moveSpeed = moveSpeed;
@@ -26,12 +31,13 @@ export default class Player extends Entity {
     shoot(scene) {
         this._weaponList.forEach(weapon => {
             if (weapon.isReady) {
-                const bullet = weapon.shoot();
-                scene.spawnProjectile(bullet);
+                weapon.shoot(scene);
             }
         });
     }
     kill() {
+    }
+    hit() {
     }
     move(sceneBounds) {
         this.position.add(this.velocity);

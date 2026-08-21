@@ -74,7 +74,7 @@ export default class KeyEventHandler {
         this._pressedKeys.delete(event.key);
     }
     private _removeCallback(callback: KeyCallback) {
-        const keyCallbacks = this._callbacks.get(callback.key);
+        const keyCallbacks = this._callbacks.get(callback.key)!;
         keyCallbacks.delete(callback);
 
         if(keyCallbacks.size===0)

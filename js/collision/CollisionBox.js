@@ -1,15 +1,15 @@
-import Rectangle from "./../Rectangle.js";
+import Rectangle from "./Rectangle.js";
 export default class CollisionBox extends Rectangle {
-    _owner;
+    #owner;
     get x() {
-        return this._owner.position.x;
+        return this.#owner.position.x;
     }
     get y() {
-        return this._owner.position.y;
+        return this.#owner.position.y;
     }
     constructor({ owner, width, height }) {
         super(width, height);
-        this._owner = owner;
+        this.#owner = owner;
     }
 }
 //# sourceMappingURL=CollisionBox.js.map

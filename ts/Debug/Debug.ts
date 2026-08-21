@@ -1,7 +1,7 @@
 import Game from "./../Game.js";
 
-export default function Debug(msg: any) {
+export default function Debug(msg: any, caller?: string) {
     if(Game.debugActive) {
-        console.log(msg);
+        console.log(`[ThisIsHell] ${caller?`${caller}(): `:""}${msg}`);
     }
 }

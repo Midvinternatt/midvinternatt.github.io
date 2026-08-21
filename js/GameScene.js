@@ -1,5 +1,5 @@
 import Game from "./Game.js";
-import Player from "./Entities/Player.js";
+import Player from "./entities/Player.js";
 import SceneBounds from "./collision/SceneBounds.js";
 import UserInterface from "./UserInterface.js";
 import Vector from "./Vector.js";
@@ -12,6 +12,7 @@ export default class GameScene {
     userInterface;
     enemies;
     projectiles;
+    emitters;
     level;
     player;
     constructor(renderer) {
@@ -25,6 +26,7 @@ export default class GameScene {
         this.userInterface = new UserInterface();
         this.enemies = new Array();
         this.projectiles = new Array();
+        this.emitters = new Array();
     }
     load() {
         this.start();
@@ -58,6 +60,10 @@ export default class GameScene {
             if (projectile.isDead)
                 this.projectiles.splice(i, 1);
         }
+        for (let i = this.emitters.length - 1; i >= 0; i--) {
+            const emitter = this.emitters[i];
+            emitter.update(this);
+        }
         this.userInterface.update();
         this.level.update(this);
         if (Game.debugActive)
@@ -85,8 +91,7 @@ export default class GameScene {
         this.enemies.push(enemy);
     }
     startLevel(id) {
-        this.level = new Level();
-        this.level.start();
+        this.level = new Level(id);
     }
 }
 //# sourceMappingURL=GameScene.js.map
